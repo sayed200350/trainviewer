@@ -17,12 +17,14 @@ final class RoutesViewModel: ObservableObject {
     private let api: TransportAPI
     private let locationService: LocationService
     private let sharedStore: SharedStore
+    private let settings: UserSettingsStore
 
-    init(store: RouteStore = RouteStore(), api: TransportAPI = DBTransportAPI(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared) {
+    init(store: RouteStore = RouteStore(), api: TransportAPI = DBTransportAPI(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared) {
         self.store = store
         self.api = api
         self.locationService = locationService
         self.sharedStore = sharedStore
+        self.settings = settings
     }
 
     func loadRoutes() {
@@ -41,9 +43,17 @@ final class RoutesViewModel: ObservableObject {
             for route in routes {
                 group.addTask { [weak self] in
                     guard let self = self else { return (route.id, nil) }
-                    let options = try? await self.api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
-                    let status = self.computeStatus(for: route, options: options ?? [])
-                    return (route.id, status)
+                    do {
+                        let options = try await self.api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
+                        self.cache(options: options, for: route)
+                        let status = self.computeStatus(for: route, options: options)
+                        return (route.id, status)
+                    } catch {
+                        // Fallback to offline cache
+                        let cached = OfflineCache.shared.load(routeId: route.id) ?? []
+                        let status = self.computeStatus(for: route, options: cached)
+                        return (route.id, status)
+                    }
                 }
             }
             var newStatus: [UUID: RouteStatus] = [:]
@@ -53,6 +63,10 @@ final class RoutesViewModel: ObservableObject {
             statusByRouteId = newStatus
             publishSnapshotIfAvailable()
         }
+    }
+
+    private func cache(options: [JourneyOption], for route: Route) {
+        OfflineCache.shared.save(routeId: route.id, options: options)
     }
 
     private func publishSnapshotIfAvailable() {
@@ -67,7 +81,9 @@ final class RoutesViewModel: ObservableObject {
         var leaveIn: Int? = nil
         if let first = options.first {
             let walkingMinutes = computeWalkingMinutes(to: route.origin)
-            let buffer = route.preparationBufferMinutes
+            let baseBuffer = route.preparationBufferMinutes
+            let examExtra = settings.examModeEnabled ? 5 : 0
+            let buffer = baseBuffer + examExtra
             let minutesUntilDeparture = Int(first.departure.timeIntervalSince(now) / 60)
             let minutesToLeave = minutesUntilDeparture - walkingMinutes - buffer
             leaveIn = max(0, minutesToLeave)
@@ -78,7 +94,8 @@ final class RoutesViewModel: ObservableObject {
     private func computeWalkingMinutes(to place: Place) -> Int {
         guard let dest = place.coordinate, let current = locationService.currentLocation else { return 0 }
         let distance = current.distance(from: CLLocation(latitude: dest.latitude, longitude: dest.longitude))
-        let seconds = distance / AppConstants.defaultWalkingSpeedMetersPerSecond
+        let speed = settings.nightModePreference ? AppConstants.defaultWalkingSpeedMetersPerSecond * 0.9 : AppConstants.defaultWalkingSpeedMetersPerSecond
+        let seconds = distance / speed
         return Int(ceil(seconds / 60.0))
     }
 }

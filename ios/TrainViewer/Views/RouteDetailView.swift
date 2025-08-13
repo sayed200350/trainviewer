@@ -43,7 +43,7 @@ struct RouteDetailView: View {
             if !vm.options.isEmpty {
                 Section(header: Text("Next Departures")) {
                     ForEach(vm.options) { option in
-                        VStack(alignment: .leading) {
+                        VStack(alignment: .leading, spacing: 6) {
                             HStack {
                                 Text("\(time(option.departure)) → \(time(option.arrival))")
                                 Spacer()
@@ -51,6 +51,14 @@ struct RouteDetailView: View {
                             }
                             if let delay = option.delayMinutes, delay > 0 {
                                 Text("Delay: \(delay) min").font(.caption).foregroundColor(.orange)
+                            }
+                            if let warnings = option.warnings, !warnings.isEmpty {
+                                ForEach(warnings, id: \.self) { w in
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "exclamationmark.triangle.fill").foregroundColor(.orange)
+                                        Text(w).font(.caption)
+                                    }
+                                }
                             }
                         }
                     }

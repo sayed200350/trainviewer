@@ -4,6 +4,7 @@ struct MainView: View {
     @EnvironmentObject var vm: RoutesViewModel
     @State private var showingAdd = false
     @State private var editingRoute: Route?
+    @State private var showingSettings = false
 
     var body: some View {
         NavigationView {
@@ -36,7 +37,10 @@ struct MainView: View {
             .navigationTitle("TrainViewer")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { showingAdd = true }) { Image(systemName: "plus") }
+                    HStack {
+                        Button(action: { showingSettings = true }) { Image(systemName: "gearshape") }
+                        Button(action: { showingAdd = true }) { Image(systemName: "plus") }
+                    }
                 }
             }
             .sheet(isPresented: $showingAdd, onDismiss: {
@@ -50,6 +54,9 @@ struct MainView: View {
                 Task { await vm.refreshAll() }
             }) { route in
                 EditRouteView(route: route)
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView()
             }
         }
     }
@@ -78,9 +85,16 @@ struct RouteRow: View {
                 }
             }
             if let first = status?.options.first {
-                Text("\(formattedTime(first.departure)) → \(formattedTime(first.arrival))")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                HStack(spacing: 8) {
+                    Text("\(formattedTime(first.departure)) → \(formattedTime(first.arrival))")
+                        .font(.subheadline)
+                        .foregroundColor(.secondary)
+                    if let warnings = first.warnings, !warnings.isEmpty {
+                        Label("\(warnings.count)", systemImage: "exclamationmark.triangle.fill")
+                            .font(.caption)
+                            .foregroundColor(.orange)
+                    }
+                }
             } else {
                 Text("Fetching...")
                     .font(.subheadline)

@@ -21,7 +21,7 @@ struct Route: Identifiable, Hashable {
     }
 }
 
-struct JourneyOption: Identifiable, Hashable {
+struct JourneyOption: Identifiable, Hashable, Codable {
     let id: UUID = UUID()
     let departure: Date
     let arrival: Date
@@ -29,4 +29,5 @@ struct JourneyOption: Identifiable, Hashable {
     let platform: String?
     let delayMinutes: Int?
     let totalMinutes: Int
+    let warnings: [String]?
 }
