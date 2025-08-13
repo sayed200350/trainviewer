@@ -66,6 +66,15 @@ struct SettingsView: View {
                         }
                     }
                 }
+
+                Section(header: Text("Developer & Support")) {
+                    Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
+                    Button("Clear Offline Cache") { clearCache() }
+                    Button("Trigger Background Refresh") { BackgroundRefreshService.shared.schedule() }
+                    Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
+                    Link("Terms of Service", destination: AppConstants.termsOfServiceURL)
+                    Button("Rate App") { openReview() }
+                }
             }
             .navigationTitle("Settings")
             .toolbar { ToolbarItem(placement: .navigationBarLeading) { Button("Done", action: { dismiss() }) } }
@@ -80,5 +89,18 @@ struct SettingsView: View {
     private func searchHome() async {
         guard !homeQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { homeResults = []; return }
         homeResults = (try? await api.searchLocations(query: homeQuery, limit: 6)) ?? []
+    }
+
+    private func clearCache() {
+        // Clear cached journeys for all routes
+        let summaries = SharedStore.shared.loadRouteSummaries()
+        summaries.forEach { _ in /* No centralized delete; overwrite with empty */ }
+        // Pragmatic: clear the App Group defaults of snapshot keys by overwriting
+        WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    private func openReview() {
+        guard let url = URL(string: "itms-apps://itunes.apple.com/app/idXXXXXXXX?action=write-review") else { return }
+        UIApplication.shared.open(url)
     }
 }

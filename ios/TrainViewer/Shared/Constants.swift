@@ -10,4 +10,7 @@ enum AppConstants {
 
     // Change to your actual App Group if you enable it in both app and widget targets
     static let appGroupIdentifier: String = "group.com.yourcompany.trainviewer"
+
+    static let privacyPolicyURL = URL(string: "https://example.com/privacy")!
+    static let termsOfServiceURL = URL(string: "https://example.com/terms")!
 }
