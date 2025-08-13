@@ -62,11 +62,11 @@ struct RouteIntentProvider: AppIntentTimelineProvider {
     }
 }
 
-struct TrainViewerWidgetEntryView : View {
+struct TrainViewerRouteEntryView : View {
     var entry: RouteEntry
 
     var body: some View {
-        Link(destination: URL(string: "trainviewer://route?id=\(entry.routeId ?? UUID())")!) {
+        Link(destination: URL(string: "trainviewer://route?id=\(entry.routeId?.uuidString ?? UUID().uuidString)")!) {
             VStack(alignment: .leading) {
                 Text(entry.routeName).font(.headline)
                 Text(entry.leaveInMinutes <= 0 ? "Leave now" : "Leave in \(entry.leaveInMinutes) min")
@@ -90,8 +90,8 @@ struct TrainViewerRouteWidget: Widget {
 
     var body: some WidgetConfiguration {
         AppIntentConfiguration(kind: kind, intent: SelectRouteIntent.self, provider: RouteIntentProvider()) { entry in
-            TrainViewerWidgetEntryView(entry: entry)
-                .widgetURL(URL(string: "trainviewer://route?id=\(entry.routeId ?? UUID())"))
+            TrainViewerRouteEntryView(entry: entry)
+                .widgetURL(URL(string: "trainviewer://route?id=\(entry.routeId?.uuidString ?? UUID().uuidString)"))
         }
         .configurationDisplayName("Route Departure")
         .description("Next departure for a specific favorite route.")
