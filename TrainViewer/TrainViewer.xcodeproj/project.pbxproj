@@ -58,6 +58,7 @@
 		F3FA06D82E4D1BF800091DE9 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		F3FA06DA2E4D1BF800091DE9 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		F3FA06F62E4D1CB100091DE9 /* TrainViewerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrainViewerWidgetExtension.entitlements; sourceTree = "<group>"; };
+		F3FA07002E4D1D0000091DE9 /* TrainViewer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrainViewer/TrainViewer.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -120,6 +121,7 @@
 		F347DCC82E4C7C8F00F52D00 = {
 			isa = PBXGroup;
 			children = (
+				F3FA07002E4D1D0000091DE9 /* TrainViewer.entitlements */,
 				F3FA06F62E4D1CB100091DE9 /* TrainViewerWidgetExtension.entitlements */,
 				F347DCD32E4C7C8F00F52D00 /* TrainViewer */,
 				F347DCE42E4C7C9200F52D00 /* TrainViewerTests */,
@@ -498,7 +500,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewer.entitlements;
+                CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewer/TrainViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainViewer/Preview Content\"";
@@ -528,7 +530,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewer.entitlements;
+                CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewer/TrainViewer.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TrainViewer/Preview Content\"";
@@ -630,7 +632,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = TrainViewerWidgetExtension.entitlements;
+                CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AZ3UBYX9QX;
@@ -658,7 +660,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CODE_SIGN_ENTITLEMENTS = TrainViewerWidgetExtension.entitlements;
+                CODE_SIGN_ENTITLEMENTS = TrainViewer/TrainViewerWidgetExtension.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = AZ3UBYX9QX;
