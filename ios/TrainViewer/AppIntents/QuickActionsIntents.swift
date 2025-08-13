@@ -10,7 +10,7 @@ struct NextToCampusIntent: AppIntent {
         guard let campus = campus else { return .result(dialog: "Set your campus in Settings first.") }
         guard let last = SharedStore.shared.loadLastLocation() else { return .result(dialog: "Open the app once to capture your location.") }
         let from = Place(rawId: nil, name: "Current Location", latitude: last.lat, longitude: last.lon)
-        let api = DBTransportAPI()
+        let api = TransportAPIFactory.shared.make()
         if let option = try? await api.nextJourneyOptions(from: from, to: campus, results: 1).first {
             let mins = max(0, Int(option.departure.timeIntervalSince(Date()) / 60))
             return .result(dialog: "Leave in \(mins) minutes for \(campus.name).")
@@ -28,7 +28,7 @@ struct NextHomeIntent: AppIntent {
         guard let home = home else { return .result(dialog: "Set your home in Settings first.") }
         guard let last = SharedStore.shared.loadLastLocation() else { return .result(dialog: "Open the app once to capture your location.") }
         let from = Place(rawId: nil, name: "Current Location", latitude: last.lat, longitude: last.lon)
-        let api = DBTransportAPI()
+        let api = TransportAPIFactory.shared.make()
         if let option = try? await api.nextJourneyOptions(from: from, to: home, results: 1).first {
             let mins = max(0, Int(option.departure.timeIntervalSince(Date()) / 60))
             return .result(dialog: "Leave in \(mins) minutes to get home.")

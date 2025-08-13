@@ -17,7 +17,7 @@ final class EditRouteViewModel: ObservableObject {
     private let store: RouteStore
     private let originalId: UUID
 
-    init(route: Route, api: TransportAPI = DBTransportAPI(), store: RouteStore = RouteStore()) {
+    init(route: Route, api: TransportAPI = TransportAPIFactory.shared.make(), store: RouteStore = RouteStore()) {
         self.api = api
         self.store = store
         self.originalId = route.id

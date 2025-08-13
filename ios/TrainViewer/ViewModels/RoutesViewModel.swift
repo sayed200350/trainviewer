@@ -27,7 +27,7 @@ final class RoutesViewModel: ObservableObject {
     private let sharedStore: SharedStore
     private let settings: UserSettingsStore
 
-    init(store: RouteStore = RouteStore(), api: TransportAPI = DBTransportAPI(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared) {
+    init(store: RouteStore = RouteStore(), api: TransportAPI = TransportAPIFactory.shared.make(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared) {
         self.store = store
         self.api = api
         self.locationService = locationService

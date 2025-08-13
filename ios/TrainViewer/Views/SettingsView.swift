@@ -7,7 +7,7 @@ struct SettingsView: View {
     @State private var campusResults: [Place] = []
     @State private var homeQuery: String = ""
     @State private var homeResults: [Place] = []
-    private let api = DBTransportAPI()
+    private let api = TransportAPIFactory.shared.make()
 
     var body: some View {
         NavigationView {

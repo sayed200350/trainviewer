@@ -9,7 +9,7 @@ final class RouteDetailViewModel: ObservableObject {
     private let api: TransportAPI
     private let route: Route
 
-    init(route: Route, api: TransportAPI = DBTransportAPI()) {
+    init(route: Route, api: TransportAPI = TransportAPIFactory.shared.make()) {
         self.route = route
         self.api = api
     }

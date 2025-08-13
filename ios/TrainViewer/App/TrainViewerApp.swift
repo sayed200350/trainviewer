@@ -5,6 +5,10 @@ struct TrainViewerApp: App {
     @StateObject private var routesVM = RoutesViewModel()
     @State private var deepLinkRouteId: UUID?
 
+    init() {
+        BackgroundRefreshService.shared.register()
+    }
+
     var body: some Scene {
         WindowGroup {
             NavigationStack {
@@ -16,6 +20,7 @@ struct TrainViewerApp: App {
                         LocationService.shared.requestAuthorization()
                         Task { _ = await NotificationService.shared.requestAuthorization() }
                         Task { _ = await EventKitService.shared.requestAccess() }
+                        BackgroundRefreshService.shared.schedule()
                         if let id = SharedStore.shared.takePendingRoute() {
                             deepLinkRouteId = id
                         }

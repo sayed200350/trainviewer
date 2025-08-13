@@ -15,7 +15,7 @@ final class AddRouteViewModel: ObservableObject {
     private let api: TransportAPI
     private let store: RouteStore
 
-    init(api: TransportAPI = DBTransportAPI(), store: RouteStore = RouteStore()) {
+    init(api: TransportAPI = TransportAPIFactory.shared.make(), store: RouteStore = RouteStore()) {
         self.api = api
         self.store = store
     }
