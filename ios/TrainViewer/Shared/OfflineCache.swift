@@ -23,5 +23,14 @@ final class OfflineCache {
         return try? decoder.decode([JourneyOption].self, from: data)
     }
 
+    func delete(routeId: UUID) {
+        let key = cacheKey(for: routeId)
+        defaults.removeObject(forKey: key)
+    }
+
+    func clearAll(routeIds: [UUID]) {
+        routeIds.forEach { delete(routeId: $0) }
+    }
+
     private func cacheKey(for id: UUID) -> String { "cache.journeys." + id.uuidString }
 }

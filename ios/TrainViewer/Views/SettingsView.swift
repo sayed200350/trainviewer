@@ -97,7 +97,7 @@ struct SettingsView: View {
 
     private func clearCache() {
         let summaries = SharedStore.shared.loadRouteSummaries()
-        summaries.forEach { _ in }
+        OfflineCache.shared.clearAll(routeIds: summaries.map { $0.id })
         WidgetCenter.shared.reloadAllTimelines()
     }
 
