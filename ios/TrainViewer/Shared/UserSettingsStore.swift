@@ -32,6 +32,7 @@ final class UserSettingsStore: ObservableObject {
     @Published var energySavingMode: Bool { didSet { save() } }
     @Published var nightModePreference: Bool { didSet { save() } }
     @Published var studentVerified: Bool { didSet { save() } }
+    @Published var analyticsEnabled: Bool { didSet { save() } }
 
     @Published var campusPlace: Place? { didSet { save() } }
     @Published var homePlace: Place? { didSet { save() } }
@@ -45,9 +46,9 @@ final class UserSettingsStore: ObservableObject {
         self.energySavingMode = defaults.object(forKey: "settings.energySavingMode") as? Bool ?? false
         self.nightModePreference = defaults.object(forKey: "settings.nightModePreference") as? Bool ?? false
         self.studentVerified = defaults.object(forKey: "settings.studentVerified") as? Bool ?? false
+        self.analyticsEnabled = defaults.object(forKey: "settings.analyticsEnabled") as? Bool ?? false
         self.campusPlace = defaults.decode(key: "settings.campusPlace", default: Optional<Place>.none)
         self.homePlace = defaults.decode(key: "settings.homePlace", default: Optional<Place>.none)
-        // mirror to App Group
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
     }
 
@@ -58,9 +59,9 @@ final class UserSettingsStore: ObservableObject {
         defaults.set(energySavingMode, forKey: "settings.energySavingMode")
         defaults.set(nightModePreference, forKey: "settings.nightModePreference")
         defaults.set(studentVerified, forKey: "settings.studentVerified")
+        defaults.set(analyticsEnabled, forKey: "settings.analyticsEnabled")
         defaults.encode(campusPlace, key: "settings.campusPlace")
         defaults.encode(homePlace, key: "settings.homePlace")
-        // mirror to App Group
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
     }
 }

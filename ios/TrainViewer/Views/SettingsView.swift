@@ -29,10 +29,11 @@ struct SettingsView: View {
                     }
                 }
 
-                Section(header: Text("Modes")) {
+                Section(header: Text("Modes & Privacy")) {
                     Toggle("Exam Period Mode (+5 min buffer)", isOn: $settings.examModeEnabled)
                     Toggle("Energy Saving Mode", isOn: $settings.energySavingMode)
                     Toggle("Night Preference (slower walking)", isOn: $settings.nightModePreference)
+                    Toggle("Allow anonymous analytics", isOn: $settings.analyticsEnabled)
                 }
 
                 Section(header: Text("Home")) {

@@ -1,6 +1,6 @@
 # TrainViewer iOS App
 
-A SwiftUI iOS app that shows real-time German public transport departures for your saved routes, with optional widgets, Siri, and notifications.
+A SwiftUI iOS app that shows real-time German public transport departures for your saved routes, with widgets, Siri intents, calendar sync, and notifications.
 
 ## Requirements
 - Xcode 15+
@@ -13,66 +13,61 @@ Uses public `transport.rest` endpoints:
 - Primary: `https://v6.db.transport.rest`
 - Fallback: `https://v5.vbb.transport.rest`
 
-No API key required. See `Shared/Constants.swift` to change providers.
-
 ## Features
 - Save favorite routes (origin → destination)
-- Real-time next departure options
-- "Leave in X min" with walking time + buffer
-- Pull to refresh
-- Add/edit/delete routes
-- Optional local notifications
+- Real-time next departure options, platform and delay warnings (remarks)
+- "Leave in X min" with walking time + buffer, exam mode adds +5 minutes
+- Pull to refresh; offline cache fallback and offline indicator
+- Add/edit/delete routes, per-route buffer
 - Widgets: static + per-widget route selection via AppIntents (iOS 16+)
-- Siri Quick Actions: "Next to campus" and "Next home" intents
-- Settings: ticket type, provider preference, exam/energy/night modes, campus and home places, student verification
-- Class schedule sync: imports calendar events; shows Next Class card and computes leave time to campus
-- Offline cache for departures; used when network fails
+- Siri Quick Actions: "Next to campus" and "Next home"
+- Settings: ticket type, provider preference (DB/VBB/Auto), energy saving, night walking speed, campus and home places, student verification, analytics opt-in
+- Class schedule sync (EventKit): Next Class card and leave-time suggestion
+- Background refresh (BGTaskScheduler) to update snapshots for widgets
+- Deep links: `trainviewer://route?id=<ROUTE_UUID>` opens route details
+- Support: reload widgets, clear cache, background refresh, report issue, privacy/terms, rate app
 
-## Setup Steps (Xcode)
-1. Create a new Xcode project:
-   - iOS App → SwiftUI → Product Name: TrainViewer
-   - Team: your Apple Developer team
-   - Organization Identifier: e.g. `com.yourcompany`
-   - Language: Swift, Interface: SwiftUI, Lifecycle: SwiftUI App
-   - iOS 15 deployment target
-2. In the Project Navigator, add the `ios/TrainViewer` folder (Create groups).
-3. Capabilities (Targets → TrainViewer → Signing & Capabilities):
+## Setup
+1. Create a new Xcode project (SwiftUI App) named TrainViewer, iOS 15+
+2. Add the `ios/TrainViewer` folder as groups
+3. Capabilities (app target):
    - Background Modes: Background fetch
-   - Location Updates (optional if you want significant-change updates)
-   - Push Notifications: not required (we use local notifications)
-   - App Groups: add one, e.g. `group.com.yourcompany.trainviewer`
-4. Capabilities (Targets → TrainViewerWidget → Signing & Capabilities):
-   - App Groups: enable the same group `group.com.yourcompany.trainviewer`
-   - Widgets don’t need Location or Notifications
-5. Update `Shared/Constants.swift` with your App Group identifier.
-6. Info.plist keys (Targets → TrainViewer → Info):
-   - `NSLocationWhenInUseUsageDescription` → "Used to estimate walking time to your station"
-   - `NSLocationAlwaysAndWhenInUseUsageDescription` → "Used to estimate walking time to your station"
-   - `NSCalendarsUsageDescription` → "Used to detect upcoming classes on your calendar"
-7. Add a Widget Extension target (File → New → Target → Widget Extension) if not already added and include files from `ios/TrainViewer/Widgets`.
-8. Build & Run on a device or simulator with network access.
+   - Background Tasks: add identifier `com.yourcompany.trainviewer.refresh`
+   - App Groups: e.g. `group.com.yourcompany.trainviewer`
+4. Capabilities (widget target): enable the same App Group
+5. Info (app):
+   - URL Types: scheme `trainviewer`
+   - `NSLocationWhenInUseUsageDescription` and `NSLocationAlwaysAndWhenInUseUsageDescription`
+   - `NSCalendarsUsageDescription`
+6. Update `Shared/Constants.swift`: set `appGroupIdentifier`, privacy/terms URLs, support email
+7. Add a Widget Extension if needed and include files under `ios/TrainViewer/Widgets`
+8. (Optional) Add watchOS target and include `ios/TrainViewerWatch/*`
 
-## Siri Quick Actions (iOS 16+)
-- Intents: `NextToCampusIntent`, `NextHomeIntent` in `AppIntents/QuickActionsIntents.swift`
-- After first run, set Campus and Home in Settings and grant location permission
-- Invoke via Siri: "Next to campus" or "Next home"
+## Build & Run
+- Build the app scheme; on first launch, grant Location and Calendars permissions
+- Add routes; open Settings to set Home/Campus and student options
+- Pull to refresh; widgets will auto-refresh when data updates
+- Add widgets (static or AppIntents) to Home Screen; for AppIntents, choose a route per widget
+- Siri: try "Next to campus" or "Next home" after first run (so last location is saved)
 
-## Widgets
-- Static widget: `TrainViewerWidget` shows snapshot from the first route
-- AppIntents widget: `TrainViewerRouteWidget` lets you choose a specific route per widget instance
+## Background Refresh
+- A BGAppRefresh task periodically calls `RoutesViewModel.refreshAll()` and repopulates widget snapshots
+- You can manually trigger a schedule in Settings → Developer & Support → Trigger Background Refresh
 
-## Apple Watch (Optional)
-1. Add a watchOS App target (File → New → Target → Watch App for iOS App)
-2. Enable the same App Group in the WatchKit Extension
-3. Add files from `ios/TrainViewerWatch` to the WatchKit Extension target
-4. Build & run on a Watch simulator
+## Deep Links
+- `trainviewer://route?id=<ROUTE_UUID>` opens route details; widgets include deep links
 
-## Build
-- Select the TrainViewer app scheme → Run
-- For widgets, run widget schemes to preview; ensure the app has been opened at least once to populate App Group data.
+## Privacy & Analytics
+- Anonymous analytics is off by default; enable in Settings → Modes & Privacy
+- Links to Privacy Policy and Terms are available in Settings
 
 ## Troubleshooting
-- If you see decoding errors, check network logs in `Services/APIClient.swift` and inspect the JSON.
-- If widgets or Siri don’t have data, open the app once and pull-to-refresh to populate App Group storage.
-- Location permission can be denied; walking time will default to 0.
-- Calendar permission can be denied; Next Class card will not appear.
+- If widgets/Siri don’t show live data, open the app and pull-to-refresh to populate the App Group store, then tap Reload Widgets
+- If calendar sync doesn’t show the Next Class card, ensure permission is granted and your events are within 12 hours
+- If deep links don’t open, check the app’s URL Types and the scheme spelling
+
+## Extending
+- Semester ticket validation flow and savings tracker
+- Apple Watch complication for leave time
+- Geofencing campus/home to suggest routes automatically
+- Server-side push for strike alerts
