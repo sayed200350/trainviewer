@@ -21,6 +21,8 @@ struct SettingsView: View {
                         }
                     }
                     Toggle("I am a verified student", isOn: $settings.studentVerified)
+                    NavigationLink(destination: TicketView()) { Label("Show Ticket", systemImage: "qrcode.viewfinder") }
+                    Button("Add to Apple Wallet (URL)") { presentWalletAdd() }
                 }
 
                 Section(header: Text("Transport Provider")) {
@@ -74,6 +76,7 @@ struct SettingsView: View {
                     Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
                     Button("Clear Offline Cache") { clearCache() }
                     Button("Trigger Background Refresh") { BackgroundRefreshService.shared.schedule() }
+                    Button("Seed Sample Ticket") { seedSampleTicket() }
                     Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
                     Link("Terms of Service", destination: AppConstants.termsOfServiceURL)
                     Button("Rate App") { openReview() }
@@ -83,6 +86,11 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .toolbar { ToolbarItem(placement: .navigationBarLeading) { Button("Done", action: { dismiss() }) } }
         }
+    }
+
+    private func presentWalletAdd() {
+        guard let url = URL(string: "https://example.com/path/to/student.pkpass"), let root = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap({ $0.windows }).first(where: { $0.isKeyWindow })?.rootViewController else { return }
+        Task { try? await PassKitService.shared.addPass(from: url, presenting: root) }
     }
 
     private func searchCampus() async {
@@ -112,5 +120,15 @@ struct SettingsView: View {
         let to = AppConstants.supportEmail
         let encoded = "mailto:\(to)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? subject)&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? body)"
         if let url = URL(string: encoded) { UIApplication.shared.open(url) }
+    }
+
+    private func seedSampleTicket() {
+        // Sample 5-minute valid QR ticket for demo
+        let t = Ticket(status: .active,
+                       validFrom: Date().addingTimeInterval(-60),
+                       expiresAt: Date().addingTimeInterval(300),
+                       qrPayload: "DEMO-STUDENT-TICKET-\(UUID().uuidString.prefix(8))",
+                       format: .qr)
+        TicketService.shared.save(ticket: t)
     }
 }

@@ -1,5 +1,6 @@
 import AppIntents
 import Foundation
+import UIKit
 
 struct NextToCampusIntent: AppIntent {
     static var title: LocalizedStringResource = "Next to campus"
@@ -34,5 +35,15 @@ struct NextHomeIntent: AppIntent {
             return .result(dialog: "Leave in \(mins) minutes to get home.")
         }
         return .result(dialog: "No departures found.")
+    }
+}
+
+struct ShowTicketIntent: AppIntent {
+    static var title: LocalizedStringResource = "Show Student Ticket"
+    static var description = IntentDescription("Open the app to display your student ticket")
+    static var openAppWhenRun: Bool = true
+
+    func perform() async throws -> some IntentResult & ProvidesDialog {
+        return .result(dialog: "Opening ticket…")
     }
 }
