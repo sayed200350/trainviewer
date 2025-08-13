@@ -3,6 +3,7 @@ import SwiftUI
 
 struct RouteEntry: TimelineEntry {
     let date: Date
+    let routeId: UUID?
     let routeName: String
     let leaveInMinutes: Int
     let departure: Date
@@ -11,12 +12,12 @@ struct RouteEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> RouteEntry {
-        RouteEntry(date: Date(), routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
+        RouteEntry(date: Date(), routeId: nil, routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
     }
 
     func getSnapshot(in context: Context, completion: @escaping (RouteEntry) -> ()) {
         if let snap = SharedStore.shared.loadSnapshot() {
-            completion(RouteEntry(date: Date(), routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival))
+            completion(RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival))
         } else {
             completion(placeholder(in: context))
         }
@@ -25,7 +26,7 @@ struct Provider: TimelineProvider {
     func getTimeline(in context: Context, completion: @escaping (Timeline<RouteEntry>) -> ()) {
         let entry: RouteEntry
         if let snap = SharedStore.shared.loadSnapshot() {
-            entry = RouteEntry(date: Date(), routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
+            entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
         } else {
             entry = placeholder(in: context)
         }

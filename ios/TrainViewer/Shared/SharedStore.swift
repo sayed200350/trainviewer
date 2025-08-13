@@ -11,6 +11,7 @@ public final class SharedStore {
     private let homeKey = "settings.homePlace"
     private let lastLocationLatKey = "lastLocation.lat"
     private let lastLocationLonKey = "lastLocation.lon"
+    private let pendingRouteKey = "pending.routeId"
 
     private var defaults: UserDefaults? {
         UserDefaults(suiteName: AppConstants.appGroupIdentifier)
@@ -73,5 +74,16 @@ public final class SharedStore {
     public func loadLastLocation() -> (lat: Double, lon: Double)? {
         guard let lat = defaults?.object(forKey: lastLocationLatKey) as? Double, let lon = defaults?.object(forKey: lastLocationLonKey) as? Double else { return nil }
         return (lat, lon)
+    }
+
+    // MARK: - Pending deep link
+    public func savePendingRoute(id: UUID) {
+        defaults?.set(id.uuidString, forKey: pendingRouteKey)
+    }
+
+    public func takePendingRoute() -> UUID? {
+        guard let str = defaults?.string(forKey: pendingRouteKey), let id = UUID(uuidString: str) else { return nil }
+        defaults?.removeObject(forKey: pendingRouteKey)
+        return id
     }
 }
