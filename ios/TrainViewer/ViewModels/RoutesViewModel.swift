@@ -1,5 +1,6 @@
 import Foundation
 import CoreLocation
+import WidgetKit
 
 struct RouteStatus: Hashable {
     let options: [JourneyOption]
@@ -90,6 +91,7 @@ final class RoutesViewModel: ObservableObject {
         let snapshot = WidgetSnapshot(routeId: firstRoute.id, routeName: firstRoute.name, leaveInMinutes: leave, departure: firstOption.departure, arrival: firstOption.arrival)
         sharedStore.save(snapshot: snapshot)
         sharedStore.save(snapshot: snapshot, for: firstRoute.id)
+        WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func computeStatus(for route: Route, options: [JourneyOption]) -> RouteStatus {
