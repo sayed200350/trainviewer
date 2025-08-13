@@ -21,6 +21,7 @@ final class RoutesViewModel: ObservableObject {
     @Published private(set) var statusByRouteId: [UUID: RouteStatus] = [:]
     @Published var isRefreshing: Bool = false
     @Published var nextClass: ClassSuggestion?
+    @Published var isOffline: Bool = false
 
     private let store: RouteStore
     private let api: TransportAPI
@@ -49,27 +50,30 @@ final class RoutesViewModel: ObservableObject {
     func refreshAll() async {
         isRefreshing = true
         defer { isRefreshing = false }
-        await withTaskGroup(of: (UUID, RouteStatus?).self) { group in
+        var usedCacheAny = false
+        await withTaskGroup(of: (UUID, RouteStatus?, Bool).self) { group in
             for route in routes {
                 group.addTask { [weak self] in
-                    guard let self = self else { return (route.id, nil) }
+                    guard let self = self else { return (route.id, nil, false) }
                     do {
                         let options = try await self.api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
                         self.cache(options: options, for: route)
                         let status = self.computeStatus(for: route, options: options)
-                        return (route.id, status)
+                        return (route.id, status, false)
                     } catch {
                         let cached = OfflineCache.shared.load(routeId: route.id) ?? []
                         let status = self.computeStatus(for: route, options: cached)
-                        return (route.id, status)
+                        return (route.id, status, true)
                     }
                 }
             }
             var newStatus: [UUID: RouteStatus] = [:]
-            for await (id, status) in group {
+            for await (id, status, usedCache) in group {
                 if let status = status { newStatus[id] = status }
+                if usedCache { usedCacheAny = true }
             }
             statusByRouteId = newStatus
+            isOffline = usedCacheAny
             publishSnapshotIfAvailable()
             await refreshClassSuggestion()
             notifyIfDisruptions()
@@ -119,9 +123,7 @@ final class RoutesViewModel: ObservableObject {
 
     private func routeMatchingCampus() -> Route? {
         guard let campus = settings.campusPlace else { return nil }
-        // Match by name fallback
         if let byName = routes.first(where: { $0.destination.name.localizedCaseInsensitiveContains(campus.name) }) { return byName }
-        // or by distance if coordinates present
         if let campusCoord = campus.coordinate {
             return routes.min(by: { lhs, rhs in
                 let lhsD = distance(to: lhs.destination.coordinate, from: campusCoord)
@@ -157,7 +159,7 @@ final class RoutesViewModel: ObservableObject {
     private func secondsOffset(bufferMinutes: Int) -> Int { bufferMinutes * 60 }
 
     private func computeLeaveForEvent(using option: JourneyOption, buffer: Int, eventStart: Date) -> Int {
-        let arrivalLead = 5 * 60 // arrive 5 min early
+        let arrivalLead = 5 * 60
         let timeToLeaveSec = option.departure.timeIntervalSince(Date())
         let extra = buffer + arrivalLead
         return max(0, Int(timeToLeaveSec / 60) - extra / 60)
@@ -176,7 +178,6 @@ final class RoutesViewModel: ObservableObject {
     private func refreshClassSuggestion() async {
         guard let campus = settings.campusPlace, let route = routeMatchingCampus() else { nextClass = nil; return }
         guard let event = await EventKitService.shared.nextEvent(withinHours: 12, matchingCampus: campus) else { nextClass = nil; return }
-        // Fetch options for campus route
         if let options = try? await api.nextJourneyOptions(from: route.origin, to: route.destination, results: 5), let selected = findOptionArrivingBefore(options, eventStart: event.startDate) {
             let buffer = bufferForRoute(route) * 60
             let leave = computeLeaveForEvent(using: selected, buffer: buffer, eventStart: event.startDate)

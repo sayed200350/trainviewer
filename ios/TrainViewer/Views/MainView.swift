@@ -19,6 +19,14 @@ struct MainView: View {
                     }
                 } else {
                     List {
+                        if vm.isOffline {
+                            Section {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "wifi.slash").foregroundColor(.orange)
+                                    Text("Offline – showing last saved data").foregroundColor(.orange)
+                                }
+                            }
+                        }
                         if let classCard = vm.nextClass {
                             Section(header: Text("Next Class")) {
                                 HStack(alignment: .top) {
@@ -51,6 +59,7 @@ struct MainView: View {
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     HStack {
+                        Button(action: { WidgetCenter.shared.reloadAllTimelines() }) { Image(systemName: "arrow.clockwise.circle") }
                         Button(action: { showingSettings = true }) { Image(systemName: "gearshape") }
                         Button(action: { showingAdd = true }) { Image(systemName: "plus") }
                     }
