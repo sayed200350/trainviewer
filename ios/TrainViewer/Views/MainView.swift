@@ -19,6 +19,19 @@ struct MainView: View {
                     }
                 } else {
                     List {
+                        if let classCard = vm.nextClass {
+                            Section(header: Text("Next Class")) {
+                                HStack(alignment: .top) {
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(classCard.eventTitle).font(.headline)
+                                        Text("Leave in \(classCard.leaveInMinutes) min • via \(classCard.routeName)")
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                }
+                            }
+                        }
                         ForEach(vm.routes) { route in
                             NavigationLink(destination: RouteDetailView(route: route)) {
                                 RouteRow(route: route, status: vm.statusByRouteId[route.id])

@@ -13,6 +13,7 @@ struct TrainViewerApp: App {
                     Task { await routesVM.refreshAll() }
                     LocationService.shared.requestAuthorization()
                     Task { _ = await NotificationService.shared.requestAuthorization() }
+                    Task { _ = await EventKitService.shared.requestAccess() }
                 }
         }
     }
