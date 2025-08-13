@@ -5,6 +5,8 @@ struct SettingsView: View {
     @StateObject private var settings = UserSettingsStore.shared
     @State private var campusQuery: String = ""
     @State private var campusResults: [Place] = []
+    @State private var homeQuery: String = ""
+    @State private var homeResults: [Place] = []
     private let api = DBTransportAPI()
 
     var body: some View {
@@ -16,6 +18,7 @@ struct SettingsView: View {
                             Text(String(describing: t.rawValue)).tag(t)
                         }
                     }
+                    Toggle("I am a verified student", isOn: $settings.studentVerified)
                 }
 
                 Section(header: Text("Transport Provider")) {
@@ -30,6 +33,22 @@ struct SettingsView: View {
                     Toggle("Exam Period Mode (+5 min buffer)", isOn: $settings.examModeEnabled)
                     Toggle("Energy Saving Mode", isOn: $settings.energySavingMode)
                     Toggle("Night Preference (slower walking)", isOn: $settings.nightModePreference)
+                }
+
+                Section(header: Text("Home")) {
+                    if let home = settings.homePlace {
+                        VStack(alignment: .leading) {
+                            Text(home.name).font(.subheadline)
+                            Button("Clear Home") { settings.homePlace = nil }
+                        }
+                    }
+                    TextField("Search home address", text: $homeQuery)
+                        .onChange(of: homeQuery) { _ in Task { await searchHome() } }
+                    if !homeResults.isEmpty {
+                        ForEach(homeResults, id: \.self) { place in
+                            Button(place.name) { settings.homePlace = place; homeQuery = place.name; homeResults = [] }
+                        }
+                    }
                 }
 
                 Section(header: Text("Campus"), footer: Text("Set your main campus to enable smart suggestions and geofencing.")) {
@@ -56,5 +75,10 @@ struct SettingsView: View {
     private func searchCampus() async {
         guard !campusQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { campusResults = []; return }
         campusResults = (try? await api.searchLocations(query: campusQuery, limit: 6)) ?? []
+    }
+
+    private func searchHome() async {
+        guard !homeQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { homeResults = []; return }
+        homeResults = (try? await api.searchLocations(query: homeQuery, limit: 6)) ?? []
     }
 }

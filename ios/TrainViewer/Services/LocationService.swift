@@ -39,6 +39,9 @@ extension LocationService: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last
+        if let coord = currentLocation?.coordinate {
+            SharedStore.shared.saveLastLocation(latitude: coord.latitude, longitude: coord.longitude)
+        }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

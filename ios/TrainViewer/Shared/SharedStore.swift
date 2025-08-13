@@ -7,6 +7,10 @@ public final class SharedStore {
     private let snapshotKey = "widget_main_snapshot"
     private let perRoutePrefix = "widget_snapshot."
     private let routeSummariesKey = "route_summaries"
+    private let campusKey = "settings.campusPlace"
+    private let homeKey = "settings.homePlace"
+    private let lastLocationLatKey = "lastLocation.lat"
+    private let lastLocationLonKey = "lastLocation.lon"
 
     private var defaults: UserDefaults? {
         UserDefaults(suiteName: AppConstants.appGroupIdentifier)
@@ -42,5 +46,32 @@ public final class SharedStore {
     public func loadRouteSummaries() -> [RouteSummary] {
         guard let data = defaults?.data(forKey: routeSummariesKey) else { return [] }
         return (try? JSONDecoder().decode([RouteSummary].self, from: data)) ?? []
+    }
+
+    // MARK: - Settings sharing
+    public func saveSettings(campusPlace: Place?, homePlace: Place?) {
+        let encoder = JSONEncoder()
+        if let campus = campusPlace, let data = try? encoder.encode(campus) { defaults?.set(data, forKey: campusKey) } else { defaults?.removeObject(forKey: campusKey) }
+        if let home = homePlace, let data = try? encoder.encode(home) { defaults?.set(data, forKey: homeKey) } else { defaults?.removeObject(forKey: homeKey) }
+    }
+
+    public func loadSettings() -> (campus: Place?, home: Place?) {
+        let decoder = JSONDecoder()
+        var campus: Place? = nil
+        var home: Place? = nil
+        if let data = defaults?.data(forKey: campusKey) { campus = try? decoder.decode(Place.self, from: data) }
+        if let data = defaults?.data(forKey: homeKey) { home = try? decoder.decode(Place.self, from: data) }
+        return (campus, home)
+    }
+
+    // MARK: - Last location
+    public func saveLastLocation(latitude: Double, longitude: Double) {
+        defaults?.set(latitude, forKey: lastLocationLatKey)
+        defaults?.set(longitude, forKey: lastLocationLonKey)
+    }
+
+    public func loadLastLocation() -> (lat: Double, lon: Double)? {
+        guard let lat = defaults?.object(forKey: lastLocationLatKey) as? Double, let lon = defaults?.object(forKey: lastLocationLonKey) as? Double else { return nil }
+        return (lat, lon)
     }
 }
