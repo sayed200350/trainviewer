@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct MainView: View {
     @EnvironmentObject var vm: RoutesViewModel
@@ -26,6 +27,11 @@ struct MainView: View {
                                     Image(systemName: "wifi.slash").foregroundColor(.orange)
                                     Text("Offline – showing last saved data").foregroundColor(.orange)
                                 }
+                            }
+                        }
+                        Section {
+                            NavigationLink(destination: TicketView()) {
+                                Label("Show Ticket", systemImage: "qrcode.viewfinder")
                             }
                         }
                         if let classCard = vm.nextClass {

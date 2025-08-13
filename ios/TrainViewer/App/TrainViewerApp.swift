@@ -4,6 +4,7 @@ import SwiftUI
 struct TrainViewerApp: App {
     @StateObject private var routesVM = RoutesViewModel()
     @State private var deepLinkRouteId: UUID?
+    @State private var openTicket: Bool = false
 
     init() {
         BackgroundRefreshService.shared.register()
@@ -31,8 +32,11 @@ struct TrainViewerApp: App {
                         AnalyticsService.shared.sessionEnd()
                     }
                     .onOpenURL { url in
-                        if url.scheme == "trainviewer", url.host == "route", let idStr = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "id" })?.value, let id = UUID(uuidString: idStr) {
+                        guard url.scheme == "trainviewer" else { return }
+                        if url.host == "route", let idStr = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first(where: { $0.name == "id" })?.value, let id = UUID(uuidString: idStr) {
                             deepLinkRouteId = id
+                        } else if url.host == "show-ticket" {
+                            openTicket = true
                         }
                     }
                     .sheet(item: $deepLinkRouteId, onDismiss: { deepLinkRouteId = nil }) { id in
@@ -43,6 +47,7 @@ struct TrainViewerApp: App {
                             Text("Route not found")
                         }
                     }
+                    .sheet(isPresented: $openTicket) { NavigationView { TicketView() } }
             }
         }
     }

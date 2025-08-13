@@ -8,5 +8,14 @@
 	<string>Used to estimate walking time to your station</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Used to estimate walking time to your station</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>trainviewer</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

@@ -1,3 +1,17 @@
+# TrainViewer (iOS)
+
+## Student Ticket (MVP)
+- Ticket model stored securely in Keychain via `TicketService`
+- `TicketView` renders QR/Aztec, uses Face ID and boosts screen brightness
+- Add to Wallet support via `PassKitService` (URL-based)
+- Entry points:
+  - Main list: "Show Ticket" row
+  - Settings: "Show Ticket" link and "Add to Apple Wallet" button
+  - Deep link: `trainviewer://show-ticket`
+  - App Intent: "Show Student Ticket"
+
+Note: Configure URL scheme `trainviewer` in the app target and add Wallet capability if using PassKit.
+
 # TrainViewer iOS App
 
 A SwiftUI iOS app that shows real-time German public transport departures for your saved routes, with optional widgets and notifications.
