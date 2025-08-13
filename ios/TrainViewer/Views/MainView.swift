@@ -5,6 +5,7 @@ struct MainView: View {
     @State private var showingAdd = false
     @State private var editingRoute: Route?
     @State private var showingSettings = false
+    @State private var toast: Toast?
 
     var body: some View {
         NavigationView {
@@ -80,6 +81,10 @@ struct MainView: View {
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
             }
+        }
+        .toast($toast)
+        .onChange(of: vm.isOffline) { isOffline in
+            if isOffline { toast = Toast(message: "Offline – showing cached data") }
         }
     }
 }

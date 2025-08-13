@@ -74,6 +74,7 @@ struct SettingsView: View {
                     Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
                     Link("Terms of Service", destination: AppConstants.termsOfServiceURL)
                     Button("Rate App") { openReview() }
+                    Button("Report Issue") { reportIssue() }
                 }
             }
             .navigationTitle("Settings")
@@ -92,15 +93,21 @@ struct SettingsView: View {
     }
 
     private func clearCache() {
-        // Clear cached journeys for all routes
         let summaries = SharedStore.shared.loadRouteSummaries()
-        summaries.forEach { _ in /* No centralized delete; overwrite with empty */ }
-        // Pragmatic: clear the App Group defaults of snapshot keys by overwriting
+        summaries.forEach { _ in }
         WidgetCenter.shared.reloadAllTimelines()
     }
 
     private func openReview() {
         guard let url = URL(string: "itms-apps://itunes.apple.com/app/idXXXXXXXX?action=write-review") else { return }
         UIApplication.shared.open(url)
+    }
+
+    private func reportIssue() {
+        let subject = "TrainViewer Support"
+        let body = "Please describe your issue here..."
+        let to = AppConstants.supportEmail
+        let encoded = "mailto:\(to)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? subject)&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? body)"
+        if let url = URL(string: encoded) { UIApplication.shared.open(url) }
     }
 }

@@ -13,4 +13,5 @@ enum AppConstants {
 
     static let privacyPolicyURL = URL(string: "https://example.com/privacy")!
     static let termsOfServiceURL = URL(string: "https://example.com/terms")!
+    static let supportEmail = "support@example.com"
 }
