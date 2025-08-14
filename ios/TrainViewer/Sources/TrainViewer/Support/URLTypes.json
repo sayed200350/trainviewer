@@ -1,0 +1,10 @@
+{
+  "CFBundleURLTypes": [
+    {
+      "CFBundleURLName": "com.trainviewer.app",
+      "CFBundleURLSchemes": ["trainviewer"]
+    }
+  ]
+}
+
+

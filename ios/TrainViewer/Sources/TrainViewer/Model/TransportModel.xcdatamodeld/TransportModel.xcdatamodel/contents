@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G419" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="User" representedClassName="UserEntity" syncable="YES">
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="preferencesJSON" optional="YES" attributeType="String"/>
+        <relationship name="routes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Route" inverseName="user" inverseEntity="Route"/>
+        <relationship name="ticket" optional="YES" toMany="NO" minCount="0" maxCount="1" deletionRule="Nullify" destinationEntity="Ticket" inverseName="user" inverseEntity="Ticket"/>
+    </entity>
+    <entity name="Route" representedClassName="RouteEntity" syncable="YES">
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="name" optional="NO" attributeType="String"/>
+        <attribute name="originName" optional="NO" attributeType="String"/>
+        <attribute name="originLatitude" optional="NO" attributeType="Double" defaultValueString="0"/>
+        <attribute name="originLongitude" optional="NO" attributeType="Double" defaultValueString="0"/>
+        <attribute name="originPlaceId" optional="YES" attributeType="String"/>
+        <attribute name="destName" optional="NO" attributeType="String"/>
+        <attribute name="destLatitude" optional="NO" attributeType="Double" defaultValueString="0"/>
+        <attribute name="destLongitude" optional="NO" attributeType="Double" defaultValueString="0"/>
+        <attribute name="destPlaceId" optional="YES" attributeType="String"/>
+        <attribute name="walkBufferMins" optional="NO" attributeType="Integer 16" defaultValueString="2"/>
+        <attribute name="createdAt" optional="NO" attributeType="Date"/>
+        <relationship name="user" optional="YES" toMany="NO" minCount="0" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="routes" inverseEntity="User"/>
+    </entity>
+    <entity name="Ticket" representedClassName="TicketEntity" syncable="YES">
+        <attribute name="id" optional="NO" attributeType="String"/>
+        <attribute name="type" optional="NO" attributeType="String"/>
+        <attribute name="zones" optional="YES" attributeType="String"/>
+        <attribute name="expiry" optional="YES" attributeType="Date"/>
+        <attribute name="imageRef" optional="YES" attributeType="String"/>
+        <relationship name="user" optional="YES" toMany="NO" minCount="0" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="ticket" inverseEntity="User"/>
+    </entity>
+    <elements>
+        <element name="User" positionX="-300" positionY="-18" width="128" height="120"/>
+        <element name="Route" positionX="-63" positionY="-18" width="128" height="280"/>
+        <element name="Ticket" positionX="180" positionY="-18" width="128" height="120"/>
+    </elements>
+</model>
+
