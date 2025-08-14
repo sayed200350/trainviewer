@@ -27,6 +27,29 @@ Uses public `transport.rest` endpoints:
 - Deep links: `trainviewer://route?id=<ROUTE_UUID>` opens route details
 - Support: reload widgets, clear cache, background refresh, report issue, privacy/terms, rate app
 
+## Widget Behavior (Small)
+- Displays: `[emoji] Leave in X min` and `Next: HH:MM`.
+- Calculation: `Leave in = departure − walkingMinutes − bufferMinutes`, floored at 0.
+- Time format: 24‑hour if enabled in settings; otherwise uses locale short time.
+- Emoji: derived from the transport mode (e.g., 🚌 bus, 🚊 tram, 🚇 subway, 🚆 train).
+
+## Transit API Validation
+If you need to verify the API responses for a specific origin/destination:
+
+1) Resolve nearby stops (numeric IDs) for origin/destination:
+```bash
+curl -sS 'https://v6.db.transport.rest/locations/nearby?latitude=<LAT>&longitude=<LNG>&stops=true&addresses=false&poi=false&results=5&pretty=false&language=en' | jq '.[0] | {id,name}'
+```
+
+2) Fetch journeys with the numeric IDs (note: use `from` and `to` parameters):
+```bash
+curl -sS 'https://v6.db.transport.rest/journeys?from=<NUMERIC_ID>&to=<NUMERIC_ID>&results=1&walkingSpeed=normal&language=en&pretty=false' | jq '.journeys[0].legs[0] | {departure, plannedDeparture, arrival, line: .line.product}'
+```
+
+Tips:
+- Avoid `curl -i` when piping to `jq` (headers will break JSON parsing).
+- Compare `departure` vs `plannedDeparture` with what Google Maps shows (Google may show planned times).
+
 ## Setup
 1. Create a new Xcode project (SwiftUI App) named TrainViewer, iOS 15+
 2. Add the `ios/TrainViewer` folder as groups
