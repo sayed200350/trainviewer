@@ -36,6 +36,14 @@ final class RouteStore {
 
         entity.preparationBufferMinutes = Int16(route.preparationBufferMinutes)
         entity.walkingSpeedMetersPerSecond = route.walkingSpeedMetersPerSecond
+        
+        // New MVP properties
+        entity.isWidgetEnabled = route.isWidgetEnabled
+        entity.widgetPriority = Int16(route.widgetPriority)
+        entity.colorRawValue = route.color.rawValue
+        entity.isFavorite = route.isFavorite
+        entity.createdAt = route.createdAt
+        entity.lastUsed = route.lastUsed
 
         CoreDataStack.shared.save()
     }
@@ -55,6 +63,15 @@ final class RouteStore {
             entity.destLon = route.destination.longitude.map { NSNumber(value: $0) }
             entity.preparationBufferMinutes = Int16(route.preparationBufferMinutes)
             entity.walkingSpeedMetersPerSecond = route.walkingSpeedMetersPerSecond
+            
+            // Update new MVP properties
+            entity.isWidgetEnabled = route.isWidgetEnabled
+            entity.widgetPriority = Int16(route.widgetPriority)
+            entity.colorRawValue = route.color.rawValue
+            entity.isFavorite = route.isFavorite
+            entity.createdAt = route.createdAt
+            entity.lastUsed = route.lastUsed
+            
             CoreDataStack.shared.save()
         }
     }
@@ -67,12 +84,62 @@ final class RouteStore {
             CoreDataStack.shared.save()
         }
     }
+    
+    func fetchFavorites() -> [Route] {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.predicate = NSPredicate(format: "isFavorite == YES")
+        request.sortDescriptors = [NSSortDescriptor(key: "lastUsed", ascending: false)]
+        do {
+            let entities = try context.fetch(request)
+            return entities.compactMap { $0.toModel() }
+        } catch {
+            return []
+        }
+    }
+    
+    func fetchWidgetEnabled() -> [Route] {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.predicate = NSPredicate(format: "isWidgetEnabled == YES")
+        request.sortDescriptors = [NSSortDescriptor(key: "widgetPriority", ascending: true)]
+        do {
+            let entities = try context.fetch(request)
+            return entities.compactMap { $0.toModel() }
+        } catch {
+            return []
+        }
+    }
+    
+    func markRouteAsUsed(routeId: UUID) {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.predicate = NSPredicate(format: "id == %@", routeId as CVarArg)
+        if let entity = try? context.fetch(request).first {
+            entity.lastUsed = Date()
+            CoreDataStack.shared.save()
+        }
+    }
 }
 
 extension RouteEntity {
     func toModel() -> Route? {
         let origin = Place(rawId: originId, name: originName, latitude: originLat?.doubleValue, longitude: originLon?.doubleValue)
         let dest = Place(rawId: destId, name: destName, latitude: destLat?.doubleValue, longitude: destLon?.doubleValue)
-        return Route(id: id, name: name, origin: origin, destination: dest, preparationBufferMinutes: Int(preparationBufferMinutes), walkingSpeedMetersPerSecond: walkingSpeedMetersPerSecond)
+        
+        // Handle color conversion with fallback
+        let routeColor = RouteColor(rawValue: colorRawValue) ?? .blue
+        
+        return Route(
+            id: id, 
+            name: name, 
+            origin: origin, 
+            destination: dest, 
+            preparationBufferMinutes: Int(preparationBufferMinutes), 
+            walkingSpeedMetersPerSecond: walkingSpeedMetersPerSecond,
+            isWidgetEnabled: isWidgetEnabled,
+            widgetPriority: Int(widgetPriority),
+            color: routeColor,
+            isFavorite: isFavorite,
+            createdAt: createdAt,
+            lastUsed: lastUsed
+        )
     }
 }

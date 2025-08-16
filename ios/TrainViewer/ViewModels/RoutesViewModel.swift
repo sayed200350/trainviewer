@@ -57,12 +57,18 @@ final class RoutesViewModel: ObservableObject {
                     guard let self = self else { return (route.id, nil, false) }
                     do {
                         let options = try await self.api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
-                        self.cache(options: options, for: route)
-                        let status = self.computeStatus(for: route, options: options)
+                        await MainActor.run {
+                            self.cache(options: options, for: route)
+                        }
+                        let status = await MainActor.run {
+                            self.computeStatus(for: route, options: options)
+                        }
                         return (route.id, status, false)
                     } catch {
                         let cached = OfflineCache.shared.load(routeId: route.id) ?? []
-                        let status = self.computeStatus(for: route, options: cached)
+                        let status = await MainActor.run {
+                            self.computeStatus(for: route, options: cached)
+                        }
                         return (route.id, status, true)
                     }
                 }
@@ -72,11 +78,13 @@ final class RoutesViewModel: ObservableObject {
                 if let status = status { newStatus[id] = status }
                 if usedCache { usedCacheAny = true }
             }
-            statusByRouteId = newStatus
-            isOffline = usedCacheAny
-            publishSnapshotIfAvailable()
+            await MainActor.run {
+                statusByRouteId = newStatus
+                isOffline = usedCacheAny
+                publishSnapshotIfAvailable()
+                notifyIfDisruptions()
+            }
             await refreshClassSuggestion()
-            notifyIfDisruptions()
         }
     }
 

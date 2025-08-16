@@ -8,7 +8,7 @@ final class CoreDataStack {
 
     var context: NSManagedObjectContext { container.viewContext }
 
-    private init(inMemory: Bool = false) {
+    init(inMemory: Bool = false) {
         let model = CoreDataStack.makeModel()
         container = NSPersistentContainer(name: "TrainViewer", managedObjectModel: model)
         if inMemory {
@@ -22,6 +22,47 @@ final class CoreDataStack {
             }
         }
         container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        // Perform migration for existing routes
+        migrateExistingRoutesIfNeeded()
+    }
+    
+    func migrateExistingRoutesIfNeeded() {
+        let context = container.viewContext
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        
+        do {
+            let routes = try context.fetch(request)
+            var needsSave = false
+            
+            for route in routes {
+                // Check if migration is needed (if new properties are not set)
+                if route.colorRawValue.isEmpty {
+                    route.colorRawValue = RouteColor.blue.rawValue
+                    route.isWidgetEnabled = false
+                    route.widgetPriority = 0
+                    route.isFavorite = false
+                    
+                    // Set creation date to current date if not set
+                    if route.createdAt == Date(timeIntervalSince1970: 0) {
+                        route.createdAt = Date()
+                    }
+                    
+                    // Set last used to creation date if not set
+                    if route.lastUsed == Date(timeIntervalSince1970: 0) {
+                        route.lastUsed = route.createdAt
+                    }
+                    
+                    needsSave = true
+                }
+            }
+            
+            if needsSave {
+                try context.save()
+            }
+        } catch {
+            print("Migration failed: \(error)")
+        }
     }
 
     private static func makeModel() -> NSManagedObjectModel {
@@ -54,11 +95,32 @@ final class CoreDataStack {
 
         let bufferAttr = addAttribute("preparationBufferMinutes", type: .integer16AttributeType)
         let walkingAttr = addAttribute("walkingSpeedMetersPerSecond", type: .doubleAttributeType)
+        
+        // New MVP attributes with default values
+        let isWidgetEnabledAttr = addAttribute("isWidgetEnabled", type: .booleanAttributeType)
+        isWidgetEnabledAttr.defaultValue = false
+        
+        let widgetPriorityAttr = addAttribute("widgetPriority", type: .integer16AttributeType)
+        widgetPriorityAttr.defaultValue = 0
+        
+        let colorRawValueAttr = addAttribute("colorRawValue", type: .stringAttributeType)
+        colorRawValueAttr.defaultValue = RouteColor.blue.rawValue
+        
+        let isFavoriteAttr = addAttribute("isFavorite", type: .booleanAttributeType)
+        isFavoriteAttr.defaultValue = false
+        
+        let createdAtAttr = addAttribute("createdAt", type: .dateAttributeType)
+        createdAtAttr.defaultValue = Date()
+        
+        let lastUsedAttr = addAttribute("lastUsed", type: .dateAttributeType)
+        lastUsedAttr.defaultValue = Date()
 
         routeEntity.properties = [idAttr, nameAttr,
                                   originIdAttr, originNameAttr, originLatAttr, originLonAttr,
                                   destIdAttr, destNameAttr, destLatAttr, destLonAttr,
-                                  bufferAttr, walkingAttr]
+                                  bufferAttr, walkingAttr,
+                                  isWidgetEnabledAttr, widgetPriorityAttr, colorRawValueAttr,
+                                  isFavoriteAttr, createdAtAttr, lastUsedAttr]
 
         model.entities = [routeEntity]
         return model
@@ -88,4 +150,12 @@ final class RouteEntity: NSManagedObject {
 
     @NSManaged var preparationBufferMinutes: Int16
     @NSManaged var walkingSpeedMetersPerSecond: Double
+    
+    // New MVP properties
+    @NSManaged var isWidgetEnabled: Bool
+    @NSManaged var widgetPriority: Int16
+    @NSManaged var colorRawValue: String
+    @NSManaged var isFavorite: Bool
+    @NSManaged var createdAt: Date
+    @NSManaged var lastUsed: Date
 }

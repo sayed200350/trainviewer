@@ -30,7 +30,7 @@ struct RouteQuery: EntityQuery {
     }
 }
 
-struct SelectRouteIntent: AppIntent {
+struct SelectRouteIntent: WidgetConfigurationIntent {
     static var title: LocalizedStringResource = "Select Route"
     static var description = IntentDescription("Choose a favorite route for the widget")
 
@@ -38,7 +38,7 @@ struct SelectRouteIntent: AppIntent {
     var route: RouteChoice
 
     static var parameterSummary: some ParameterSummary {
-        Summary("Show \(.route)")
+        Summary("Show \(\.$route)")
     }
 }
 
@@ -47,12 +47,12 @@ struct RouteIntentProvider: AppIntentTimelineProvider {
     typealias Intent = SelectRouteIntent
 
     func placeholder(in context: Context) -> RouteEntry {
-        RouteEntry(date: Date(), routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
+        RouteEntry(date: Date(), routeId: nil, routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
     }
 
     func snapshot(for configuration: SelectRouteIntent, in context: Context) async -> RouteEntry {
         let snap = SharedStore.shared.loadSnapshot(for: configuration.route.id)
-        return RouteEntry(date: Date(), routeName: snap?.routeName ?? configuration.route.name, leaveInMinutes: snap?.leaveInMinutes ?? 8, departure: snap?.departure ?? Date().addingTimeInterval(600), arrival: snap?.arrival ?? Date().addingTimeInterval(3600))
+        return RouteEntry(date: Date(), routeId: configuration.route.id, routeName: snap?.routeName ?? configuration.route.name, leaveInMinutes: snap?.leaveInMinutes ?? 8, departure: snap?.departure ?? Date().addingTimeInterval(600), arrival: snap?.arrival ?? Date().addingTimeInterval(3600))
     }
 
     func timeline(for configuration: SelectRouteIntent, in context: Context) async -> Timeline<RouteEntry> {

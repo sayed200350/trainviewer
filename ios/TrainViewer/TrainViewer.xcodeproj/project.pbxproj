@@ -3,46 +3,112 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01146ABCB3FDC67FCCEC2DB6 /* NextDepartureWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB29A8B12C750AA1FE724D9F /* NextDepartureWidget.swift */; };
-		198F4BC589C6E3E9DC5F4D3C /* TransportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 102DF236141D1C4F1D4F2927 /* TransportModel.xcdatamodeld */; };
-		1D725DAE9C29E5243E45CF04 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEA3A273031B05433C4AA656 /* App.swift */; };
-		2F02A6CD19E05B581B0A0A9E /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0816D83BB8514ED9647DA1B0 /* LocationManager.swift */; };
-		4DD8B1CD07F71B265B805C60 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 376F2B4F9CE134BF48ED5D8C /* EditRouteView.swift */; };
-		5AEE698F0A3D7D27CE84AE3E /* RouteEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A48ABC606200F562017086 /* RouteEntity.swift */; };
-		956BCA149690787B3602238C /* TransitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49931C6D56AD1524B9EAD5CD /* TransitAPI.swift */; };
-		A0E1E2E3E4E5E6E7E8E9EA10 /* RouteDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E1E2E3E4E5E6E7E8E9EA11 /* RouteDestination.swift */; };
-		A0F1F2F3F4F5F6F7F8F9FA00 /* SharedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F1F2F3F4F5F6F7F8F9FA01 /* SharedCache.swift */; };
-		C25F5F176D35582B5D6706F6 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92DAC0BDCACB2301184D85B1 /* AddRouteView.swift */; };
-		D77BD8BAA0D99FCE386C189A /* RoutesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4D9A2F2F5C22A6A0A56B02 /* RoutesListView.swift */; };
-		DBE68F91342C9DB9412717D8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D472F99BBE1CF5B13A0340D5 /* ContentView.swift */; };
-		E6AA21AE9369C2712DAE55DB /* NextDepartureWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2BF5C6CE64FC6622E4A89DA7 /* NextDepartureWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		F3FA071A2E4DDB9100091DE9 /* HomeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07182E4DDB9100091DE9 /* HomeMapView.swift */; };
-		F3FA071B2E4DDB9100091DE9 /* TicketDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07192E4DDB9100091DE9 /* TicketDetailsView.swift */; };
-		F3FA071E2E4DFDEE00091DE9 /* LiveTransitAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA071C2E4DFDEE00091DE9 /* LiveTransitAPI.swift */; };
-		F3FA071F2E4DFDEE00091DE9 /* TransitAPIProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA071D2E4DFDEE00091DE9 /* TransitAPIProvider.swift */; };
-		F3FA07282E4DFE2F00091DE9 /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07202E4DFE2F00091DE9 /* AppPreferences.swift */; };
-		F3FA07292E4DFE2F00091DE9 /* UserEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07252E4DFE2F00091DE9 /* UserEntity.swift */; };
-		F3FA072A2E4DFE2F00091DE9 /* RouteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07212E4DFE2F00091DE9 /* RouteRepository.swift */; };
-		F3FA072B2E4DFE2F00091DE9 /* TicketRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07232E4DFE2F00091DE9 /* TicketRepository.swift */; };
-		F3FA072C2E4DFE2F00091DE9 /* TicketEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07222E4DFE2F00091DE9 /* TicketEntity.swift */; };
-		F3FA072D2E4DFE2F00091DE9 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07262E4DFE2F00091DE9 /* UserRepository.swift */; };
-		F3FA072E2E4DFE2F00091DE9 /* TransportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07242E4DFE2F00091DE9 /* TransportModel.xcdatamodeld */; };
-		F3FA07332E4E041000091DE9 /* DisruptionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07302E4E041000091DE9 /* DisruptionMonitor.swift */; };
-		F3FA07342E4E041000091DE9 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA072F2E4E041000091DE9 /* AuthProvider.swift */; };
-		F3FA07352E4E041000091DE9 /* TransportModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07312E4E041000091DE9 /* TransportModel.xcdatamodeld */; };
-		F3FA07372E4E045C00091DE9 /* WidgetConfigView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07362E4E045C00091DE9 /* WidgetConfigView.swift */; };
-		F3FA07392E4E176E00091DE9 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA07382E4E176E00091DE9 /* OnboardingManager.swift */; };
-		F3FA073E2E4E179200091DE9 /* OnboardingFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA073A2E4E179200091DE9 /* OnboardingFlowView.swift */; };
-		F3FA073F2E4E179200091DE9 /* RoutePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA073D2E4E179200091DE9 /* RoutePreviewView.swift */; };
-		F3FA07402E4E179200091DE9 /* RoutePreviewDestinationSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA073C2E4E179200091DE9 /* RoutePreviewDestinationSearch.swift */; };
-		FED77CA8E6482FF2F3B6AC0F /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604DAB19703F2F3509A859A /* PersistenceController.swift */; };
+		F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62902E510ECF004CB01A /* TestRunner.swift */; };
+		F35F62922E510ECF004CB01A /* LocationServiceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */; };
+		F35F62932E510ECF004CB01A /* TestRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62902E510ECF004CB01A /* TestRunner.swift */; };
+		F35F62942E510ECF004CB01A /* LocationServiceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */; };
+		F35F62962E511327004CB01A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62952E511327004CB01A /* MapViewModel.swift */; };
+		F35F62972E511327004CB01A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62952E511327004CB01A /* MapViewModel.swift */; };
+		F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62A12E51134A004CB01A /* MapComponentValidator.swift */; };
+		F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62A12E51134A004CB01A /* MapComponentValidator.swift */; };
+		F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
+		F35F62C12E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
+		F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
+		F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
+		F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
+		F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
+		F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
+		F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
+		F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
+		F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
+		F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
+		F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
+		F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
+		F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
+		F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */; };
+		F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
+		F3FA08BE2E50FEEF00091DE9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AB2E50FEEF00091DE9 /* MainView.swift */; };
+		F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */; };
+		F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
+		F3FA08C22E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
+		F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
+		F3FA08C42E50FEEF00091DE9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088E2E50FEEF00091DE9 /* LocationService.swift */; };
+		F3FA08C62E50FEEF00091DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08932E50FEEF00091DE9 /* Constants.swift */; };
+		F3FA08C72E50FEEF00091DE9 /* TransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */; };
+		F3FA08C82E50FEEF00091DE9 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */; };
+		F3FA08C92E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */; };
+		F3FA08CA2E50FEEF00091DE9 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */; };
+		F3FA08CB2E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */; };
+		F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */; };
+		F3FA08CD2E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */; };
+		F3FA08CE2E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */; };
+		F3FA08CF2E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */; };
+		F3FA08D02E50FEEF00091DE9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */; };
+		F3FA08D12E50FEEF00091DE9 /* BackgroundRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */; };
+		F3FA08D22E50FEEF00091DE9 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */; };
+		F3FA08D32E50FEEF00091DE9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */; };
+		F3FA08D42E50FEEF00091DE9 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */; };
+		F3FA08D52E50FEEF00091DE9 /* EventKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */; };
+		F3FA08D62E50FEEF00091DE9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08822E50FEEF00091DE9 /* Route.swift */; };
+		F3FA08D72E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */; };
+		F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08892E50FEEF00091DE9 /* APIClient.swift */; };
+		F3FA08D92E50FEEF00091DE9 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08962E50FEEF00091DE9 /* SharedStore.swift */; };
+		F3FA08DA2E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
+		F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
+		F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
+		F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
+		F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
+		F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
+		F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
+		F3FA08E22E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */; };
+		F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
+		F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AB2E50FEEF00091DE9 /* MainView.swift */; };
+		F3FA08E52E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */; };
+		F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
+		F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
+		F3FA08E92E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
+		F3FA08EA2E50FEEF00091DE9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088E2E50FEEF00091DE9 /* LocationService.swift */; };
+		F3FA08EC2E50FEEF00091DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08932E50FEEF00091DE9 /* Constants.swift */; };
+		F3FA08ED2E50FEEF00091DE9 /* TransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */; };
+		F3FA08EE2E50FEEF00091DE9 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */; };
+		F3FA08EF2E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */; };
+		F3FA08F02E50FEEF00091DE9 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */; };
+		F3FA08F12E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */; };
+		F3FA08F22E50FEEF00091DE9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */; };
+		F3FA08F32E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */; };
+		F3FA08F42E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */; };
+		F3FA08F52E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */; };
+		F3FA08F62E50FEEF00091DE9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */; };
+		F3FA08F72E50FEEF00091DE9 /* BackgroundRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */; };
+		F3FA08F82E50FEEF00091DE9 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */; };
+		F3FA08F92E50FEEF00091DE9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */; };
+		F3FA08FA2E50FEEF00091DE9 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */; };
+		F3FA08FB2E50FEEF00091DE9 /* EventKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */; };
+		F3FA08FC2E50FEEF00091DE9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08822E50FEEF00091DE9 /* Route.swift */; };
+		F3FA08FD2E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */; };
+		F3FA08FE2E50FEEF00091DE9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08892E50FEEF00091DE9 /* APIClient.swift */; };
+		F3FA08FF2E50FEEF00091DE9 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08962E50FEEF00091DE9 /* SharedStore.swift */; };
+		F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
+		F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
+		F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F35F62AC2E51143C004CB01A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 020CCDA01B9EC3D11E391CBB;
+			remoteInfo = TrainViewer;
+		};
 		FF75CD8CAF9324B77540CD6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
@@ -59,7 +125,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E6AA21AE9369C2712DAE55DB /* NextDepartureWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,147 +132,267 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0816D83BB8514ED9647DA1B0 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		1604DAB19703F2F3509A859A /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
-		1B4D9A2F2F5C22A6A0A56B02 /* RoutesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesListView.swift; sourceTree = "<group>"; };
-		2BF5C6CE64FC6622E4A89DA7 /* NextDepartureWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NextDepartureWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		32A48ABC606200F562017086 /* RouteEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEntity.swift; sourceTree = "<group>"; };
-		376F2B4F9CE134BF48ED5D8C /* EditRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRouteView.swift; sourceTree = "<group>"; };
-		49931C6D56AD1524B9EAD5CD /* TransitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitAPI.swift; sourceTree = "<group>"; };
-		5A3A8F50BC2F576652B9E951 /* TrainViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		92DAC0BDCACB2301184D85B1 /* AddRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteView.swift; sourceTree = "<group>"; };
-		97D63AB86DD2FBF3AD741723 /* TransportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransportModel.xcdatamodel; sourceTree = "<group>"; };
-		A0E1E2E3E4E5E6E7E8E9EA11 /* RouteDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDestination.swift; sourceTree = "<group>"; };
-		A0F1F2F3F4F5F6F7F8F9FA01 /* SharedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedCache.swift; sourceTree = "<group>"; };
-		D472F99BBE1CF5B13A0340D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		EEA3A273031B05433C4AA656 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		F3FA07182E4DDB9100091DE9 /* HomeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMapView.swift; sourceTree = "<group>"; };
-		F3FA07192E4DDB9100091DE9 /* TicketDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketDetailsView.swift; sourceTree = "<group>"; };
-		F3FA071C2E4DFDEE00091DE9 /* LiveTransitAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTransitAPI.swift; sourceTree = "<group>"; };
-		F3FA071D2E4DFDEE00091DE9 /* TransitAPIProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitAPIProvider.swift; sourceTree = "<group>"; };
-		F3FA07202E4DFE2F00091DE9 /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
-		F3FA07212E4DFE2F00091DE9 /* RouteRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteRepository.swift; sourceTree = "<group>"; };
-		F3FA07222E4DFE2F00091DE9 /* TicketEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketEntity.swift; sourceTree = "<group>"; };
-		F3FA07232E4DFE2F00091DE9 /* TicketRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketRepository.swift; sourceTree = "<group>"; };
-		F3FA07252E4DFE2F00091DE9 /* UserEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEntity.swift; sourceTree = "<group>"; };
-		F3FA07262E4DFE2F00091DE9 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		F3FA07272E4DFE2F00091DE9 /* TransportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransportModel.xcdatamodel; sourceTree = "<group>"; };
-		F3FA072F2E4E041000091DE9 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
-		F3FA07302E4E041000091DE9 /* DisruptionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisruptionMonitor.swift; sourceTree = "<group>"; };
-		F3FA07322E4E041000091DE9 /* TransportModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TransportModel.xcdatamodel; sourceTree = "<group>"; };
-		F3FA07362E4E045C00091DE9 /* WidgetConfigView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetConfigView.swift; sourceTree = "<group>"; };
-		F3FA07382E4E176E00091DE9 /* OnboardingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
-		F3FA073A2E4E179200091DE9 /* OnboardingFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingFlowView.swift; sourceTree = "<group>"; };
-		F3FA073C2E4E179200091DE9 /* RoutePreviewDestinationSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewDestinationSearch.swift; sourceTree = "<group>"; };
-		F3FA073D2E4E179200091DE9 /* RoutePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutePreviewView.swift; sourceTree = "<group>"; };
-		FB29A8B12C750AA1FE724D9F /* NextDepartureWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextDepartureWidget.swift; sourceTree = "<group>"; };
+		F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NextDepartureWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F62882E510CCA004CB01A /* TrainViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceValidator.swift; sourceTree = "<group>"; };
+		F35F62902E510ECF004CB01A /* TestRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunner.swift; sourceTree = "<group>"; };
+		F35F62952E511327004CB01A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F35F62A12E51134A004CB01A /* MapComponentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponentValidator.swift; sourceTree = "<group>"; };
+		F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F62BE2E5116D9004CB01A /* TransitStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitStation.swift; sourceTree = "<group>"; };
+		F35F62CC2E51225E004CB01A /* BuildValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildValidator.swift; sourceTree = "<group>"; };
+		F35F62CD2E51225E004CB01A /* CompilationValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationValidator.swift; sourceTree = "<group>"; };
+		F35F62CE2E51225E004CB01A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F35F62CF2E51225E004CB01A /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F35F62D02E51225E004CB01A /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
+		F3FA087A2E50FEEF00091DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerApp.swift; sourceTree = "<group>"; };
+		F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsIntents.swift; sourceTree = "<group>"; };
+		F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDecoding.swift; sourceTree = "<group>"; };
+		F3FA08812E50FEEF00091DE9 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		F3FA08822E50FEEF00091DE9 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		F3FA08842E50FEEF00091DE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F3FA08862E50FEEF00091DE9 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		F3FA08892E50FEEF00091DE9 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoTransportAPI.swift; sourceTree = "<group>"; };
+		F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshService.swift; sourceTree = "<group>"; };
+		F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTransportAPI.swift; sourceTree = "<group>"; };
+		F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitService.swift; sourceTree = "<group>"; };
+		F3FA088E2E50FEEF00091DE9 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportAPI.swift; sourceTree = "<group>"; };
+		F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportAPIFactory.swift; sourceTree = "<group>"; };
+		F3FA08932E50FEEF00091DE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineCache.swift; sourceTree = "<group>"; };
+		F3FA08952E50FEEF00091DE9 /* SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModels.swift; sourceTree = "<group>"; };
+		F3FA08962E50FEEF00091DE9 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
+		F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsStore.swift; sourceTree = "<group>"; };
+		F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TrainViewer.xcodeproj; sourceTree = "<group>"; };
+		F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRouteViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		F3FA08A72E50FEEF00091DE9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteView.swift; sourceTree = "<group>"; };
+		F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRouteView.swift; sourceTree = "<group>"; };
+		F3FA08AB2E50FEEF00091DE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
+		F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAppIntent.swift; sourceTree = "<group>"; };
+		F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerWidget.swift; sourceTree = "<group>"; };
+		F3FA09012E51008500091DE9 /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F35F62A92E51143C004CB01A /* TrainViewerTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TrainViewerTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F35F62A52E51143C004CB01A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
 /* Begin PBXGroup section */
-		13611AFD39DE587A6AD9D180 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				92DAC0BDCACB2301184D85B1 /* AddRouteView.swift */,
-				376F2B4F9CE134BF48ED5D8C /* EditRouteView.swift */,
-				F3FA07182E4DDB9100091DE9 /* HomeMapView.swift */,
-				F3FA073B2E4E179200091DE9 /* Onboarding */,
-				F3FA073C2E4E179200091DE9 /* RoutePreviewDestinationSearch.swift */,
-				F3FA073D2E4E179200091DE9 /* RoutePreviewView.swift */,
-				F3FA07362E4E045C00091DE9 /* WidgetConfigView.swift */,
-				F3FA07192E4DDB9100091DE9 /* TicketDetailsView.swift */,
-				1B4D9A2F2F5C22A6A0A56B02 /* RoutesListView.swift */,
-				A0E1E2E3E4E5E6E7E8E9EA11 /* RouteDestination.swift */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		4BCCAA5CA7F43F02140944F4 /* Location */ = {
-			isa = PBXGroup;
-			children = (
-				0816D83BB8514ED9647DA1B0 /* LocationManager.swift */,
-			);
-			path = Location;
-			sourceTree = "<group>";
-		};
-		5DC655AABD5355981B6198A6 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				1604DAB19703F2F3509A859A /* PersistenceController.swift */,
-				32A48ABC606200F562017086 /* RouteEntity.swift */,
-				F3FA07202E4DFE2F00091DE9 /* AppPreferences.swift */,
-				F3FA07212E4DFE2F00091DE9 /* RouteRepository.swift */,
-				F3FA07382E4E176E00091DE9 /* OnboardingManager.swift */,
-				F3FA07222E4DFE2F00091DE9 /* TicketEntity.swift */,
-				F3FA072F2E4E041000091DE9 /* AuthProvider.swift */,
-				F3FA07302E4E041000091DE9 /* DisruptionMonitor.swift */,
-				F3FA07312E4E041000091DE9 /* TransportModel.xcdatamodeld */,
-				F3FA07232E4DFE2F00091DE9 /* TicketRepository.swift */,
-				F3FA07242E4DFE2F00091DE9 /* TransportModel.xcdatamodeld */,
-				F3FA07252E4DFE2F00091DE9 /* UserEntity.swift */,
-				F3FA07262E4DFE2F00091DE9 /* UserRepository.swift */,
-				A0F1F2F3F4F5F6F7F8F9FA01 /* SharedCache.swift */,
-				102DF236141D1C4F1D4F2927 /* TransportModel.xcdatamodeld */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		6E7C91A0C0720BC78607BF98 /* NextDepartureWidget */ = {
-			isa = PBXGroup;
-			children = (
-				FB29A8B12C750AA1FE724D9F /* NextDepartureWidget.swift */,
-			);
-			name = NextDepartureWidget;
-			path = Sources/NextDepartureWidget;
-			sourceTree = "<group>";
-		};
-		850008423095A01F92E2D514 /* TrainViewer */ = {
-			isa = PBXGroup;
-			children = (
-				EEA3A273031B05433C4AA656 /* App.swift */,
-				D472F99BBE1CF5B13A0340D5 /* ContentView.swift */,
-				4BCCAA5CA7F43F02140944F4 /* Location */,
-				5DC655AABD5355981B6198A6 /* Model */,
-				ABFC43F552438C43E8C1DE02 /* Networking */,
-				13611AFD39DE587A6AD9D180 /* Views */,
-			);
-			name = TrainViewer;
-			path = Sources/TrainViewer;
-			sourceTree = "<group>";
-		};
 		A1CCC79382C94D40D2ECDF60 = {
 			isa = PBXGroup;
 			children = (
-				6E7C91A0C0720BC78607BF98 /* NextDepartureWidget */,
-				850008423095A01F92E2D514 /* TrainViewer */,
-				E35236CE76604AFBB70655E5 /* Products */,
+				F3FA087C2E50FEEF00091DE9 /* App */,
+				F3FA087E2E50FEEF00091DE9 /* AppIntents */,
+				F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */,
+				F3FA08832E50FEEF00091DE9 /* Models */,
+				F3FA08842E50FEEF00091DE9 /* README.md */,
+				F3FA08922E50FEEF00091DE9 /* Services */,
+				F3FA08982E50FEEF00091DE9 /* Shared */,
+				F3FA089C2E50FEEF00091DE9 /* Sources */,
+				F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */,
+				F3FA08A52E50FEEF00091DE9 /* ViewModels */,
+				F3FA08AE2E50FEEF00091DE9 /* Views */,
+				F3FA08B22E50FEEF00091DE9 /* Widgets */,
+				F35F62A92E51143C004CB01A /* TrainViewerTests */,
+				F35F62872E510CCA004CB01A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		ABFC43F552438C43E8C1DE02 /* Networking */ = {
+		F35F62872E510CCA004CB01A /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				49931C6D56AD1524B9EAD5CD /* TransitAPI.swift */,
-				F3FA071C2E4DFDEE00091DE9 /* LiveTransitAPI.swift */,
-				F3FA071D2E4DFDEE00091DE9 /* TransitAPIProvider.swift */,
-			);
-			path = Networking;
-			sourceTree = "<group>";
-		};
-		E35236CE76604AFBB70655E5 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				2BF5C6CE64FC6622E4A89DA7 /* NextDepartureWidget.appex */,
-				5A3A8F50BC2F576652B9E951 /* TrainViewer.app */,
+				F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */,
+				F35F62882E510CCA004CB01A /* TrainViewer.app */,
+				F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F3FA073B2E4E179200091DE9 /* Onboarding */ = {
+		F35F62D12E51225E004CB01A /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				F3FA073A2E4E179200091DE9 /* OnboardingFlowView.swift */,
+				F35F62CE2E51225E004CB01A /* CoreDataStack.swift */,
+				F35F62CF2E51225E004CB01A /* RouteStore.swift */,
+				F35F62D02E51225E004CB01A /* RouteValidation.swift */,
 			);
-			path = Onboarding;
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F3FA087C2E50FEEF00091DE9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA087A2E50FEEF00091DE9 /* Info.plist */,
+				F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F3FA087E2E50FEEF00091DE9 /* AppIntents */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */,
+			);
+			path = AppIntents;
+			sourceTree = "<group>";
+		};
+		F3FA08832E50FEEF00091DE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */,
+				F35F62BE2E5116D9004CB01A /* TransitStation.swift */,
+				F3FA08812E50FEEF00091DE9 /* Place.swift */,
+				F3FA08822E50FEEF00091DE9 /* Route.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F3FA08872E50FEEF00091DE9 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA09012E51008500091DE9 /* RouteValidation.swift */,
+				F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */,
+				F3FA08862E50FEEF00091DE9 /* RouteStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F3FA08922E50FEEF00091DE9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08872E50FEEF00091DE9 /* Storage */,
+				F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */,
+				F3FA08892E50FEEF00091DE9 /* APIClient.swift */,
+				F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */,
+				F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */,
+				F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */,
+				F35F62CC2E51225E004CB01A /* BuildValidator.swift */,
+				F35F62CD2E51225E004CB01A /* CompilationValidator.swift */,
+				F35F62D12E51225E004CB01A /* Storage */,
+				F35F62902E510ECF004CB01A /* TestRunner.swift */,
+				F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */,
+				F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */,
+				F35F62A12E51134A004CB01A /* MapComponentValidator.swift */,
+				F3FA088E2E50FEEF00091DE9 /* LocationService.swift */,
+				F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */,
+				F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */,
+				F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3FA08982E50FEEF00091DE9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08932E50FEEF00091DE9 /* Constants.swift */,
+				F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */,
+				F3FA08952E50FEEF00091DE9 /* SharedModels.swift */,
+				F3FA08962E50FEEF00091DE9 /* SharedStore.swift */,
+				F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		F3FA089A2E50FEEF00091DE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3FA089B2E50FEEF00091DE9 /* TrainViewer */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA089A2E50FEEF00091DE9 /* Model */,
+			);
+			path = TrainViewer;
+			sourceTree = "<group>";
+		};
+		F3FA089C2E50FEEF00091DE9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA089B2E50FEEF00091DE9 /* TrainViewer */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F3FA08A52E50FEEF00091DE9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F35F62952E511327004CB01A /* MapViewModel.swift */,
+				F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */,
+				F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */,
+				F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */,
+				F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F3FA08A82E50FEEF00091DE9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */,
+				F3FA08A72E50FEEF00091DE9 /* ToastView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F3FA08AE2E50FEEF00091DE9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08A82E50FEEF00091DE9 /* Components */,
+				F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */,
+				F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */,
+				F3FA08AB2E50FEEF00091DE9 /* MainView.swift */,
+				F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */,
+				F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3FA08B02E50FEEF00091DE9 /* AppIntents */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */,
+			);
+			path = AppIntents;
+			sourceTree = "<group>";
+		};
+		F3FA08B22E50FEEF00091DE9 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08B02E50FEEF00091DE9 /* AppIntents */,
+				F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		F3FA08B32E50FEEF00091DE9 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,7 +412,7 @@
 			);
 			name = TrainViewer;
 			productName = TrainViewer;
-			productReference = 5A3A8F50BC2F576652B9E951 /* TrainViewer.app */;
+			productReference = F35F62882E510CCA004CB01A /* TrainViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		0A0F8E280A4E6772414A459B /* NextDepartureWidget */ = {
@@ -242,8 +427,31 @@
 			);
 			name = NextDepartureWidget;
 			productName = NextDepartureWidget;
-			productReference = 2BF5C6CE64FC6622E4A89DA7 /* NextDepartureWidget.appex */;
+			productReference = F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */;
 			productType = "com.apple.product-type.app-extension";
+		};
+		F35F62A72E51143C004CB01A /* TrainViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F35F62AE2E51143C004CB01A /* Build configuration list for PBXNativeTarget "TrainViewerTests" */;
+			buildPhases = (
+				F35F62A42E51143C004CB01A /* Sources */,
+				F35F62A52E51143C004CB01A /* Frameworks */,
+				F35F62A62E51143C004CB01A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F35F62AD2E51143C004CB01A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F35F62A92E51143C004CB01A /* TrainViewerTests */,
+			);
+			name = TrainViewerTests;
+			packageProductDependencies = (
+			);
+			productName = TrainViewerTests;
+			productReference = F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -252,10 +460,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					0A0F8E280A4E6772414A459B = {
 						ProvisioningStyle = Automatic;
+					};
+					F35F62A72E51143C004CB01A = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 020CCDA01B9EC3D11E391CBB;
 					};
 				};
 			};
@@ -268,51 +481,84 @@
 				en,
 			);
 			mainGroup = A1CCC79382C94D40D2ECDF60;
+			productRefGroup = F35F62872E510CCA004CB01A /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F3FA08B32E50FEEF00091DE9 /* Products */;
+					ProjectRef = F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				0A0F8E280A4E6772414A459B /* NextDepartureWidget */,
 				020CCDA01B9EC3D11E391CBB /* TrainViewer */,
+				F35F62A72E51143C004CB01A /* TrainViewerTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F35F62A62E51143C004CB01A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		701A9CA1DB147DDCC2DA92FA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C25F5F176D35582B5D6706F6 /* AddRouteView.swift in Sources */,
-				1D725DAE9C29E5243E45CF04 /* App.swift in Sources */,
-				DBE68F91342C9DB9412717D8 /* ContentView.swift in Sources */,
-				F3FA07372E4E045C00091DE9 /* WidgetConfigView.swift in Sources */,
-				4DD8B1CD07F71B265B805C60 /* EditRouteView.swift in Sources */,
-				2F02A6CD19E05B581B0A0A9E /* LocationManager.swift in Sources */,
-				FED77CA8E6482FF2F3B6AC0F /* PersistenceController.swift in Sources */,
-				5AEE698F0A3D7D27CE84AE3E /* RouteEntity.swift in Sources */,
-				F3FA071A2E4DDB9100091DE9 /* HomeMapView.swift in Sources */,
-				F3FA071B2E4DDB9100091DE9 /* TicketDetailsView.swift in Sources */,
-				D77BD8BAA0D99FCE386C189A /* RoutesListView.swift in Sources */,
-				956BCA149690787B3602238C /* TransitAPI.swift in Sources */,
-				198F4BC589C6E3E9DC5F4D3C /* TransportModel.xcdatamodeld in Sources */,
-				A0F1F2F3F4F5F6F7F8F9FA00 /* SharedCache.swift in Sources */,
-				A0E1E2E3E4E5E6E7E8E9EA10 /* RouteDestination.swift in Sources */,
-				F3FA07332E4E041000091DE9 /* DisruptionMonitor.swift in Sources */,
-				F3FA073E2E4E179200091DE9 /* OnboardingFlowView.swift in Sources */,
-				F3FA073F2E4E179200091DE9 /* RoutePreviewView.swift in Sources */,
-				F3FA07402E4E179200091DE9 /* RoutePreviewDestinationSearch.swift in Sources */,
-				F3FA07392E4E176E00091DE9 /* OnboardingManager.swift in Sources */,
-				F3FA07342E4E041000091DE9 /* AuthProvider.swift in Sources */,
-				F3FA07352E4E041000091DE9 /* TransportModel.xcdatamodeld in Sources */,
-				F3FA07282E4DFE2F00091DE9 /* AppPreferences.swift in Sources */,
-				F3FA07292E4DFE2F00091DE9 /* UserEntity.swift in Sources */,
-				F3FA072A2E4DFE2F00091DE9 /* RouteRepository.swift in Sources */,
-				F3FA072B2E4DFE2F00091DE9 /* TicketRepository.swift in Sources */,
-				F3FA072C2E4DFE2F00091DE9 /* TicketEntity.swift in Sources */,
-				F3FA072D2E4DFE2F00091DE9 /* UserRepository.swift in Sources */,
-				F3FA072E2E4DFE2F00091DE9 /* TransportModel.xcdatamodeld in Sources */,
-				F3FA071E2E4DFDEE00091DE9 /* LiveTransitAPI.swift in Sources */,
-				F3FA071F2E4DFDEE00091DE9 /* TransitAPIProvider.swift in Sources */,
+				F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
+				F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
+				F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
+				F35F62932E510ECF004CB01A /* TestRunner.swift in Sources */,
+				F35F62942E510ECF004CB01A /* LocationServiceValidator.swift in Sources */,
+				F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */,
+				F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
+				F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
+				F3FA08E22E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */,
+				F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */,
+				F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */,
+				F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */,
+				F3FA08E52E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */,
+				F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */,
+				F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */,
+				F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */,
+				F3FA08E92E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */,
+				F3FA08EA2E50FEEF00091DE9 /* LocationService.swift in Sources */,
+				F35F62962E511327004CB01A /* MapViewModel.swift in Sources */,
+				F3FA08EC2E50FEEF00091DE9 /* Constants.swift in Sources */,
+				F3FA08ED2E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
+				F3FA08EE2E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
+				F3FA08EF2E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
+				F3FA08F02E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
+				F3FA08F12E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
+				F3FA08F22E50FEEF00091DE9 /* NotificationService.swift in Sources */,
+				F3FA08F32E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
+				F3FA08F42E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */,
+				F3FA08F52E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */,
+				F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */,
+				F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */,
+				F3FA08F62E50FEEF00091DE9 /* SettingsView.swift in Sources */,
+				F3FA08F72E50FEEF00091DE9 /* BackgroundRefreshService.swift in Sources */,
+				F3FA08F82E50FEEF00091DE9 /* AnalyticsService.swift in Sources */,
+				F3FA08F92E50FEEF00091DE9 /* CoreDataStack.swift in Sources */,
+				F3FA08FA2E50FEEF00091DE9 /* EditRouteView.swift in Sources */,
+				F3FA08FB2E50FEEF00091DE9 /* EventKitService.swift in Sources */,
+				F3FA08FC2E50FEEF00091DE9 /* Route.swift in Sources */,
+				F35F62C12E5116DA004CB01A /* TransitStation.swift in Sources */,
+				F3FA08FD2E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */,
+				F3FA08FE2E50FEEF00091DE9 /* APIClient.swift in Sources */,
+				F3FA08FF2E50FEEF00091DE9 /* SharedStore.swift in Sources */,
+				F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +566,59 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01146ABCB3FDC67FCCEC2DB6 /* NextDepartureWidget.swift in Sources */,
+				F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
+				F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
+				F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
+				F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */,
+				F35F62922E510ECF004CB01A /* LocationServiceValidator.swift in Sources */,
+				F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */,
+				F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
+				F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
+				F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */,
+				F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */,
+				F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */,
+				F3FA08BE2E50FEEF00091DE9 /* MainView.swift in Sources */,
+				F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */,
+				F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */,
+				F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */,
+				F3FA08C22E50FEEF00091DE9 /* Place.swift in Sources */,
+				F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */,
+				F3FA08C42E50FEEF00091DE9 /* LocationService.swift in Sources */,
+				F35F62972E511327004CB01A /* MapViewModel.swift in Sources */,
+				F3FA08C62E50FEEF00091DE9 /* Constants.swift in Sources */,
+				F3FA08C72E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
+				F3FA08C82E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
+				F3FA08C92E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
+				F3FA08CA2E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
+				F3FA08CB2E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
+				F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */,
+				F3FA08CD2E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
+				F3FA08CE2E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */,
+				F3FA08CF2E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */,
+				F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */,
+				F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */,
+				F3FA08D02E50FEEF00091DE9 /* SettingsView.swift in Sources */,
+				F3FA08D12E50FEEF00091DE9 /* BackgroundRefreshService.swift in Sources */,
+				F3FA08D22E50FEEF00091DE9 /* AnalyticsService.swift in Sources */,
+				F3FA08D32E50FEEF00091DE9 /* CoreDataStack.swift in Sources */,
+				F3FA08D42E50FEEF00091DE9 /* EditRouteView.swift in Sources */,
+				F3FA08D52E50FEEF00091DE9 /* EventKitService.swift in Sources */,
+				F3FA08D62E50FEEF00091DE9 /* Route.swift in Sources */,
+				F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */,
+				F3FA08D72E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */,
+				F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */,
+				F3FA08D92E50FEEF00091DE9 /* SharedStore.swift in Sources */,
+				F3FA08DA2E50FEEF00091DE9 /* OfflineCache.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F35F62A42E51143C004CB01A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +629,11 @@
 			isa = PBXTargetDependency;
 			target = 0A0F8E280A4E6772414A459B /* NextDepartureWidget */;
 			targetProxy = FF75CD8CAF9324B77540CD6F /* PBXContainerItemProxy */;
+		};
+		F35F62AD2E51143C004CB01A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 020CCDA01B9EC3D11E391CBB /* TrainViewer */;
+			targetProxy = F35F62AC2E51143C004CB01A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -560,6 +863,60 @@
 			};
 			name = Debug;
 		};
+		F35F62AF2E51143C004CB01A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GG.TrainViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainViewer";
+			};
+			name = Debug;
+		};
+		F35F62B02E51143C004CB01A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GG.TrainViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainViewer";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -590,40 +947,16 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
+		F35F62AE2E51143C004CB01A /* Build configuration list for PBXNativeTarget "TrainViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F35F62AF2E51143C004CB01A /* Debug */,
+				F35F62B02E51143C004CB01A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		102DF236141D1C4F1D4F2927 /* TransportModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				97D63AB86DD2FBF3AD741723 /* TransportModel.xcdatamodel */,
-			);
-			currentVersion = 97D63AB86DD2FBF3AD741723 /* TransportModel.xcdatamodel */;
-			path = TransportModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		F3FA07242E4DFE2F00091DE9 /* TransportModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F3FA07272E4DFE2F00091DE9 /* TransportModel.xcdatamodel */,
-			);
-			currentVersion = F3FA07272E4DFE2F00091DE9 /* TransportModel.xcdatamodel */;
-			path = TransportModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-		F3FA07312E4E041000091DE9 /* TransportModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				F3FA07322E4E041000091DE9 /* TransportModel.xcdatamodel */,
-			);
-			currentVersion = F3FA07322E4E041000091DE9 /* TransportModel.xcdatamodel */;
-			path = TransportModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4BEE41D8E55C9F557353FE11 /* Project object */;
 }

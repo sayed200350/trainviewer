@@ -15,4 +15,8 @@ final class TransportAPIFactory {
             return AutoTransportAPI(primary: DBTransportAPI(provider: .db), fallback: DBTransportAPI(provider: .vbb))
         }
     }
+    
+    static func createAPI() -> TransportAPI {
+        return shared.make()
+    }
 }

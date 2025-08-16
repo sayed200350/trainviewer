@@ -1,17 +1,17 @@
 import Foundation
 
-enum AppConstants {
-    static let dbBaseURL = URL(string: "https://v6.db.transport.rest")!
-    static let vbbBaseURL = URL(string: "https://v5.vbb.transport.rest")!
+public enum AppConstants {
+    public static let dbBaseURL = URL(string: "https://v6.db.transport.rest")!
+    public static let vbbBaseURL = URL(string: "https://v5.vbb.transport.rest")!
 
-    static let defaultResultsCount: Int = 3
-    static let defaultWalkingSpeedMetersPerSecond: Double = 1.4
-    static let defaultPreparationBufferMinutes: Int = 3
+    public static let defaultResultsCount: Int = 3
+    public static let defaultWalkingSpeedMetersPerSecond: Double = 1.4
+    public static let defaultPreparationBufferMinutes: Int = 3
 
     // Change to your actual App Group if you enable it in both app and widget targets
-    static let appGroupIdentifier: String = "group.com.yourcompany.trainviewer"
+    public static let appGroupIdentifier: String = "group.com.yourcompany.trainviewer"
 
-    static let privacyPolicyURL = URL(string: "https://example.com/privacy")!
-    static let termsOfServiceURL = URL(string: "https://example.com/terms")!
-    static let supportEmail = "support@example.com"
+    public static let privacyPolicyURL = URL(string: "https://example.com/privacy")!
+    public static let termsOfServiceURL = URL(string: "https://example.com/terms")!
+    public static let supportEmail = "support@example.com"
 }

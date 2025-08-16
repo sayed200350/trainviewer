@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var campusResults: [Place] = []
     @State private var homeQuery: String = ""
     @State private var homeResults: [Place] = []
+    @State private var testResults: String?
     private let api = TransportAPIFactory.shared.make()
 
     var body: some View {
@@ -70,6 +71,18 @@ struct SettingsView: View {
                     }
                 }
 
+                #if DEBUG
+                Section(header: Text("Debug & Testing")) {
+                    Button("Run LocationService Tests") { runLocationServiceTests() }
+                    Button("Run All Tests") { runAllTests() }
+                    if let testResults = testResults {
+                        Text(testResults)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                #endif
+
                 Section(header: Text("Developer & Support")) {
                     Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
                     Button("Clear Offline Cache") { clearCache() }
@@ -102,15 +115,34 @@ struct SettingsView: View {
     }
 
     private func openReview() {
-        guard let url = URL(string: "itms-apps://itunes.apple.com/app/idXXXXXXXX?action=write-review") else { return }
-        UIApplication.shared.open(url)
+        // App Store review functionality - would be implemented in production
+        print("Open App Store review - not implemented in MVP")
     }
 
     private func reportIssue() {
-        let subject = "TrainViewer Support"
-        let body = "Please describe your issue here..."
-        let to = AppConstants.supportEmail
-        let encoded = "mailto:\(to)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? subject)&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? body)"
-        if let url = URL(string: encoded) { UIApplication.shared.open(url) }
+        // Email support functionality - would be implemented in production
+        print("Report issue via email - not implemented in MVP")
     }
+    
+    #if DEBUG
+    private func runLocationServiceTests() {
+        Task {
+            let report = TestRunner.runLocationServiceTests()
+            await MainActor.run {
+                testResults = "LocationService: \(report.passedTests)/\(report.totalTests) passed (\(String(format: "%.1f", report.successRate * 100))%)"
+            }
+        }
+    }
+    
+    private func runAllTests() {
+        Task {
+            let summary = TestRunner.runAllTests()
+            await MainActor.run {
+                testResults = summary
+            }
+            // Also print detailed results to console
+            TestRunner.printDetailedTestResults()
+        }
+    }
+    #endif
 }

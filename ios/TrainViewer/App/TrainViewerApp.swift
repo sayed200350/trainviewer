@@ -35,8 +35,8 @@ struct TrainViewerApp: App {
                             deepLinkRouteId = id
                         }
                     }
-                    .sheet(item: $deepLinkRouteId, onDismiss: { deepLinkRouteId = nil }) { id in
-                        if let route = routesVM.routes.first(where: { $0.id == id }) {
+                    .sheet(isPresented: .constant(deepLinkRouteId != nil), onDismiss: { deepLinkRouteId = nil }) {
+                        if let routeId = deepLinkRouteId, let route = routesVM.routes.first(where: { $0.id == routeId }) {
                             NavigationView { RouteDetailView(route: route) }
                                 .onAppear { AnalyticsService.shared.screen("RouteDetailView") }
                         } else {

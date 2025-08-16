@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 
 struct MainView: View {
     @EnvironmentObject var vm: RoutesViewModel

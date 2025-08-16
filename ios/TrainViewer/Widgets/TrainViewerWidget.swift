@@ -56,7 +56,6 @@ struct TrainViewerWidgetEntryView : View {
     }
 }
 
-@main
 struct TrainViewerWidget: Widget {
     let kind: String = "TrainViewerWidget"
 
