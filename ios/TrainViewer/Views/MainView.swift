@@ -112,15 +112,20 @@ struct RouteRow: View {
                     }
                 }
             }
-            if let first = status?.options.first {
-                HStack(spacing: 8) {
-                    Text("\(formattedTime(first.departure)) → \(formattedTime(first.arrival))")
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                    if let warnings = first.warnings, !warnings.isEmpty {
-                        Label("\(warnings.count)", systemImage: "exclamationmark.triangle.fill")
-                            .font(.caption)
-                            .foregroundColor(.orange)
+            // Show multiple upcoming departures
+            if let options = status?.options, !options.isEmpty {
+                VStack(alignment: .leading, spacing: 2) {
+                    ForEach(options.prefix(3), id: \.departure) { option in
+                        HStack(spacing: 8) {
+                            Text("\(formattedTime(option.departure)) → \(formattedTime(option.arrival))")
+                                .font(.subheadline)
+                                .foregroundColor(.secondary)
+                            if let warnings = option.warnings, !warnings.isEmpty {
+                                Label("\(warnings.count)", systemImage: "exclamationmark.triangle.fill")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                            }
+                        }
                     }
                 }
             } else {

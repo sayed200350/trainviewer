@@ -18,5 +18,5 @@ struct AppConstants {
     static let maxCacheAge: TimeInterval = 900 // 15 minutes
     
     /// Background task identifier
-    static let backgroundTaskIdentifier = "com.yourcompany.trainviewer.refresh"
+    static let backgroundTaskIdentifier = "com.trainviewer.refresh"
 }

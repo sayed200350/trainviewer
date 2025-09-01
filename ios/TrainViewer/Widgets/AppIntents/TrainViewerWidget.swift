@@ -12,25 +12,40 @@ struct RouteEntry: TimelineEntry {
 
 struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> RouteEntry {
-        RouteEntry(date: Date(), routeId: nil, routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
+        print("🔧 WIDGET: Provider.placeholder() called - Family: \(context.family)")
+        let entry = RouteEntry(date: Date(), routeId: nil, routeName: "Home → Uni", leaveInMinutes: 8, departure: Date().addingTimeInterval(600), arrival: Date().addingTimeInterval(3600))
+        print("🔧 WIDGET: Placeholder entry created: \(entry.routeName)")
+        return entry
     }
 
     func getSnapshot(in context: Context, completion: @escaping (RouteEntry) -> ()) {
+        print("🔧 WIDGET: Provider.getSnapshot() called - Family: \(context.family)")
+        print("🔧 WIDGET: Checking for snapshot in SharedStore...")
+
         if let snap = SharedStore.shared.loadSnapshot() {
-            completion(RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival))
+            print("✅ WIDGET: Found snapshot - Route: \(snap.routeName), Leave in: \(snap.leaveInMinutes)min")
+            let entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
+            completion(entry)
         } else {
+            print("⚠️ WIDGET: No snapshot found, using placeholder")
             completion(placeholder(in: context))
         }
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<RouteEntry>) -> ()) {
+        print("🔧 WIDGET: Provider.getTimeline() called - Family: \(context.family)")
+
         let entry: RouteEntry
         if let snap = SharedStore.shared.loadSnapshot() {
+            print("✅ WIDGET: Timeline using snapshot - Route: \(snap.routeName)")
             entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
         } else {
+            print("⚠️ WIDGET: Timeline using placeholder")
             entry = placeholder(in: context)
         }
+
         let next = Calendar.current.date(byAdding: .minute, value: 10, to: Date())!
+        print("🔧 WIDGET: Timeline created - Next update: \(next)")
         completion(Timeline(entries: [entry], policy: .after(next)))
     }
 }
@@ -46,7 +61,11 @@ struct TrainViewerWidgetEntryView : View {
             Text("\(time(entry.departure)) → \(time(entry.arrival))")
                 .font(.caption)
                 .foregroundColor(.secondary)
-        }.padding()
+        }
+        .padding()
+        .onAppear {
+            print("🔧 WIDGET: WidgetEntryView appeared - Route: \(entry.routeName), Leave in: \(entry.leaveInMinutes)min")
+        }
     }
 
     private func time(_ date: Date) -> String {
@@ -59,8 +78,13 @@ struct TrainViewerWidgetEntryView : View {
 struct TrainViewerWidget: Widget {
     let kind: String = "TrainViewerWidget"
 
+    init() {
+        print("🔧 WIDGET: TrainViewerWidget initialized")
+    }
+
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        print("🔧 WIDGET: Creating widget configuration")
+        return StaticConfiguration(kind: kind, provider: Provider()) { entry in
             TrainViewerWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Next Departure")

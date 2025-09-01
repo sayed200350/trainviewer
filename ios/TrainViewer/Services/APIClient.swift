@@ -106,9 +106,9 @@ actor RequestCoalescer {
         // Create new request task
         let task = Task<Data, Error> {
             defer {
-                Task { await self.removeRequest(key: key) }
+                Task { @MainActor in await self.removeRequest(key: key) }
             }
-            
+
             let (data, _) = try await makeRequest()
             return data
         }

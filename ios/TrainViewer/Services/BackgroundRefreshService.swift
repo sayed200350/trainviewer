@@ -7,7 +7,7 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
     static let shared = BackgroundRefreshService()
     private init() {}
 
-    static let taskIdentifier = "com.yourcompany.trainviewer.refresh"
+    static let taskIdentifier = "com.trainviewer.refresh"
 
     private var smartJourneyService: JourneyServiceProtocol?
     private var lastRefreshDate: Date?
@@ -184,6 +184,7 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
         print("🔄 [BackgroundRefreshService] Manual refresh triggered")
         await performRouteRefresh()
         lastRefreshDate = Date()
+        print("✅ [BackgroundRefreshService] Manual refresh completed")
     }
     
     // MARK: - Refresh Logic

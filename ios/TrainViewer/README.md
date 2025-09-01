@@ -39,9 +39,9 @@ No API key required. See `Shared/Constants.swift` to change providers.
    - Background Modes: Background fetch
    - Location Updates (optional if you want significant-change updates)
    - Push Notifications: not required (we use local notifications)
-   - App Groups: add one, e.g. `group.com.yourcompany.trainviewer`
+   - App Groups: add one, e.g. `group.com.trainviewer`
 4. Capabilities (Targets → TrainViewerWidget → Signing & Capabilities):
-   - App Groups: enable the same group `group.com.yourcompany.trainviewer`
+   - App Groups: enable the same group `group.com.trainviewer`
    - Widgets don’t need Location or Notifications
 5. Update `Shared/Constants.swift` with your App Group identifier.
 6. Info.plist keys (Targets → TrainViewer → Info):

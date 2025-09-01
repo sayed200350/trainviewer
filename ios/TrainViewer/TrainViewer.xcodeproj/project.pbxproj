@@ -88,10 +88,8 @@
 		F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
 		F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
 		F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
-		F3FA08E22E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */; };
 		F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
 		F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AB2E50FEEF00091DE9 /* MainView.swift */; };
-		F3FA08E52E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */; };
 		F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
 		F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
 		F3FA08E92E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
@@ -246,9 +244,9 @@
 				F3FA08982E50FEEF00091DE9 /* Shared */,
 				F3FA089C2E50FEEF00091DE9 /* Sources */,
 				F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */,
+				F3FA08B22E50FEEF00091DE9 /* Widgets */,
 				F3FA08A52E50FEEF00091DE9 /* ViewModels */,
 				F3FA08AE2E50FEEF00091DE9 /* Views */,
-				F3FA08B22E50FEEF00091DE9 /* Widgets */,
 				F35F62A92E51143C004CB01A /* TrainViewerTests */,
 				F35F62872E510CCA004CB01A /* Products */,
 			);
@@ -438,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */,
+				F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */,
 			);
 			path = AppIntents;
 			sourceTree = "<group>";
@@ -446,7 +445,6 @@
 			isa = PBXGroup;
 			children = (
 				F3FA08B02E50FEEF00091DE9 /* AppIntents */,
-				F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */,
 			);
 			path = Widgets;
 			sourceTree = "<group>";
@@ -582,11 +580,9 @@
 				F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */,
 				F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
 				F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
-				F3FA08E22E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */,
 				F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */,
 				F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */,
 				F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */,
-				F3FA08E52E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */,
 				F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */,
 				F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */,
 				F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */,

@@ -253,18 +253,54 @@ final class DBTransportAPI: TransportAPI {
         
         print("🚂 [DBTransportAPI] Raw journey options count: \(journeyOptions.count)")
         
-        // Filter and select the best option
-        let bestOption = selectBestJourneyOption(from: journeyOptions)
-        
-        if let best = bestOption {
-            print("🎯 [DBTransportAPI] Selected best option: \(best.departure) → \(best.arrival) (Line: \(best.lineName ?? "Unknown"), Total: \(best.totalMinutes)min)")
-            return [best]
-        } else {
-            print("⚠️ [DBTransportAPI] No suitable journey options found")
-            return []
-        }
+        // Filter out invalid options and return all valid upcoming options
+        let validOptions = selectValidJourneyOptions(from: journeyOptions)
+
+        print("🎯 [DBTransportAPI] Returning \(validOptions.count) valid journey options")
+        return validOptions
     }
     
+    /// Filters out invalid journey options and returns all valid ones
+    private func selectValidJourneyOptions(from options: [JourneyOption]) -> [JourneyOption] {
+        print("🎯 [DBTransportAPI] Filtering \(options.count) options for validity")
+
+        let validOptions = options.filter { option in
+            // 1. Filter out options with excessive delays (>30 minutes)
+            if let delay = option.delayMinutes, delay > 30 {
+                print("❌ [DBTransportAPI] Filtered out option with excessive delay: \(delay) minutes")
+                return false
+            }
+
+            // 2. Filter out options with unreasonable journey times (>4 hours for most journeys)
+            if option.totalMinutes > 240 {
+                print("❌ [DBTransportAPI] Filtered out option with unreasonable journey time: \(option.totalMinutes) minutes")
+                return false
+            }
+
+            // 3. Filter out options with severe warnings (using structured remark analysis)
+            if let warnings = option.warnings, !warnings.isEmpty {
+                // For now, allow options with warnings but you could filter based on severity
+                print("⚠️ [DBTransportAPI] Option has \(warnings.count) warnings")
+            }
+
+            // 4. Filter out past departures (more than 5 minutes ago)
+            let now = Date()
+            let timeSinceDeparture = now.timeIntervalSince(option.departure)
+            if timeSinceDeparture > 300 { // 5 minutes ago
+                print("❌ [DBTransportAPI] Filtered out past departure: \(option.departure)")
+                return false
+            }
+
+            return true
+        }
+
+        // Sort by departure time (earliest first)
+        let sortedOptions = validOptions.sorted { $0.departure < $1.departure }
+
+        print("✅ [DBTransportAPI] Found \(sortedOptions.count) valid journey options")
+        return sortedOptions
+    }
+
     /// Selects the best journey option based on multiple criteria
     private func selectBestJourneyOption(from options: [JourneyOption]) -> JourneyOption? {
         guard !options.isEmpty else { return nil }

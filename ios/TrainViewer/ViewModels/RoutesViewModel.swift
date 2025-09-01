@@ -114,12 +114,18 @@ final class RoutesViewModel: ObservableObject {
     }
 
     private func publishSnapshotIfAvailable() {
-        guard let firstRoute = routes.first, let status = statusByRouteId[firstRoute.id], let firstOption = status.options.first else { return }
+        print("🔧 MAIN: Checking if snapshot should be published...")
+        guard let firstRoute = routes.first, let status = statusByRouteId[firstRoute.id], let firstOption = status.options.first else {
+            print("⚠️ MAIN: Cannot publish snapshot - missing route data")
+            return
+        }
         let leave = status.leaveInMinutes ?? 0
         let snapshot = WidgetSnapshot(routeId: firstRoute.id, routeName: firstRoute.name, leaveInMinutes: leave, departure: firstOption.departure, arrival: firstOption.arrival)
+        print("🔧 MAIN: Publishing snapshot - Route: \(firstRoute.name), Leave in: \(leave)min")
         sharedStore.save(snapshot: snapshot)
         sharedStore.save(snapshot: snapshot, for: firstRoute.id)
         WidgetCenter.shared.reloadAllTimelines()
+        print("✅ MAIN: Snapshot published and widget timelines reloaded")
     }
 
     func computeStatus(for route: Route, options: [JourneyOption]) -> RouteStatus {

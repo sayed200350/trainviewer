@@ -9,7 +9,7 @@ public enum AppConstants {
     public static let defaultPreparationBufferMinutes: Int = 3
 
     // Change to your actual App Group if you enable it in both app and widget targets
-    public static let appGroupIdentifier: String = "group.com.yourcompany.trainviewer"
+    public static let appGroupIdentifier: String = "group.com.trainviewer"
 
     public static let privacyPolicyURL = URL(string: "https://example.com/privacy")!
     public static let termsOfServiceURL = URL(string: "https://example.com/terms")!
