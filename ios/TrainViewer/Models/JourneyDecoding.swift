@@ -48,21 +48,68 @@ struct DBRemark: Codable {
     let code: String?
     let text: String?
     let summary: String?
+    
+    init(type: String?, code: String?, text: String?, summary: String?) {
+        self.type = type
+        self.code = code
+        self.text = text
+        self.summary = summary
+    }
 }
 
 extension DBJourney {
     func toJourneyOption() -> JourneyOption? {
-        guard let first = legs.first else { return nil }
-        guard let last = legs.last else { return nil }
+        print("🔍 [JourneyDecoding] Converting DBJourney to JourneyOption")
+        print("🔍 [JourneyDecoding] Number of legs: \(legs.count)")
+        
+        guard let first = legs.first else { 
+            print("❌ [JourneyDecoding] No legs found")
+            return nil 
+        }
+        guard let last = legs.last else { 
+            print("❌ [JourneyDecoding] No last leg found")
+            return nil 
+        }
+        
+        print("🔍 [JourneyDecoding] First leg - Origin: \(first.origin.name ?? "Unknown"), Destination: \(first.destination.name ?? "Unknown")")
+        print("🔍 [JourneyDecoding] Last leg - Origin: \(last.origin.name ?? "Unknown"), Destination: \(last.destination.name ?? "Unknown")")
+        
         let dep = first.departure ?? first.plannedDeparture
         let arr = last.arrival ?? last.plannedArrival
-        guard let departure = dep, let arrival = arr else { return nil }
+        
+        print("🔍 [JourneyDecoding] Departure: \(dep?.description ?? "nil") (planned: \(first.plannedDeparture?.description ?? "nil"))")
+        print("🔍 [JourneyDecoding] Arrival: \(arr?.description ?? "nil") (planned: \(last.plannedArrival?.description ?? "nil"))")
+        
+        guard let departure = dep, let arrival = arr else { 
+            print("❌ [JourneyDecoding] Missing departure or arrival time")
+            return nil 
+        }
+        
         let delay = (first.departureDelay ?? 0) / 60
         let platform = first.departurePlatform ?? first.origin.platform ?? first.platform ?? legs.compactMap { $0.departurePlatform ?? $0.origin.platform ?? $0.platform }.first
         let lineName = first.line?.name
         let total = Int(arrival.timeIntervalSince(departure) / 60.0)
-        let warnings: [String] = legs.flatMap { $0.remarks ?? [] }.compactMap { $0.summary ?? $0.text }.uniqued()
-        return JourneyOption(departure: departure, arrival: arrival, lineName: lineName, platform: platform, delayMinutes: delay, totalMinutes: total, warnings: warnings.isEmpty ? nil : warnings)
+        
+        // Use structured remark parsing instead of simple text extraction
+        let remarkParser = RemarkParser()
+        let allRemarks = legs.flatMap { $0.remarks ?? [] }
+        let parsedRemarks = remarkParser.parseRemarks(allRemarks)
+        let warnings: [String] = parsedRemarks
+            .filter { $0.affectsJourney }
+            .map { $0.displayText }
+            .uniqued()
+        
+        print("🔍 [JourneyDecoding] Calculated values:")
+        print("🔍 [JourneyDecoding] - Delay: \(delay) minutes")
+        print("🔍 [JourneyDecoding] - Platform: \(platform ?? "Unknown")")
+        print("🔍 [JourneyDecoding] - Line: \(lineName ?? "Unknown")")
+        print("🔍 [JourneyDecoding] - Total journey time: \(total) minutes")
+        print("🔍 [JourneyDecoding] - Warnings: \(warnings)")
+        
+        let option = JourneyOption(departure: departure, arrival: arrival, lineName: lineName, platform: platform, delayMinutes: delay, totalMinutes: total, warnings: warnings.isEmpty ? nil : warnings, refreshToken: refreshToken)
+        
+        print("✅ [JourneyDecoding] Successfully created JourneyOption: \(departure) → \(arrival)")
+        return option
     }
 }
 

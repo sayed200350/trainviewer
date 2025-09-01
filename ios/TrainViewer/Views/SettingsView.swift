@@ -86,7 +86,15 @@ struct SettingsView: View {
                 Section(header: Text("Developer & Support")) {
                     Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
                     Button("Clear Offline Cache") { clearCache() }
-                    Button("Trigger Background Refresh") { BackgroundRefreshService.shared.schedule() }
+                    Button("Trigger Background Refresh") {
+                        #if APP_EXTENSION
+                        Task { await ExtensionBackgroundRefreshService.shared.triggerManualRefresh() }
+                        #else
+                        // For main app, we need to handle this differently since factory might not be available
+                        // This button will be disabled in main app for now
+                        print("Background refresh not available in this context")
+                        #endif
+                    }
                     Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
                     Link("Terms of Service", destination: AppConstants.termsOfServiceURL)
                     Button("Rate App") { openReview() }

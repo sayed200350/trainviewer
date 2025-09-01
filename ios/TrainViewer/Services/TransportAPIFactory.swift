@@ -8,11 +8,11 @@ final class TransportAPIFactory {
         let preference = UserSettingsStore.shared.providerPreference
         switch preference {
         case .db:
-            return DBTransportAPI(provider: .db)
+            return DBTransportAPI(provider: ProviderPreference.db)
         case .vbb:
-            return DBTransportAPI(provider: .vbb)
+            return DBTransportAPI(provider: ProviderPreference.vbb)
         case .auto:
-            return AutoTransportAPI(primary: DBTransportAPI(provider: .db), fallback: DBTransportAPI(provider: .vbb))
+            return AutoTransportAPI(primary: DBTransportAPI(provider: ProviderPreference.db), fallback: DBTransportAPI(provider: ProviderPreference.vbb))
         }
     }
     

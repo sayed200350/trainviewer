@@ -48,15 +48,22 @@ final class RoutesViewModel: ObservableObject {
     }
 
     func refreshAll() async {
+        print("🔄 [RoutesViewModel] Starting refreshAll for \(routes.count) routes")
         isRefreshing = true
         defer { isRefreshing = false }
         var usedCacheAny = false
+        
         await withTaskGroup(of: (UUID, RouteStatus?, Bool).self) { group in
             for route in routes {
+                print("🔄 [RoutesViewModel] Adding task for route: \(route.name)")
                 group.addTask { [weak self] in
                     guard let self = self else { return (route.id, nil, false) }
+                    
+                    print("🔄 [RoutesViewModel] Processing route: \(route.name)")
                     do {
                         let options = try await self.api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
+                        print("✅ [RoutesViewModel] Got \(options.count) options for route: \(route.name)")
+                        
                         await MainActor.run {
                             self.cache(options: options, for: route)
                         }
@@ -65,7 +72,10 @@ final class RoutesViewModel: ObservableObject {
                         }
                         return (route.id, status, false)
                     } catch {
+                        print("❌ [RoutesViewModel] API failed for route \(route.name): \(error)")
                         let cached = OfflineCache.shared.load(routeId: route.id) ?? []
+                        print("📦 [RoutesViewModel] Using \(cached.count) cached options for route: \(route.name)")
+                        
                         let status = await MainActor.run {
                             self.computeStatus(for: route, options: cached)
                         }
@@ -73,14 +83,20 @@ final class RoutesViewModel: ObservableObject {
                     }
                 }
             }
+            
             var newStatus: [UUID: RouteStatus] = [:]
             for await (id, status, usedCache) in group {
-                if let status = status { newStatus[id] = status }
+                if let status = status { 
+                    newStatus[id] = status
+                    print("✅ [RoutesViewModel] Status updated for route ID: \(id), leave in: \(status.leaveInMinutes ?? 0) minutes")
+                }
                 if usedCache { usedCacheAny = true }
             }
+            
             await MainActor.run {
                 statusByRouteId = newStatus
                 isOffline = usedCacheAny
+                print("🔄 [RoutesViewModel] Updated status for \(newStatus.count) routes, offline: \(usedCacheAny)")
                 publishSnapshotIfAvailable()
                 notifyIfDisruptions()
             }
@@ -106,10 +122,20 @@ final class RoutesViewModel: ObservableObject {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    private func computeStatus(for route: Route, options: [JourneyOption]) -> RouteStatus {
+    func computeStatus(for route: Route, options: [JourneyOption]) -> RouteStatus {
         let now = Date()
+        print("⏰ [RoutesViewModel] Computing status for route: \(route.name)")
+        print("⏰ [RoutesViewModel] Current time: \(now)")
+        print("⏰ [RoutesViewModel] Number of options: \(options.count)")
+        
         var leaveIn: Int? = nil
         if let first = options.first {
+            print("⏰ [RoutesViewModel] First departure: \(first.departure)")
+            print("⏰ [RoutesViewModel] First arrival: \(first.arrival)")
+            print("⏰ [RoutesViewModel] Line: \(first.lineName ?? "Unknown")")
+            print("⏰ [RoutesViewModel] Platform: \(first.platform ?? "Unknown")")
+            print("⏰ [RoutesViewModel] Delay: \(first.delayMinutes ?? 0) minutes")
+            
             let walkingMinutes = computeWalkingMinutes(to: route.origin)
             let baseBuffer = route.preparationBufferMinutes
             let examExtra = settings.examModeEnabled ? 5 : 0
@@ -117,16 +143,45 @@ final class RoutesViewModel: ObservableObject {
             let minutesUntilDeparture = Int(first.departure.timeIntervalSince(now) / 60)
             let minutesToLeave = minutesUntilDeparture - walkingMinutes - buffer
             leaveIn = max(0, minutesToLeave)
+            
+            print("⏰ [RoutesViewModel] Calculation breakdown:")
+            print("⏰ [RoutesViewModel] - Walking time: \(walkingMinutes) minutes")
+            print("⏰ [RoutesViewModel] - Base buffer: \(baseBuffer) minutes")
+            print("⏰ [RoutesViewModel] - Exam extra: \(examExtra) minutes")
+            print("⏰ [RoutesViewModel] - Total buffer: \(buffer) minutes")
+            print("⏰ [RoutesViewModel] - Minutes until departure: \(minutesUntilDeparture)")
+            print("⏰ [RoutesViewModel] - Minutes to leave: \(minutesToLeave)")
+            print("⏰ [RoutesViewModel] - Final leave in: \(leaveIn ?? 0) minutes")
+        } else {
+            print("⚠️ [RoutesViewModel] No journey options available")
         }
-        return RouteStatus(options: options, leaveInMinutes: leaveIn, lastUpdated: now)
+        
+        let status = RouteStatus(options: options, leaveInMinutes: leaveIn, lastUpdated: now)
+        print("✅ [RoutesViewModel] Status computed - Leave in: \(leaveIn ?? 0) minutes")
+        return status
     }
 
     private func computeWalkingMinutes(to place: Place) -> Int {
-        guard let dest = place.coordinate, let current = locationService.currentLocation else { return 0 }
+        print("🚶 [RoutesViewModel] Computing walking time to: \(place.name)")
+        
+        guard let dest = place.coordinate, let current = locationService.currentLocation else { 
+            print("⚠️ [RoutesViewModel] Missing location data - dest: \(place.coordinate != nil), current: \(locationService.currentLocation != nil)")
+            return 0 
+        }
+        
         let distance = current.distance(from: CLLocation(latitude: dest.latitude, longitude: dest.longitude))
         let speed = settings.nightModePreference ? AppConstants.defaultWalkingSpeedMetersPerSecond * 0.9 : AppConstants.defaultWalkingSpeedMetersPerSecond
         let seconds = distance / speed
-        return Int(ceil(seconds / 60.0))
+        let minutes = Int(ceil(seconds / 60.0))
+        
+        print("🚶 [RoutesViewModel] Walking calculation:")
+        print("🚶 [RoutesViewModel] - Current location: \(current.coordinate.latitude), \(current.coordinate.longitude)")
+        print("🚶 [RoutesViewModel] - Destination: \(dest.latitude), \(dest.longitude)")
+        print("🚶 [RoutesViewModel] - Distance: \(distance) meters")
+        print("🚶 [RoutesViewModel] - Walking speed: \(speed) m/s (night mode: \(settings.nightModePreference))")
+        print("🚶 [RoutesViewModel] - Walking time: \(seconds) seconds = \(minutes) minutes")
+        
+        return minutes
     }
 
     private func routeMatchingCampus() -> Route? {

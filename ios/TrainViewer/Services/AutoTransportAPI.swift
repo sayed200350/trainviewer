@@ -18,4 +18,9 @@ final class AutoTransportAPI: TransportAPI {
         do { return try await primary.nextJourneyOptions(from: from, to: to, results: results) }
         catch { return try await fallback.nextJourneyOptions(from: from, to: to, results: results) }
     }
+    
+    func refreshJourney(refreshToken: String) async throws -> JourneyOption? {
+        do { return try await primary.refreshJourney(refreshToken: refreshToken) }
+        catch { return try await fallback.refreshJourney(refreshToken: refreshToken) }
+    }
 }

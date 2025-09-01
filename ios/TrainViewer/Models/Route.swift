@@ -102,8 +102,9 @@ public struct JourneyOption: Identifiable, Hashable, Codable {
     public let delayMinutes: Int?
     public let totalMinutes: Int
     public let warnings: [String]?
+    public let refreshToken: String? // For realtime updates
     
-    public init(departure: Date, arrival: Date, lineName: String?, platform: String?, delayMinutes: Int?, totalMinutes: Int, warnings: [String]?) {
+    public init(departure: Date, arrival: Date, lineName: String?, platform: String?, delayMinutes: Int?, totalMinutes: Int, warnings: [String]?, refreshToken: String? = nil) {
         self.departure = departure
         self.arrival = arrival
         self.lineName = lineName
@@ -111,5 +112,11 @@ public struct JourneyOption: Identifiable, Hashable, Codable {
         self.delayMinutes = delayMinutes
         self.totalMinutes = totalMinutes
         self.warnings = warnings
+        self.refreshToken = refreshToken
+    }
+    
+    /// Check if this journey option can be refreshed
+    public var canRefresh: Bool {
+        return refreshToken != nil && !refreshToken!.isEmpty
     }
 }

@@ -6,7 +6,7 @@ struct TrainViewerApp: App {
     @State private var deepLinkRouteId: UUID?
 
     init() {
-        BackgroundRefreshService.shared.register()
+        BackgroundRefreshFactory.createService().register()
     }
 
     var body: some Scene {
@@ -22,7 +22,7 @@ struct TrainViewerApp: App {
                         LocationService.shared.requestAuthorization()
                         Task { _ = await NotificationService.shared.requestAuthorization() }
                         Task { _ = await EventKitService.shared.requestAccess() }
-                        BackgroundRefreshService.shared.schedule()
+                        BackgroundRefreshFactory.createService().schedule()
                         if let id = SharedStore.shared.takePendingRoute() {
                             deepLinkRouteId = id
                         }
