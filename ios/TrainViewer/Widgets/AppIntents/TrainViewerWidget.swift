@@ -40,7 +40,8 @@ struct Provider: TimelineProvider {
             print("✅ WIDGET: Timeline using snapshot - Route: \(snap.routeName)")
             entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
         } else {
-            print("⚠️ WIDGET: Timeline using placeholder")
+            print("⚠️ WIDGET: Timeline using placeholder - No snapshot data available")
+            print("🔧 WIDGET: Make sure to add routes in the main app first")
             entry = placeholder(in: context)
         }
 
