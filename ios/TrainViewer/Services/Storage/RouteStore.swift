@@ -44,6 +44,10 @@ final class RouteStore {
         entity.isFavorite = route.isFavorite
         entity.createdAt = route.createdAt
         entity.lastUsed = route.lastUsed
+        
+        // Enhanced properties for task 4
+        entity.customRefreshIntervalRaw = Int16(route.customRefreshInterval.rawValue)
+        entity.usageCount = Int32(route.usageCount)
 
         CoreDataStack.shared.save()
     }
@@ -71,6 +75,10 @@ final class RouteStore {
             entity.isFavorite = route.isFavorite
             entity.createdAt = route.createdAt
             entity.lastUsed = route.lastUsed
+            
+            // Update enhanced properties for task 4
+            entity.customRefreshIntervalRaw = Int16(route.customRefreshInterval.rawValue)
+            entity.usageCount = Int32(route.usageCount)
             
             CoreDataStack.shared.save()
         }
@@ -114,7 +122,65 @@ final class RouteStore {
         request.predicate = NSPredicate(format: "id == %@", routeId as CVarArg)
         if let entity = try? context.fetch(request).first {
             entity.lastUsed = Date()
+            entity.usageCount += 1
             CoreDataStack.shared.save()
+        }
+    }
+    
+    func toggleFavorite(routeId: UUID) {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.predicate = NSPredicate(format: "id == %@", routeId as CVarArg)
+        if let entity = try? context.fetch(request).first {
+            entity.isFavorite.toggle()
+            CoreDataStack.shared.save()
+        }
+    }
+    
+    func updateRefreshInterval(routeId: UUID, interval: RefreshInterval) {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.predicate = NSPredicate(format: "id == %@", routeId as CVarArg)
+        if let entity = try? context.fetch(request).first {
+            entity.customRefreshIntervalRaw = Int16(interval.rawValue)
+            CoreDataStack.shared.save()
+        }
+    }
+    
+    func fetchRouteStatistics() -> [RouteStatistics] {
+        let routes = fetchAll()
+        return routes.map { route in
+            RouteStatistics(
+                routeId: route.id,
+                usageCount: route.usageCount,
+                usageFrequency: route.usageFrequency,
+                lastUsed: route.lastUsed,
+                createdAt: route.createdAt,
+                averageDelayMinutes: nil, // Will be calculated from journey history in future tasks
+                reliabilityScore: 1.0 // Will be calculated from journey history in future tasks
+            )
+        }
+    }
+    
+    func fetchMostUsedRoutes(limit: Int = 5) -> [Route] {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.sortDescriptors = [NSSortDescriptor(key: "usageCount", ascending: false)]
+        request.fetchLimit = limit
+        do {
+            let entities = try context.fetch(request)
+            return entities.compactMap { $0.toModel() }
+        } catch {
+            return []
+        }
+    }
+    
+    func fetchRecentlyUsedRoutes(limit: Int = 5) -> [Route] {
+        let request = NSFetchRequest<RouteEntity>(entityName: "RouteEntity")
+        request.sortDescriptors = [NSSortDescriptor(key: "lastUsed", ascending: false)]
+        request.fetchLimit = limit
+        do {
+            let entities = try context.fetch(request)
+            return entities.compactMap { $0.toModel() }
+        } catch {
+            return []
         }
     }
 }
@@ -139,7 +205,9 @@ extension RouteEntity {
             color: routeColor,
             isFavorite: isFavorite,
             createdAt: createdAt,
-            lastUsed: lastUsed
+            lastUsed: lastUsed,
+            customRefreshInterval: customRefreshInterval,
+            usageCount: Int(usageCount)
         )
     }
 }

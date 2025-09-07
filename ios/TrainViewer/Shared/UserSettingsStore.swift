@@ -34,6 +34,11 @@ final class UserSettingsStore: ObservableObject {
     @Published var studentVerified: Bool { didSet { save() } }
     @Published var analyticsEnabled: Bool { didSet { save() } }
 
+    // Privacy and Journey History Settings
+    @Published var journeyTrackingEnabled: Bool { didSet { save() } }
+    @Published var anonymizedExportEnabled: Bool { didSet { save() } }
+    @Published var dataRetentionMonths: Int { didSet { save() } }
+
     @Published var campusPlace: Place? { didSet { save() } }
     @Published var homePlace: Place? { didSet { save() } }
 
@@ -47,6 +52,12 @@ final class UserSettingsStore: ObservableObject {
         self.nightModePreference = defaults.object(forKey: "settings.nightModePreference") as? Bool ?? false
         self.studentVerified = defaults.object(forKey: "settings.studentVerified") as? Bool ?? false
         self.analyticsEnabled = defaults.object(forKey: "settings.analyticsEnabled") as? Bool ?? false
+        
+        // Initialize privacy settings from UserDefaults directly
+        self.journeyTrackingEnabled = defaults.object(forKey: "journey_tracking_enabled") as? Bool ?? false
+        self.anonymizedExportEnabled = defaults.object(forKey: "anonymized_export_enabled") as? Bool ?? true
+        self.dataRetentionMonths = defaults.object(forKey: "data_retention_months") as? Int ?? 12
+        
         self.campusPlace = defaults.decode(key: "settings.campusPlace", default: Optional<Place>.none)
         self.homePlace = defaults.decode(key: "settings.homePlace", default: Optional<Place>.none)
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
@@ -60,10 +71,17 @@ final class UserSettingsStore: ObservableObject {
         defaults.set(nightModePreference, forKey: "settings.nightModePreference")
         defaults.set(studentVerified, forKey: "settings.studentVerified")
         defaults.set(analyticsEnabled, forKey: "settings.analyticsEnabled")
+        
+        // Save privacy settings
+        defaults.set(journeyTrackingEnabled, forKey: "journey_tracking_enabled")
+        defaults.set(anonymizedExportEnabled, forKey: "anonymized_export_enabled")
+        defaults.set(dataRetentionMonths, forKey: "data_retention_months")
+        
         defaults.encode(campusPlace, key: "settings.campusPlace")
         defaults.encode(homePlace, key: "settings.homePlace")
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
     }
+
 }
 
 private extension UserDefaults {

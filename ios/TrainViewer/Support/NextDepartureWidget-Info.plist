@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>NextDepartureWidget</string>
+	<string>TrainViewer Widgets</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,6 +22,10 @@
 	<dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>TrainViewerWidgetBundle</string>
 	</dict>
+	<key>NSSupportsLiveActivities</key>
+	<false/>
 </dict>
 </plist>

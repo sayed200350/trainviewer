@@ -22,29 +22,134 @@ final class RoutesViewModel: ObservableObject {
     @Published var isRefreshing: Bool = false
     @Published var nextClass: ClassSuggestion?
     @Published var isOffline: Bool = false
+    
+    // Enhanced properties for task 4
+    @Published private(set) var favoriteRoutes: [Route] = []
+    @Published private(set) var recentRoutes: [Route] = []
+    @Published private(set) var routeStatistics: [UUID: RouteStatistics] = [:]
+    @Published var isPerformanceOptimized: Bool = true
 
     private let store: RouteStore
     private let api: TransportAPI
     private let locationService: LocationService
     private let sharedStore: SharedStore
     private let settings: UserSettingsStore
+    private let journeyHistoryService: SimpleJourneyHistoryService?
 
-    init(store: RouteStore = RouteStore(), api: TransportAPI = TransportAPIFactory.shared.make(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared) {
+    init(store: RouteStore = RouteStore(), api: TransportAPI = TransportAPIFactory.shared.make(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared, journeyHistoryService: SimpleJourneyHistoryService? = SimpleJourneyHistoryService.shared) {
         self.store = store
         self.api = api
         self.locationService = locationService
         self.sharedStore = sharedStore
         self.settings = settings
+        self.journeyHistoryService = journeyHistoryService
     }
 
     func loadRoutes() {
         routes = store.fetchAll()
+        loadFavoriteRoutes()
+        loadRecentRoutes()
+        loadRouteStatistics()
         publishRouteSummaries()
+    }
+    
+    private func loadFavoriteRoutes() {
+        favoriteRoutes = store.fetchFavorites()
+    }
+    
+    private func loadRecentRoutes() {
+        recentRoutes = store.fetchRecentlyUsedRoutes()
+    }
+    
+    private func loadRouteStatistics() {
+        let stats = store.fetchRouteStatistics()
+        routeStatistics = Dictionary(uniqueKeysWithValues: stats.map { ($0.routeId, $0) })
     }
 
     func deleteRoute(at offsets: IndexSet) {
         for index in offsets { store.delete(routeId: routes[index].id) }
         loadRoutes()
+    }
+    
+    // Enhanced methods for task 4
+    func toggleFavorite(for route: Route) {
+        store.toggleFavorite(routeId: route.id)
+        loadRoutes()
+    }
+    
+    func reorderFavorites(_ routes: [Route]) {
+        // Update widget priorities based on new order
+        for (index, route) in routes.enumerated() {
+            var updatedRoute = route
+            updatedRoute.widgetPriority = index
+            store.update(route: updatedRoute)
+        }
+        loadRoutes()
+    }
+    
+    func updateUsageStatistics(for route: Route) {
+        store.markRouteAsUsed(routeId: route.id)
+        loadRouteStatistics()
+    }
+    
+    func updateRefreshInterval(for route: Route, interval: RefreshInterval) {
+        store.updateRefreshInterval(routeId: route.id, interval: interval)
+        loadRoutes()
+    }
+    
+    func getOptimalRefreshInterval(for route: Route) -> RefreshInterval {
+        // Get current usage frequency and suggest optimal refresh interval
+        let frequency = route.usageFrequency
+        
+        switch frequency {
+        case .daily:
+            return .twoMinutes // More frequent for daily routes
+        case .weekly:
+            return .fiveMinutes // Standard for weekly routes
+        case .monthly:
+            return .tenMinutes // Less frequent for monthly routes
+        case .rarely:
+            return .fifteenMinutes // Least frequent for rarely used routes
+        }
+    }
+    
+    func batchUpdateRoutes(_ routes: [Route]) async {
+        for route in routes {
+            store.update(route: route)
+        }
+        await MainActor.run {
+            loadRoutes()
+        }
+    }
+    
+    func getMostUsedRoutes(limit: Int = 5) -> [Route] {
+        return store.fetchMostUsedRoutes(limit: limit)
+    }
+    
+    func getRouteStatistics(for routeId: UUID) -> RouteStatistics? {
+        return routeStatistics[routeId]
+    }
+    
+    func suggestFavoriteRoutes() -> [Route] {
+        // Suggest routes that are used frequently but not marked as favorites
+        let frequentRoutes = routes.filter { route in
+            !route.isFavorite && 
+            (route.usageFrequency == .daily || route.usageFrequency == .weekly) &&
+            route.usageCount >= 3
+        }
+        return Array(frequentRoutes.prefix(3))
+    }
+    
+    /// Records a journey when a user selects a journey option
+    func recordJourneySelection(_ option: JourneyOption, for route: Route) async {
+        guard settings.journeyTrackingEnabled, let historyService = journeyHistoryService else { return }
+        
+        do {
+            try await historyService.recordJourneyFromOption(option, route: route)
+            print("✅ [RoutesViewModel] Recorded journey selection for route: \(route.name)")
+        } catch {
+            print("❌ [RoutesViewModel] Failed to record journey: \(error)")
+        }
     }
 
     func refreshAll() async {
@@ -58,6 +163,15 @@ final class RoutesViewModel: ObservableObject {
                 print("🔄 [RoutesViewModel] Adding task for route: \(route.name)")
                 group.addTask { [weak self] in
                     guard let self = self else { return (route.id, nil, false) }
+                    
+                    // Check if route should be refreshed based on adaptive logic
+                    let shouldRefresh = await self.shouldRefreshRoute(route)
+                    if !shouldRefresh {
+                        print("⏭️ [RoutesViewModel] Skipping refresh for route: \(route.name) (not needed yet)")
+                        // Return existing status if available
+                        let existingStatus = await MainActor.run { self.statusByRouteId[route.id] }
+                        return (route.id, existingStatus, false)
+                    }
                     
                     print("🔄 [RoutesViewModel] Processing route: \(route.name)")
                     do {
@@ -101,6 +215,50 @@ final class RoutesViewModel: ObservableObject {
                 notifyIfDisruptions()
             }
             await refreshClassSuggestion()
+        }
+    }
+    
+    /// Check if a route should be refreshed based on adaptive refresh logic
+    private func shouldRefreshRoute(_ route: Route) async -> Bool {
+        let adaptiveService = AdaptiveRefreshService.shared
+        
+        // Get last refresh time for this route
+        let lastRefresh = statusByRouteId[route.id]?.lastUpdated ?? Date.distantPast
+        
+        // Get next departure time if available
+        let nextDeparture = statusByRouteId[route.id]?.options.first?.departure
+        
+        return adaptiveService.shouldRefreshRoute(route, lastRefresh: lastRefresh, nextDeparture: nextDeparture)
+    }
+    
+    /// Refresh a specific route with adaptive timing
+    func refreshRoute(_ route: Route) async {
+        print("🔄 [RoutesViewModel] Refreshing specific route: \(route.name)")
+        
+        do {
+            let options = try await api.nextJourneyOptions(from: route.origin, to: route.destination, results: AppConstants.defaultResultsCount)
+            print("✅ [RoutesViewModel] Got \(options.count) options for route: \(route.name)")
+            
+            await MainActor.run {
+                cache(options: options, for: route)
+                let status = computeStatus(for: route, options: options)
+                statusByRouteId[route.id] = status
+                
+                // Update usage statistics
+                updateUsageStatistics(for: route)
+                
+                print("✅ [RoutesViewModel] Route \(route.name) refreshed successfully")
+            }
+        } catch {
+            print("❌ [RoutesViewModel] Failed to refresh route \(route.name): \(error)")
+            
+            // Fall back to cached data
+            let cached = OfflineCache.shared.load(routeId: route.id) ?? []
+            await MainActor.run {
+                let status = computeStatus(for: route, options: cached)
+                statusByRouteId[route.id] = status
+                isOffline = true
+            }
         }
     }
 

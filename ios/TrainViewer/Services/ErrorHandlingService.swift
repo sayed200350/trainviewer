@@ -4,6 +4,9 @@ import CoreLocation
 /// Enhanced error handling service for better user experience
 final class ErrorHandlingService {
     
+    // Integration with new enhanced error handling
+    private let errorRecoveryService = ErrorRecoveryService.shared
+    
     /// User-friendly error categories
     enum ErrorCategory {
         case networkConnection
@@ -155,6 +158,99 @@ final class ErrorHandlingService {
             allowCoordinateEntry: true,
             suggestedAlternatives: ["Central Station", "Main Station", "Airport"]
         )
+    }
+    
+    // MARK: - Enhanced Error Analysis and Recovery
+    
+    /// Enhanced error analysis with automatic recovery attempts
+    func analyzeAndRecoverError(_ error: Error) async -> (ErrorInfo, ErrorHandlingService.LegacyErrorRecoveryResult?) {
+        let errorInfo = analyzeError(error)
+        
+        // Convert to enhanced error if applicable
+        if let enhancedError = convertToEnhancedError(error) {
+            let recoveryResult: ErrorRecoveryResult = await errorRecoveryService.handleError(enhancedError)
+            
+            // Convert ErrorRecoveryResult to ErrorHandlingService.ErrorRecoveryResult
+            let convertedResult = convertRecoveryResult(recoveryResult, errorInfo: errorInfo)
+            return (errorInfo, convertedResult)
+        }
+        
+        return (errorInfo, nil)
+    }
+    
+    /// Convert ErrorRecoveryResult to ErrorHandlingService.LegacyErrorRecoveryResult
+    private func convertRecoveryResult(_ result: ErrorRecoveryResult, errorInfo: ErrorInfo) -> ErrorHandlingService.LegacyErrorRecoveryResult {
+        switch result {
+        case .recovered:
+            return .recovered
+        case .retryScheduled(after: _):
+            return .retryWithFallback(.forceFullReplanning)
+        case .userActionRequired(message: _):
+            return .requiresUserInput(errorInfo)
+        case .criticalFailure:
+            return .requiresUserInput(errorInfo)
+        case .partialRecovery(details: _):
+            return .retryWithFallback(.forceFullReplanning)
+        }
+    }
+    
+    /// Convert standard errors to enhanced errors for better handling
+    private func convertToEnhancedError(_ error: Error) -> EnhancedAppError? {
+        if let apiError = error as? APIError {
+            switch apiError {
+            case .rateLimited(let retryAfter):
+                return .apiRateLimited(retryAfter: retryAfter ?? 30.0)
+            case .network:
+                return .networkTimeout(retryAfter: 15.0)
+            case .requestFailed(let status, _) where status >= 500:
+                return .criticalServiceUnavailable(service: "Transport API")
+            case .decodingFailed:
+                return .dataCorruption(component: "API Response")
+            default:
+                return nil
+            }
+        }
+        
+        if let urlError = error as? URLError {
+            switch urlError.code {
+            case .timedOut:
+                return .networkTimeout(retryAfter: 10.0)
+            case .notConnectedToInternet:
+                return .criticalServiceUnavailable(service: "Network Connection")
+            default:
+                return nil
+            }
+        }
+        
+        if let locationError = error as? CLError {
+            switch locationError.code {
+            case .denied:
+                return .locationPermissionDenied
+            default:
+                return nil
+            }
+        }
+        
+        return nil
+    }
+    
+    /// Generate diagnostic report for support requests
+    func generateDiagnosticReport() -> DiagnosticInfo {
+        return errorRecoveryService.generateDiagnosticInfo()
+    }
+    
+    /// Schedule automatic retry with exponential backoff
+    func scheduleRetry(for operation: @escaping () async throws -> Void, after delay: TimeInterval) {
+        Task {
+            try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+            do {
+                try await operation()
+                print("✅ [ErrorHandlingService] Retry operation succeeded")
+            } catch {
+                print("❌ [ErrorHandlingService] Retry operation failed: \(error)")
+                // Could implement further retry logic here
+            }
+        }
     }
     
     // MARK: - Error Analysis and Categorization
@@ -410,7 +506,7 @@ extension ErrorHandlingService {
     func attemptRecovery(
         for error: Error,
         with context: ErrorRecoveryContext
-    ) async throws -> ErrorRecoveryResult {
+    ) async throws -> ErrorHandlingService.LegacyErrorRecoveryResult {
         
         let errorInfo = analyzeError(error)
         
@@ -424,7 +520,7 @@ extension ErrorHandlingService {
     private func attemptAutomaticRetry(
         errorInfo: ErrorInfo,
         context: ErrorRecoveryContext
-    ) async throws -> ErrorRecoveryResult {
+    ) async throws -> ErrorHandlingService.LegacyErrorRecoveryResult {
         
         if let delay = errorInfo.retryDelay {
             print("⏳ [ErrorHandlingService] Waiting \(delay)s before retry...")
@@ -454,7 +550,7 @@ extension ErrorHandlingService {
         case journeyRefresh
     }
     
-    enum ErrorRecoveryResult {
+    enum LegacyErrorRecoveryResult {
         case recovered
         case retryWithFallback(FallbackStrategy)
         case requiresUserInput(ErrorInfo)

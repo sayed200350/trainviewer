@@ -12,19 +12,23 @@ final class EditRouteViewModel: ObservableObject {
     @Published var selectedFrom: Place
     @Published var selectedTo: Place
     @Published var bufferMinutes: Int
+    @Published var refreshInterval: RefreshInterval
 
     private let api: TransportAPI
     private let store: RouteStore
     private let originalId: UUID
+    private let originalRoute: Route
 
     init(route: Route, api: TransportAPI = TransportAPIFactory.shared.make(), store: RouteStore = RouteStore()) {
         self.api = api
         self.store = store
         self.originalId = route.id
+        self.originalRoute = route
         self.routeName = route.name
         self.selectedFrom = route.origin
         self.selectedTo = route.destination
         self.bufferMinutes = route.preparationBufferMinutes
+        self.refreshInterval = route.customRefreshInterval
         self.fromQuery = route.origin.name
         self.toQuery = route.destination.name
     }
@@ -41,8 +45,12 @@ final class EditRouteViewModel: ObservableObject {
 
     func saveChanges() {
         let name = routeName.isEmpty ? "\(selectedFrom.name) → \(selectedTo.name)" : routeName
-        var updated = Route(id: originalId, name: name, origin: selectedFrom, destination: selectedTo)
+        var updated = originalRoute
+        updated.name = name
+        updated.origin = selectedFrom
+        updated.destination = selectedTo
         updated.preparationBufferMinutes = bufferMinutes
+        updated.customRefreshInterval = refreshInterval
         store.update(route: updated)
     }
 }

@@ -35,7 +35,7 @@ struct SelectRouteIntent: WidgetConfigurationIntent {
     static var description = IntentDescription("Choose a favorite route for the widget")
 
     @Parameter(title: "Route")
-    var route: RouteChoice?
+    var route: RouteChoice
 
     static var parameterSummary: some ParameterSummary {
         Summary("Show \(\.$route)")
@@ -51,11 +51,8 @@ struct RouteIntentProvider: AppIntentTimelineProvider {
     }
 
     func snapshot(for configuration: SelectRouteIntent, in context: Context) async -> RouteEntry {
-        guard let route = configuration.route else {
-            return placeholder(in: context)
-        }
-        let snap = SharedStore.shared.loadSnapshot(for: route.id)
-        return RouteEntry(date: Date(), routeId: route.id, routeName: snap?.routeName ?? route.name, leaveInMinutes: snap?.leaveInMinutes ?? 8, departure: snap?.departure ?? Date().addingTimeInterval(600), arrival: snap?.arrival ?? Date().addingTimeInterval(3600))
+        let snap = SharedStore.shared.loadSnapshot(for: configuration.route.id)
+        return RouteEntry(date: Date(), routeId: configuration.route.id, routeName: snap?.routeName ?? configuration.route.name, leaveInMinutes: snap?.leaveInMinutes ?? 8, departure: snap?.departure ?? Date().addingTimeInterval(600), arrival: snap?.arrival ?? Date().addingTimeInterval(3600))
     }
 
     func timeline(for configuration: SelectRouteIntent, in context: Context) async -> Timeline<RouteEntry> {
@@ -91,13 +88,8 @@ struct TrainViewerRouteEntryView : View {
 struct TrainViewerRouteWidget: Widget {
     let kind: String = "TrainViewerRouteWidget"
 
-    init() {
-        print("🔧 WIDGET: TrainViewerRouteWidget (AppIntent) initialized")
-    }
-
     var body: some WidgetConfiguration {
-        print("🔧 WIDGET: Creating Route widget configuration")
-        return AppIntentConfiguration(kind: kind, intent: SelectRouteIntent.self, provider: RouteIntentProvider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: SelectRouteIntent.self, provider: RouteIntentProvider()) { entry in
             TrainViewerRouteEntryView(entry: entry)
                 .widgetURL(URL(string: "trainviewer://route?id=\(entry.routeId?.uuidString ?? UUID().uuidString)"))
         }

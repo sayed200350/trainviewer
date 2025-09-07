@@ -130,29 +130,75 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
             return now.addingTimeInterval(300) // Wait at least 5 more minutes
         }
         
-        // Calculate based on current time and typical usage patterns
+        // Use adaptive refresh service for intelligent scheduling
+        let adaptiveService = AdaptiveRefreshService.shared
+        
+        // Get the most frequently used route to base timing on
+        // In a full implementation, this would get routes from storage
+        // For now, use default timing with battery and network awareness
+        let baseInterval = getBaseRefreshInterval()
+        let batteryMultiplier = getBatteryAwareMultiplier()
+        let networkMultiplier = getNetworkAwareMultiplier()
+        
+        let adaptiveInterval = baseInterval * batteryMultiplier * networkMultiplier
+        let finalInterval = max(300, min(3600, adaptiveInterval)) // 5 minutes to 1 hour bounds
+        
+        return now.addingTimeInterval(finalInterval)
+    }
+    
+    private func getBaseRefreshInterval() -> TimeInterval {
         let calendar = Calendar.current
-        let hour = calendar.component(.hour, from: now)
+        let hour = calendar.component(.hour, from: Date())
         
         // Refresh more frequently during commute hours
-        let refreshInterval: TimeInterval
         if (hour >= 6 && hour <= 9) || (hour >= 17 && hour <= 20) {
-            refreshInterval = 300 // 5 minutes during rush hour
+            return 300 // 5 minutes during rush hour
         } else if hour >= 5 && hour <= 23 {
-            refreshInterval = 900 // 15 minutes during active hours
+            return 900 // 15 minutes during active hours
         } else {
-            refreshInterval = 3600 // 1 hour during night hours
+            return 3600 // 1 hour during night hours
+        }
+    }
+    
+    private func getBatteryAwareMultiplier() -> Double {
+        let batteryLevel = UIDevice.current.batteryLevel
+        let batteryState = UIDevice.current.batteryState
+        
+        // If charging, no need to conserve battery
+        if batteryState == .charging || batteryState == .full {
+            return 1.0
         }
         
-        return now.addingTimeInterval(refreshInterval)
+        // Adjust based on battery level
+        if batteryLevel < 0.1 { // Less than 10%
+            return 3.0 // Much less frequent
+        } else if batteryLevel < 0.2 { // Less than 20%
+            return 2.0 // Less frequent
+        } else if batteryLevel < 0.3 { // Less than 30%
+            return 1.5 // Slightly less frequent
+        } else {
+            return 1.0 // Normal frequency
+        }
+    }
+    
+    private func getNetworkAwareMultiplier() -> Double {
+        // Simple network detection - in production would use more sophisticated detection
+        // For now, assume cellular usage increases interval
+        return 1.2 // Slightly less frequent to save data
     }
     
     private func calculateRouteSpecificRefreshTime(for route: Any) -> Date {
         let now = Date()
         
-        // For routes that are used regularly, predict when they'll be needed next
-        // This is a simplified heuristic - in a full implementation, you'd analyze usage patterns
+        // Use adaptive refresh service for route-specific timing
+        let adaptiveService = AdaptiveRefreshService.shared
         
+        // If we have a Route object, use its specific settings
+        if let routeObj = route as? Route {
+            return adaptiveService.getNextRefreshTime(for: routeObj, lastRefresh: lastRefreshDate ?? now)
+        }
+        
+        // Fallback to general route timing logic
         let calendar = Calendar.current
         let currentHour = calendar.component(.hour, from: now)
         let currentWeekday = calendar.component(.weekday, from: now)
@@ -174,8 +220,13 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
             nextUsageTime = now.addingTimeInterval(7200)
         }
         
-        // Refresh 10 minutes before predicted usage
-        return nextUsageTime.addingTimeInterval(-600)
+        // Apply battery and network awareness
+        let batteryMultiplier = getBatteryAwareMultiplier()
+        let networkMultiplier = getNetworkAwareMultiplier()
+        let adjustedInterval = 600 * batteryMultiplier * networkMultiplier // Base 10 minutes before usage
+        
+        // Refresh with adjusted interval before predicted usage
+        return nextUsageTime.addingTimeInterval(-adjustedInterval)
     }
     
     // MARK: - Manual Refresh Trigger

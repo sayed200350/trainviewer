@@ -8,7 +8,7 @@
   - Write unit tests for enhanced Route model and Core Data operations
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 1.5_
 
-- [ ] 2. Implement Semester Ticket Models and Secure Storage
+- [x] 2. Implement Semester Ticket Models and Secure Storage
   - Create SemesterTicket, University, and TransportZone model structs
   - Implement SemesterTicketStore using Keychain Services for secure storage
   - Add TicketFormat enum and QR code generation utilities

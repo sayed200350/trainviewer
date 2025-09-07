@@ -40,14 +40,49 @@ struct Provider: TimelineProvider {
             print("✅ WIDGET: Timeline using snapshot - Route: \(snap.routeName)")
             entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
         } else {
-            print("⚠️ WIDGET: Timeline using placeholder - No snapshot data available")
-            print("🔧 WIDGET: Make sure to add routes in the main app first")
+            print("⚠️ WIDGET: Timeline using placeholder")
             entry = placeholder(in: context)
         }
 
-        let next = Calendar.current.date(byAdding: .minute, value: 10, to: Date())!
-        print("🔧 WIDGET: Timeline created - Next update: \(next)")
+        // Calculate adaptive refresh interval based on route settings
+        let refreshInterval = calculateWidgetRefreshInterval(for: entry)
+        let next = Calendar.current.date(byAdding: .second, value: Int(refreshInterval), to: Date())!
+        print("🔧 WIDGET: Timeline created - Next update: \(next) (interval: \(refreshInterval)s)")
         completion(Timeline(entries: [entry], policy: .after(next)))
+    }
+    
+    private func calculateWidgetRefreshInterval(for entry: RouteEntry) -> TimeInterval {
+        // Default interval
+        var interval: TimeInterval = 600 // 10 minutes default
+        
+        // Try to get route-specific settings if we have a route ID
+        if let routeId = entry.routeId {
+            // Load route from storage to get custom refresh interval
+            if let route = loadRoute(by: routeId) {
+                // Use adaptive refresh service for intelligent widget refresh timing
+                let adaptiveService = AdaptiveRefreshService.shared
+                interval = adaptiveService.getAdaptiveRefreshInterval(for: route, nextDeparture: entry.departure)
+                
+                print("🔧 WIDGET: Using adaptive interval for route \(route.name): \(interval)s")
+            }
+        }
+        
+        // Apply widget-specific constraints
+        // Widgets should refresh less frequently than the main app to preserve battery
+        let widgetMultiplier = 1.5
+        interval *= widgetMultiplier
+        
+        // Ensure reasonable bounds for widgets (minimum 2 minutes, maximum 30 minutes)
+        interval = max(120, min(1800, interval))
+        
+        return interval
+    }
+    
+    private func loadRoute(by id: UUID) -> Route? {
+        // In a full implementation, this would load from Core Data or shared storage
+        // For now, return nil to use default timing
+        // This would need to be implemented with proper data access
+        return nil
     }
 }
 
