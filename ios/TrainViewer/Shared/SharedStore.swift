@@ -7,6 +7,7 @@ public final class SharedStore {
     private let snapshotKey = "widget_main_snapshot"
     private let perRoutePrefix = "widget_snapshot."
     private let routeSummariesKey = "route_summaries"
+    private let widgetRouteKey = "widget.selectedRouteId"
     private let campusKey = "settings.campusPlace"
     private let homeKey = "settings.homePlace"
     private let lastLocationLatKey = "lastLocation.lat"
@@ -74,6 +75,16 @@ public final class SharedStore {
     public func loadLastLocation() -> (lat: Double, lon: Double)? {
         guard let lat = defaults?.object(forKey: lastLocationLatKey) as? Double, let lon = defaults?.object(forKey: lastLocationLonKey) as? Double else { return nil }
         return (lat, lon)
+    }
+
+    // MARK: - Widget route selection
+    public func saveWidgetRoute(id: UUID) {
+        defaults?.set(id.uuidString, forKey: widgetRouteKey)
+    }
+
+    public func loadWidgetRoute() -> UUID? {
+        guard let str = defaults?.string(forKey: widgetRouteKey), let id = UUID(uuidString: str) else { return nil }
+        return id
     }
 
     // MARK: - Pending deep link

@@ -2,7 +2,7 @@ import Foundation
 
 /// Represents a journey option with departure, arrival, and transport details
 public struct JourneyOption: Identifiable, Codable, Hashable {
-    public let id = UUID()
+    public let id: UUID
     public let departure: Date
     public let arrival: Date
     public let lineName: String?
@@ -11,8 +11,12 @@ public struct JourneyOption: Identifiable, Codable, Hashable {
     public let totalMinutes: Int
     public let warnings: [String]?
     public let refreshToken: String?
+
+    // Add detailed journey information
+    public let legs: [JourneyLeg]?
     
     public init(
+        id: UUID = UUID(),
         departure: Date,
         arrival: Date,
         lineName: String? = nil,
@@ -20,8 +24,10 @@ public struct JourneyOption: Identifiable, Codable, Hashable {
         delayMinutes: Int? = nil,
         totalMinutes: Int,
         warnings: [String]? = nil,
-        refreshToken: String? = nil
+        refreshToken: String? = nil,
+        legs: [JourneyLeg]? = nil
     ) {
+        self.id = id
         self.departure = departure
         self.arrival = arrival
         self.lineName = lineName
@@ -30,6 +36,7 @@ public struct JourneyOption: Identifiable, Codable, Hashable {
         self.totalMinutes = totalMinutes
         self.warnings = warnings
         self.refreshToken = refreshToken
+        self.legs = legs
     }
     
     /// Whether this journey can be refreshed with real-time data
@@ -56,6 +63,6 @@ public struct JourneyOption: Identifiable, Codable, Hashable {
 // MARK: - Coding Keys
 extension JourneyOption {
     enum CodingKeys: String, CodingKey {
-        case departure, arrival, lineName, platform, delayMinutes, totalMinutes, warnings, refreshToken
+        case id, departure, arrival, lineName, platform, delayMinutes, totalMinutes, warnings, refreshToken, legs
     }
 }

@@ -119,7 +119,7 @@ actor RequestCoalescer {
             let data = try await task.value
             return try APIClient.decode(data: data, as: type)
         } catch {
-            await removeRequest(key: key)
+            removeRequest(key: key)
             throw error
         }
     }
@@ -256,7 +256,8 @@ final class APIClient {
         #if APP_EXTENSION
         let userAgent = "TrainViewer/1.0 (iOS; Extension) contact@trainviewer.app"
         #else
-        let userAgent = "TrainViewer/1.0 (iOS; \(UIDevice.current.systemVersion)) contact@trainviewer.app"
+        let systemVersion = UIDevice.current.systemVersion
+        let userAgent = "TrainViewer/1.0 (iOS; \(systemVersion)) contact@trainviewer.app"
         #endif
         request.setValue(userAgent, forHTTPHeaderField: "User-Agent")
         

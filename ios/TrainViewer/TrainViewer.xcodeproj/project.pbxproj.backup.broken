@@ -24,9 +24,15 @@
 		F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62A12E51134A004CB01A /* MapComponentValidator.swift */; };
 		F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
 		F35F62C12E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
+		F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
 		F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
 		F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
+		F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
 		F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
 		F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
 		F36206652E65D33F0095E161 /* JourneyServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */; };
 		F36206662E65D71C0095E161 /* BackgroundRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */; };
@@ -59,16 +65,6 @@
 		F39ED3502E6DCBA9006A91A6 /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED34E2E6DCBA9006A91A6 /* RemarkParser.swift */; };
 		F39ED3512E6DCBA9006A91A6 /* FinalJourneyHistoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED34D2E6DCBA9006A91A6 /* FinalJourneyHistoryTest.swift */; };
 		F39ED3522E6DCBA9006A91A6 /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED34E2E6DCBA9006A91A6 /* RemarkParser.swift */; };
-		F39ED44A2E6FD029006A91A6 /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4472E6FD029006A91A6 /* RouteCardView.swift */; };
-		F39ED44B2E6FD029006A91A6 /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4462E6FD029006A91A6 /* RecommendationsView.swift */; };
-		F39ED44C2E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */; };
-		F39ED44D2E6FD029006A91A6 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4452E6FD029006A91A6 /* AchievementView.swift */; };
-		F39ED44E2E6FD029006A91A6 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4482E6FD029006A91A6 /* SkeletonView.swift */; };
-		F39ED44F2E6FD029006A91A6 /* RouteCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4472E6FD029006A91A6 /* RouteCardView.swift */; };
-		F39ED4502E6FD029006A91A6 /* RecommendationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4462E6FD029006A91A6 /* RecommendationsView.swift */; };
-		F39ED4512E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */; };
-		F39ED4522E6FD029006A91A6 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4452E6FD029006A91A6 /* AchievementView.swift */; };
-		F39ED4532E6FD029006A91A6 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4482E6FD029006A91A6 /* SkeletonView.swift */; };
 		F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */; };
 		F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C22E6647150093525B /* ErrorPresentationService.swift */; };
 		F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */; };
@@ -170,6 +166,7 @@
 		F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
 		F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
 		F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
+		F35F62872E510CCA004CB01A /* NextDepartureWidget.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +193,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				F35F62872E510CCA004CB01A /* NextDepartureWidget.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +217,9 @@
 		F35F62BE2E5116D9004CB01A /* TransitStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitStation.swift; sourceTree = "<group>"; };
 		F35F62CC2E51225E004CB01A /* BuildValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildValidator.swift; sourceTree = "<group>"; };
 		F35F62CD2E51225E004CB01A /* CompilationValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationValidator.swift; sourceTree = "<group>"; };
+		F35F62CE2E51225E004CB01A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F35F62CF2E51225E004CB01A /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F35F62D02E51225E004CB01A /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
 		F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlingService.swift; sourceTree = "<group>"; };
 		F38C5AB52E528735000B70AC /* LocationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolver.swift; sourceTree = "<group>"; };
 		F38C5AB72E528735000B70AC /* SmartJourneyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartJourneyService.swift; sourceTree = "<group>"; };
@@ -233,11 +234,6 @@
 		F39257882E6DC2E300CB9D6A /* RefreshIntervalSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIntervalSettingsView.swift; sourceTree = "<group>"; };
 		F39ED34D2E6DCBA9006A91A6 /* FinalJourneyHistoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalJourneyHistoryTest.swift; sourceTree = "<group>"; };
 		F39ED34E2E6DCBA9006A91A6 /* RemarkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarkParser.swift; sourceTree = "<group>"; };
-		F39ED4452E6FD029006A91A6 /* AchievementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementView.swift; sourceTree = "<group>"; };
-		F39ED4462E6FD029006A91A6 /* RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendationsView.swift; sourceTree = "<group>"; };
-		F39ED4472E6FD029006A91A6 /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
-		F39ED4482E6FD029006A91A6 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
-		F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCommandsView.swift; sourceTree = "<group>"; };
 		F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedErrorHandling.swift; sourceTree = "<group>"; };
 		F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorIntegrationService.swift; sourceTree = "<group>"; };
 		F3AC48C22E6647150093525B /* ErrorPresentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationService.swift; sourceTree = "<group>"; };
@@ -356,6 +352,9 @@
 		F35F62D12E51225E004CB01A /* Storage */ = {
 			isa = PBXGroup;
 			children = (
+				F35F62CE2E51225E004CB01A /* CoreDataStack.swift */,
+				F35F62CF2E51225E004CB01A /* RouteStore.swift */,
+				F35F62D02E51225E004CB01A /* RouteValidation.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -528,11 +527,6 @@
 				F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */,
 				F39257872E6DC2E300CB9D6A /* LocationInfoView.swift */,
 				F39257882E6DC2E300CB9D6A /* RefreshIntervalSettingsView.swift */,
-				F39ED4452E6FD029006A91A6 /* AchievementView.swift */,
-				F39ED4462E6FD029006A91A6 /* RecommendationsView.swift */,
-				F39ED4472E6FD029006A91A6 /* RouteCardView.swift */,
-				F39ED4482E6FD029006A91A6 /* SkeletonView.swift */,
-				F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */,
 				F3FA08AB2E50FEEF00091DE9 /* MainView.swift */,
 				F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */,
 				F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */,
@@ -695,11 +689,6 @@
 				F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */,
 				F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */,
 				F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */,
-				F39ED44F2E6FD029006A91A6 /* RouteCardView.swift in Sources */,
-				F39ED4502E6FD029006A91A6 /* RecommendationsView.swift in Sources */,
-				F39ED4512E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */,
-				F39ED4522E6FD029006A91A6 /* AchievementView.swift in Sources */,
-				F39ED4532E6FD029006A91A6 /* SkeletonView.swift in Sources */,
 				F3AC48EF2E6821A30093525B /* MemoryMonitor.swift in Sources */,
 				F3AC48F02E6821A30093525B /* AppExtensionCompilationTest.swift in Sources */,
 				F3AC48F12E6821A30093525B /* PerformanceOptimizationCompilationTest.swift in Sources */,
@@ -735,7 +724,10 @@
 				F3FA08F32E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
 				F3FA08F42E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */,
 				F3FA08F52E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */,
 				F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */,
 				F3AC49002E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */,
 				F3AC49012E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */,
 				F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */,
@@ -776,11 +768,6 @@
 				F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
 				F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */,
 				F35F62922E510ECF004CB01A /* LocationServiceValidator.swift in Sources */,
-				F39ED44A2E6FD029006A91A6 /* RouteCardView.swift in Sources */,
-				F39ED44B2E6FD029006A91A6 /* RecommendationsView.swift in Sources */,
-				F39ED44C2E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */,
-				F39ED44D2E6FD029006A91A6 /* AchievementView.swift in Sources */,
-				F39ED44E2E6FD029006A91A6 /* SkeletonView.swift in Sources */,
 				F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */,
 				F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
 				F3AC48FE2E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */,
@@ -813,7 +800,10 @@
 				F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */,
 				F3FA08CD2E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
 				F3FA08CF2E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */,
 				F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */,
 				F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */,
 				F38C5ABD2E528735000B70AC /* CoreDataStack.swift in Sources */,
 				F38C5ABE2E528735000B70AC /* RouteStore.swift in Sources */,

@@ -22,12 +22,17 @@ struct Provider: TimelineProvider {
         print("🔧 WIDGET: Provider.getSnapshot() called - Family: \(context.family)")
         print("🔧 WIDGET: Checking for snapshot in SharedStore...")
 
-        if let snap = SharedStore.shared.loadSnapshot() {
-            print("✅ WIDGET: Found snapshot - Route: \(snap.routeName), Leave in: \(snap.leaveInMinutes)min")
-            let entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
-            completion(entry)
-        } else {
-            print("⚠️ WIDGET: No snapshot found, using placeholder")
+        do {
+            if let snap = SharedStore.shared.loadSnapshot() {
+                print("✅ WIDGET: Found snapshot - Route: \(snap.routeName), Leave in: \(snap.leaveInMinutes)min")
+                let entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
+                completion(entry)
+            } else {
+                print("⚠️ WIDGET: No snapshot found, using placeholder")
+                completion(placeholder(in: context))
+            }
+        } catch {
+            print("❌ WIDGET: Error accessing SharedStore: \(error.localizedDescription)")
             completion(placeholder(in: context))
         }
     }
@@ -36,11 +41,16 @@ struct Provider: TimelineProvider {
         print("🔧 WIDGET: Provider.getTimeline() called - Family: \(context.family)")
 
         let entry: RouteEntry
-        if let snap = SharedStore.shared.loadSnapshot() {
-            print("✅ WIDGET: Timeline using snapshot - Route: \(snap.routeName)")
-            entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
-        } else {
-            print("⚠️ WIDGET: Timeline using placeholder")
+        do {
+            if let snap = SharedStore.shared.loadSnapshot() {
+                print("✅ WIDGET: Timeline using snapshot - Route: \(snap.routeName)")
+                entry = RouteEntry(date: Date(), routeId: snap.routeId, routeName: snap.routeName, leaveInMinutes: snap.leaveInMinutes, departure: snap.departure, arrival: snap.arrival)
+            } else {
+                print("⚠️ WIDGET: Timeline using placeholder")
+                entry = placeholder(in: context)
+            }
+        } catch {
+            print("❌ WIDGET: Error accessing SharedStore: \(error.localizedDescription)")
             entry = placeholder(in: context)
         }
 
@@ -52,29 +62,27 @@ struct Provider: TimelineProvider {
     }
     
     private func calculateWidgetRefreshInterval(for entry: RouteEntry) -> TimeInterval {
-        // Default interval
+        // Default interval for widgets - keep it simple and battery-friendly
         var interval: TimeInterval = 600 // 10 minutes default
-        
-        // Try to get route-specific settings if we have a route ID
-        if let routeId = entry.routeId {
-            // Load route from storage to get custom refresh interval
-            if let route = loadRoute(by: routeId) {
-                // Use adaptive refresh service for intelligent widget refresh timing
-                let adaptiveService = AdaptiveRefreshService.shared
-                interval = adaptiveService.getAdaptiveRefreshInterval(for: route, nextDeparture: entry.departure)
-                
-                print("🔧 WIDGET: Using adaptive interval for route \(route.name): \(interval)s")
-            }
+
+        // For widgets, we use a simple time-based approach
+        let now = Date()
+        let timeUntilDeparture = entry.departure.timeIntervalSince(now)
+
+        // If departure is within 30 minutes, refresh more frequently
+        if timeUntilDeparture <= 1800 && timeUntilDeparture > 0 {
+            interval = 300 // 5 minutes
         }
-        
-        // Apply widget-specific constraints
-        // Widgets should refresh less frequently than the main app to preserve battery
-        let widgetMultiplier = 1.5
-        interval *= widgetMultiplier
-        
-        // Ensure reasonable bounds for widgets (minimum 2 minutes, maximum 30 minutes)
-        interval = max(120, min(1800, interval))
-        
+        // If departure is within 2 hours, refresh moderately
+        else if timeUntilDeparture <= 7200 && timeUntilDeparture > 0 {
+            interval = 600 // 10 minutes
+        }
+        // If departure is further away, refresh less frequently
+        else {
+            interval = 1800 // 30 minutes
+        }
+
+        print("🔧 WIDGET: Using simple interval: \(interval)s (departure in \(Int(timeUntilDeparture/60))min)")
         return interval
     }
     

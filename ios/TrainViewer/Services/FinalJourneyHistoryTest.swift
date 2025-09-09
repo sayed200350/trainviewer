@@ -45,31 +45,26 @@ final class FinalJourneyHistoryTest {
     func testAdvancedTypes() {
         print("🧪 Testing Advanced Journey History Types...")
         
-        // Test that we can create the advanced types if they're available
-        do {
-            let entry = JourneyHistoryEntry(
-                routeId: UUID(),
-                routeName: "Test Route",
-                departureTime: Date(),
-                arrivalTime: Date().addingTimeInterval(1800),
-                delayMinutes: 2
-            )
-            
-            let statistics = JourneyStatistics()
-            let timeRange = TimeRange.lastWeek
-            
-            print("✅ Journey History Entry: \(entry.routeName)")
-            print("✅ Journey Statistics: \(statistics.totalJourneys)")
-            print("✅ Time Range: \(timeRange.displayName)")
-            
-            // Test anonymized entry
-            let anonymized = AnonymizedHistoryEntry(from: entry)
-            print("✅ Anonymized Entry: \(anonymized.timeSlot)")
-            
-            print("🎉 All advanced type tests passed!")
-            
-        } catch {
-            print("⚠️ Advanced types not available, using simplified version")
-        }
+        // Test that we can create the advanced types
+        let entry = JourneyHistoryEntry(
+            routeId: UUID(),
+            routeName: "Test Route",
+            departureTime: Date(),
+            arrivalTime: Date().addingTimeInterval(1800),
+            delayMinutes: 2
+        )
+
+        let statistics = JourneyStatistics()
+        let timeRange = TimeRange.lastWeek
+
+        print("✅ Journey History Entry: \(entry.routeName)")
+        print("✅ Journey Statistics: \(statistics.totalJourneys)")
+        print("✅ Time Range: \(timeRange.displayName)")
+
+        // Test anonymized entry
+        let anonymized = AnonymizedHistoryEntry(from: entry)
+        print("✅ Anonymized Entry: \(anonymized.timeSlot)")
+
+        print("🎉 All advanced type tests passed!")
     }
 }

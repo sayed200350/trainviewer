@@ -141,11 +141,12 @@ final class DBTransportAPI: TransportAPI {
         print("🚂 [DBTransportAPI] Fetching journeys from \(from.name) to \(to.name)")
         print("🚂 [DBTransportAPI] Provider: \(provider)")
         print("🚂 [DBTransportAPI] Base URL: \(baseURL)")
+        print("🚂 [DBTransportAPI] Stopovers enabled: true")
         
         var components = URLComponents(url: baseURL.appendingPathComponent("journeys"), resolvingAgainstBaseURL: false)
         var items: [URLQueryItem] = [
             URLQueryItem(name: "results", value: String(results)),
-            URLQueryItem(name: "stopovers", value: "false"),
+            URLQueryItem(name: "stopovers", value: "true"),
             URLQueryItem(name: "remarks", value: "true"),
             URLQueryItem(name: "language", value: "en")
         ]

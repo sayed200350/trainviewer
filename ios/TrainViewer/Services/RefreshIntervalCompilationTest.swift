@@ -144,10 +144,6 @@ extension RefreshIntervalCompilationTest {
     static func runSafeTests() {
         let tester = RefreshIntervalCompilationTest()
         
-        do {
-            tester.runAllTests()
-        } catch {
-            print("❌ RefreshInterval compilation test failed: \(error)")
-        }
+        tester.runAllTests()
     }
 }

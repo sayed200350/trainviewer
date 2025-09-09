@@ -361,12 +361,13 @@ class MockTransportAPI: TransportAPI {
         ]
     }
 
-    func refreshJourney(with token: String) async throws -> [JourneyOption] {
+    func refreshJourney(refreshToken: String) async throws -> JourneyOption? {
         // Return mock refreshed journey options
-        return try await nextJourneyOptions(
+        let options = try await nextJourneyOptions(
             from: Place(rawId: "1", name: "A", latitude: nil, longitude: nil),
             to: Place(rawId: "2", name: "B", latitude: nil, longitude: nil),
             results: 1
         )
+        return options.first
     }
 }

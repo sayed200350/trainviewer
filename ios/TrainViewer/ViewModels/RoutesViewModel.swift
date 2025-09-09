@@ -1,12 +1,108 @@
 import Foundation
 import CoreLocation
 import WidgetKit
+import SwiftUI
+
+// MARK: - Shared Types
+/// Achievement badge types for route usage milestones
+public enum AchievementType: String, CaseIterable {
+    case firstUse = "First Journey"
+    case regularTraveler = "Regular Traveler"
+    case loyalCommuter = "Loyal Commuter"
+    case veteranExplorer = "Veteran Explorer"
+    case milestoneMaster = "Milestone Master"
+
+    public var iconName: String {
+        switch self {
+        case .firstUse: return "star.circle.fill"
+        case .regularTraveler: return "figure.walk.circle.fill"
+        case .loyalCommuter: return "crown.fill"
+        case .veteranExplorer: return "medal.fill"
+        case .milestoneMaster: return "trophy.fill"
+        }
+    }
+
+    public var color: Color {
+        switch self {
+        case .firstUse: return .accentGreen
+        case .regularTraveler: return .brandBlue
+        case .loyalCommuter: return .accentOrange
+        case .veteranExplorer: return .accentRed
+        case .milestoneMaster: return .accentGreen
+        }
+    }
+
+    public var description: String {
+        switch self {
+        case .firstUse: return "Your first journey with this route!"
+        case .regularTraveler: return "Used this route 10 times"
+        case .loyalCommuter: return "Used this route 50 times"
+        case .veteranExplorer: return "Used this route 100 times"
+        case .milestoneMaster: return "Used this route 250 times"
+        }
+    }
+
+    public func isEarned(by route: Route) -> Bool {
+        switch self {
+        case .firstUse: return route.usageCount >= 1
+        case .regularTraveler: return route.usageCount >= 10
+        case .loyalCommuter: return route.usageCount >= 50
+        case .veteranExplorer: return route.usageCount >= 100
+        case .milestoneMaster: return route.usageCount >= 250
+        }
+    }
+}
+
+/// Personalized route recommendations based on user behavior
+public struct RouteRecommendation: Identifiable {
+    public let id = UUID()
+    public let route: Route
+    public let reason: String
+    public let confidenceScore: Double // 0.0 to 1.0
+    public let confidenceLevel: Int // 1 to 5 stars
+    public let lastUsed: Date?
+    public let recommendationType: RecommendationType
+
+    public enum RecommendationType {
+        case frequent
+        case timeBased
+        case patternBased
+        case favorite
+        case reliable
+    }
+}
+
+public enum TimeOfDay: String, CaseIterable {
+    case morning = "Morning"
+    case afternoon = "Afternoon"
+    case evening = "Evening"
+    case now = "Right Now"
+
+    public var timeRange: (start: Int, end: Int) {
+        switch self {
+        case .morning: return (6, 12)
+        case .afternoon: return (12, 18)
+        case .evening: return (18, 24)
+        case .now: return (Calendar.current.component(.hour, from: Date()), Calendar.current.component(.hour, from: Date()) + 1)
+        }
+    }
+
+    public var icon: String {
+        switch self {
+        case .morning: return "sunrise.fill"
+        case .afternoon: return "sun.max.fill"
+        case .evening: return "sunset.fill"
+        case .now: return "clock.fill"
+        }
+    }
+}
 
 struct RouteStatus: Hashable {
     let options: [JourneyOption]
     let leaveInMinutes: Int?
     let lastUpdated: Date
 }
+
 
 struct ClassSuggestion: Hashable {
     let routeName: String
@@ -28,6 +124,8 @@ final class RoutesViewModel: ObservableObject {
     @Published private(set) var recentRoutes: [Route] = []
     @Published private(set) var routeStatistics: [UUID: RouteStatistics] = [:]
     @Published var isPerformanceOptimized: Bool = true
+    @Published var achievementToCelebrate: AchievementType?
+    @Published var showAchievementCelebration: Bool = false
 
     private let store: RouteStore
     private let api: TransportAPI
@@ -76,6 +174,11 @@ final class RoutesViewModel: ObservableObject {
         store.toggleFavorite(routeId: route.id)
         loadRoutes()
     }
+
+    func deleteRouteByObject(_ route: Route) {
+        store.delete(routeId: route.id)
+        loadRoutes()
+    }
     
     func reorderFavorites(_ routes: [Route]) {
         // Update widget priorities based on new order
@@ -88,8 +191,28 @@ final class RoutesViewModel: ObservableObject {
     }
     
     func updateUsageStatistics(for route: Route) {
+        let oldUsageCount = route.usageCount
         store.markRouteAsUsed(routeId: route.id)
         loadRouteStatistics()
+
+        // Check for new achievements
+        checkForNewAchievements(routeId: route.id, oldUsageCount: oldUsageCount)
+    }
+
+    private func checkForNewAchievements(routeId: UUID, oldUsageCount: Int) {
+        guard let route = routes.first(where: { $0.id == routeId }) else { return }
+
+        // Find newly earned achievements
+        for achievement in AchievementType.allCases {
+            if !achievement.isEarned(by: Route(id: route.id, name: route.name, origin: route.origin, destination: route.destination, preparationBufferMinutes: route.preparationBufferMinutes, walkingSpeedMetersPerSecond: route.walkingSpeedMetersPerSecond, isWidgetEnabled: route.isWidgetEnabled, widgetPriority: route.widgetPriority, color: route.color, isFavorite: route.isFavorite, createdAt: route.createdAt, lastUsed: route.lastUsed, customRefreshInterval: route.customRefreshInterval, usageCount: oldUsageCount)) &&
+               achievement.isEarned(by: route) {
+
+                // Trigger celebration
+                achievementToCelebrate = achievement
+                showAchievementCelebration = true
+                break // Only celebrate one achievement at a time
+            }
+        }
     }
     
     func updateRefreshInterval(for route: Route, interval: RefreshInterval) {
@@ -273,17 +396,190 @@ final class RoutesViewModel: ObservableObject {
 
     private func publishSnapshotIfAvailable() {
         print("🔧 MAIN: Checking if snapshot should be published...")
-        guard let firstRoute = routes.first, let status = statusByRouteId[firstRoute.id], let firstOption = status.options.first else {
+
+        // Try to use selected widget route first, fallback to first route
+        var selectedRoute: Route?
+
+        if let widgetRouteId = sharedStore.loadWidgetRoute(),
+           let route = routes.first(where: { $0.id == widgetRouteId }) {
+            selectedRoute = route
+            print("🔧 MAIN: Using selected widget route: \(route.name)")
+        } else if let firstRoute = routes.first {
+            selectedRoute = firstRoute
+            print("🔧 MAIN: Using first route as fallback: \(firstRoute.name)")
+        }
+
+        guard let route = selectedRoute,
+              let status = statusByRouteId[route.id],
+              let firstOption = status.options.first else {
             print("⚠️ MAIN: Cannot publish snapshot - missing route data")
             return
         }
+
         let leave = status.leaveInMinutes ?? 0
-        let snapshot = WidgetSnapshot(routeId: firstRoute.id, routeName: firstRoute.name, leaveInMinutes: leave, departure: firstOption.departure, arrival: firstOption.arrival)
-        print("🔧 MAIN: Publishing snapshot - Route: \(firstRoute.name), Leave in: \(leave)min")
+        // Calculate walking time (you can enhance this with actual location-based calculation)
+        let walkingTime = calculateWalkingTime(for: route)
+        let snapshot = WidgetSnapshot(routeId: route.id, routeName: route.name, leaveInMinutes: leave, departure: firstOption.departure, arrival: firstOption.arrival, walkingTime: walkingTime)
+        print("🔧 MAIN: Publishing snapshot - Route: \(route.name), Leave in: \(leave)min, Walking: \(walkingTime ?? 0)min")
         sharedStore.save(snapshot: snapshot)
-        sharedStore.save(snapshot: snapshot, for: firstRoute.id)
+        sharedStore.save(snapshot: snapshot, for: route.id)
         WidgetCenter.shared.reloadAllTimelines()
         print("✅ MAIN: Snapshot published and widget timelines reloaded")
+    }
+
+    // MARK: - Widget Route Selection
+    func selectRouteForWidget(routeId: UUID) {
+        print("🔧 MAIN: Selecting route for widget: \(routeId)")
+        sharedStore.saveWidgetRoute(id: routeId)
+        publishSnapshotIfAvailable() // Update widget immediately
+        print("✅ MAIN: Widget route selection saved")
+    }
+
+    func getSelectedWidgetRoute() -> Route? {
+        guard let routeId = sharedStore.loadWidgetRoute() else { return nil }
+        return routes.first(where: { $0.id == routeId })
+    }
+
+    private func calculateWalkingTime(for route: Route) -> Int {
+        // Simple walking time calculation based on route name
+        // You can enhance this with actual location-based calculations
+        if route.name.lowercased().contains("home") {
+            return 5 // 5 minutes to home station
+        } else if route.name.lowercased().contains("work") || route.name.lowercased().contains("office") {
+            return 8 // 8 minutes to work station
+        } else {
+            return 6 // Default 6 minutes
+        }
+    }
+
+    // MARK: - Journey Details with Stops
+    @Published var selectedJourneyDetails: JourneyDetails?
+    @Published var isLoadingJourneyDetails = false
+
+    func loadJourneyDetails(for journeyOption: JourneyOption) async {
+        isLoadingJourneyDetails = true
+        defer { isLoadingJourneyDetails = false }
+
+        do {
+            // Use real journey data from the JourneyOption
+            let journeyDetails = await createJourneyDetailsFromOption(journeyOption)
+            await MainActor.run {
+                selectedJourneyDetails = journeyDetails
+            }
+            print("✅ [RoutesViewModel] Successfully loaded journey details with \(journeyDetails.legs.count) legs")
+
+            // DEBUG: Log total stops across all legs
+            let totalStops = journeyDetails.legs.reduce(0) { $0 + $1.intermediateStops.count + 2 } // +2 for origin/destination
+            print("🎯 [RoutesViewModel] Total stops in journey: \(totalStops)")
+            print("🎯 [RoutesViewModel] Legs breakdown:")
+            for (index, leg) in journeyDetails.legs.enumerated() {
+                let stopsInLeg = leg.intermediateStops.count + 2 // +2 for origin/destination
+                print("🎯 [RoutesViewModel]   Leg \(index): \(stopsInLeg) stops (\(leg.intermediateStops.count) intermediate)")
+            }
+        } catch {
+            print("❌ [RoutesViewModel] Failed to load journey details: \(error)")
+        }
+    }
+
+    // DEBUG: Manual testing function for journey stops
+    func debugJourneyStops() {
+        print("🧪 [RoutesViewModel] DEBUG: Journey Stops Testing")
+        print("🧪 [RoutesViewModel] ===============================")
+
+        // Show expected API response structure
+        debugJourneyStopovers()
+
+        print("🧪 [RoutesViewModel] Current journey details available: \(selectedJourneyDetails != nil)")
+        if let details = selectedJourneyDetails {
+            print("🧪 [RoutesViewModel] Journey has \(details.legs.count) legs")
+            for (index, leg) in details.legs.enumerated() {
+                print("🧪 [RoutesViewModel] Leg \(index): \(leg.origin.name) → \(leg.destination.name)")
+                print("🧪 [RoutesViewModel]   Intermediate stops: \(leg.intermediateStops.count)")
+                if !leg.intermediateStops.isEmpty {
+                    print("🧪 [RoutesViewModel]   Stop details:")
+                    for (stopIndex, stop) in leg.intermediateStops.enumerated() {
+                        print("🧪 [RoutesViewModel]     \(stopIndex + 1). \(stop.name) (Platform: \(stop.platform ?? "N/A"))")
+                        if let arr = stop.scheduledArrival {
+                            print("🧪 [RoutesViewModel]        Arrival: \(arr.formatted())")
+                        }
+                        if let dep = stop.scheduledDeparture {
+                            print("🧪 [RoutesViewModel]        Departure: \(dep.formatted())")
+                        }
+                    }
+                } else {
+                    print("🧪 [RoutesViewModel]   No intermediate stops found")
+                }
+            }
+        } else {
+            print("🧪 [RoutesViewModel] No journey details loaded yet. Select a journey option first.")
+        }
+
+        print("🧪 [RoutesViewModel] ===============================")
+        print("🧪 [RoutesViewModel] If you see 'No intermediate stops found', the API may not be returning stopovers.")
+        print("🧪 [RoutesViewModel] Check the API logs above to verify stopovers=true is being sent.")
+    }
+
+    private func createJourneyDetailsFromOption(_ journeyOption: JourneyOption) async -> JourneyDetails {
+        // Use the real leg data from the JourneyOption if available, otherwise create a basic structure
+        let legsToUse: [JourneyLeg]
+
+        if let optionLegs = journeyOption.legs, !optionLegs.isEmpty {
+            // Use the real leg data from the API
+            legsToUse = optionLegs
+            print("🔧 [RoutesViewModel] Using real journey legs: \(optionLegs.count) legs")
+
+            // DEBUG: Log intermediate stops for each leg
+            for (index, leg) in optionLegs.enumerated() {
+                print("🔍 [RoutesViewModel] Leg \(index): \(leg.origin.name) → \(leg.destination.name)")
+                print("🔍 [RoutesViewModel] Intermediate stops: \(leg.intermediateStops.count)")
+                for (stopIndex, stop) in leg.intermediateStops.enumerated() {
+                    print("🔍 [RoutesViewModel]   Stop \(stopIndex): \(stop.name) at \(stop.scheduledArrival?.formatted() ?? "No time")")
+                }
+            }
+        } else {
+            // Fallback: create a basic single leg if no detailed leg information
+            let basicOrigin = StopInfo(
+                id: "origin",
+                name: "Origin Station",
+                platform: journeyOption.platform,
+                scheduledDeparture: journeyOption.departure,
+                actualDeparture: journeyOption.departure
+            )
+
+            let basicDestination = StopInfo(
+                id: "destination",
+                name: "Destination Station",
+                platform: nil,
+                scheduledArrival: journeyOption.arrival,
+                actualArrival: journeyOption.arrival
+            )
+
+            let basicLeg = JourneyLeg(
+                origin: basicOrigin,
+                destination: basicDestination,
+                intermediateStops: [],
+                departure: journeyOption.departure,
+                arrival: journeyOption.arrival,
+                lineName: journeyOption.lineName,
+                platform: journeyOption.platform,
+                direction: nil,
+                delayMinutes: journeyOption.delayMinutes
+            )
+
+            legsToUse = [basicLeg]
+            print("🔧 [RoutesViewModel] Using basic single leg (no detailed leg data available)")
+        }
+
+        // Calculate total stops (origin + destination + intermediate stops)
+        let totalStops = legsToUse.reduce(0) { $0 + $1.allStops.count }
+
+        return JourneyDetails(
+            id: journeyOption.id.uuidString,
+            journeyId: journeyOption.id.uuidString,
+            legs: legsToUse,
+            totalDuration: journeyOption.totalMinutes,
+            totalStops: totalStops
+        )
     }
 
     func computeStatus(for route: Route, options: [JourneyOption]) -> RouteStatus {
@@ -412,5 +708,125 @@ final class RoutesViewModel: ObservableObject {
         } else {
             nextClass = nil
         }
+    }
+
+    // MARK: - Personalized Recommendations
+    func generateRecommendations(for timeOfDay: TimeOfDay) -> [RouteRecommendation] {
+        var recommendations: [RouteRecommendation] = []
+
+        // Get routes with sufficient usage data
+        let eligibleRoutes = routes.filter { $0.usageCount >= 3 }
+
+        guard !eligibleRoutes.isEmpty else { return [] }
+
+        // 1. Favorite routes (highest priority)
+        let favoriteRecommendations = eligibleRoutes
+            .filter { $0.isFavorite }
+            .map { route in
+                RouteRecommendation(
+                    route: route,
+                    reason: "Your favorite route that you love",
+                    confidenceScore: 0.95,
+                    confidenceLevel: 5,
+                    lastUsed: route.lastUsed,
+                    recommendationType: .favorite
+                )
+            }
+        recommendations.append(contentsOf: favoriteRecommendations)
+
+        // 2. Time-based recommendations
+        let timeBasedRecommendations = generateTimeBasedRecommendations(for: timeOfDay, from: eligibleRoutes)
+        recommendations.append(contentsOf: timeBasedRecommendations)
+
+        // 3. Pattern-based recommendations (frequent routes)
+        let patternRecommendations = generatePatternBasedRecommendations(from: eligibleRoutes)
+        recommendations.append(contentsOf: patternRecommendations)
+
+        // 4. Reliability-based recommendations
+        let reliableRecommendations = generateReliabilityBasedRecommendations(from: eligibleRoutes)
+        recommendations.append(contentsOf: reliableRecommendations)
+
+        // Remove duplicates and sort by confidence
+        let uniqueRecommendations = Array(Set(recommendations.map { $0.route.id }).map { id in
+            recommendations.first { $0.route.id == id }!
+        })
+
+        return uniqueRecommendations
+            .sorted { $0.confidenceScore > $1.confidenceScore }
+            .prefix(5)
+            .map { $0 }
+    }
+
+    private func generateTimeBasedRecommendations(for timeOfDay: TimeOfDay, from routes: [Route]) -> [RouteRecommendation] {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        let timeRange = timeOfDay.timeRange
+
+        // Find routes typically used during this time period
+        return routes
+            .filter { route in
+                // Check if route is typically used during this time
+                let routeHour = Calendar.current.component(.hour, from: route.lastUsed)
+                return routeHour >= timeRange.start && routeHour < timeRange.end
+            }
+            .map { route in
+                let reason = timeOfDay == .now ?
+                    "Perfect timing for your usual schedule" :
+                    "You often travel during \(timeOfDay.rawValue.lowercased()) hours"
+
+                return RouteRecommendation(
+                    route: route,
+                    reason: reason,
+                    confidenceScore: 0.85,
+                    confidenceLevel: 4,
+                    lastUsed: route.lastUsed,
+                    recommendationType: .timeBased
+                )
+            }
+    }
+
+    private func generatePatternBasedRecommendations(from routes: [Route]) -> [RouteRecommendation] {
+        // Find routes with high usage frequency
+        return routes
+            .filter { $0.usageFrequency == .daily || $0.usageCount >= 20 }
+            .sorted { $0.usageCount > $1.usageCount }
+            .prefix(3)
+            .map { route in
+                let frequency = route.usageFrequency.rawValue
+                let reason = "Your most \(frequency) route with \(route.usageCount) trips"
+
+                return RouteRecommendation(
+                    route: route,
+                    reason: reason,
+                    confidenceScore: 0.80,
+                    confidenceLevel: 4,
+                    lastUsed: route.lastUsed,
+                    recommendationType: .patternBased
+                )
+            }
+            .map { $0 }
+    }
+
+    private func generateReliabilityBasedRecommendations(from routes: [Route]) -> [RouteRecommendation] {
+        // Find routes with good reliability scores
+        return routes
+            .filter { route in
+                if let stats = routeStatistics[route.id] {
+                    return stats.reliabilityScore >= 0.8
+                }
+                return false
+            }
+            .sorted { (routeStatistics[$0.id]?.reliabilityScore ?? 0) > (routeStatistics[$1.id]?.reliabilityScore ?? 0) }
+            .prefix(2)
+            .map { route in
+                RouteRecommendation(
+                    route: route,
+                    reason: "Highly reliable route with consistent performance",
+                    confidenceScore: 0.75,
+                    confidenceLevel: 4,
+                    lastUsed: route.lastUsed,
+                    recommendationType: .reliable
+                )
+            }
+            .map { $0 }
     }
 }

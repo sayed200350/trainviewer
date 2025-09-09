@@ -25,12 +25,12 @@ final class APIRequestBatcher {
     }
     
     // Batchable request wrapper
-    struct BatchableRequest {
+    struct BatchableRequest: Sendable {
         let id: UUID = UUID()
         let route: Route
         let priority: RequestPriority
         let requestedAt: Date = Date()
-        let completion: (Result<[JourneyOption], Error>) -> Void
+        let completion: @Sendable (Result<[JourneyOption], Error>) -> Void
         
         var isExpired: Bool {
             Date().timeIntervalSince(requestedAt) > 30.0 // 30 second timeout

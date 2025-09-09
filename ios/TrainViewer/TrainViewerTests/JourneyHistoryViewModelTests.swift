@@ -6,11 +6,17 @@ import Foundation
 
 protocol JourneyHistoryServiceProtocol {
     func fetchHistory(for timeRange: TimeRange) async throws -> [JourneyHistoryEntry]
+    func fetchHistory(for routeId: UUID, timeRange: TimeRange) async throws -> [JourneyHistoryEntry]
     func recordJourney(_ entry: JourneyHistoryEntry) async throws
+    func recordJourneyFromOption(_ option: JourneyOption, route: Route, wasSuccessful: Bool) async throws
     func generateStatistics(for timeRange: TimeRange) async throws -> JourneyStatistics
     func generateRouteStatistics(for routeId: UUID, timeRange: TimeRange) async throws -> JourneyStatistics
     func clearHistory() async throws
+    func clearAllHistory() async throws
     func exportData() async throws -> Data
+    func exportHistory() async throws -> Data
+    func exportAnonymizedHistory() async throws -> Data
+    func cleanupOldEntries() async throws
 }
 
 final class MockJourneyHistoryService: JourneyHistoryServiceProtocol {
@@ -130,6 +136,94 @@ class MockUserSettingsStore: UserSettingsStoreProtocol {
     var language: String = "en"
 }
 
+// MARK: - Wrapper Classes for Constructor Compatibility
+
+class JourneyHistoryServiceWrapper: JourneyHistoryService {
+    private let mock: JourneyHistoryServiceProtocol
+
+    init(mock: JourneyHistoryServiceProtocol) {
+        self.mock = mock
+        super.init(context: CoreDataStack(inMemory: true).context)
+    }
+
+    override func fetchHistory(for timeRange: TimeRange) async throws -> [JourneyHistoryEntry] {
+        return try await mock.fetchHistory(for: timeRange)
+    }
+
+    override func recordJourney(_ entry: JourneyHistoryEntry) async throws {
+        try await mock.recordJourney(entry)
+    }
+
+    override func generateStatistics(for timeRange: TimeRange) async throws -> JourneyStatistics {
+        return try await mock.generateStatistics(for: timeRange)
+    }
+
+    override func generateRouteStatistics(for routeId: UUID, timeRange: TimeRange) async throws -> JourneyStatistics {
+        return try await mock.generateRouteStatistics(for: routeId, timeRange: timeRange)
+    }
+
+    override func clearHistory() async throws {
+        try await mock.clearHistory()
+    }
+
+    override func exportData() async throws -> Data {
+        return try await mock.exportData()
+    }
+
+    override func fetchHistory(for routeId: UUID, timeRange: TimeRange) async throws -> [JourneyHistoryEntry] {
+        return try await mock.fetchHistory(for: routeId, timeRange: timeRange)
+    }
+
+    override func recordJourneyFromOption(_ option: JourneyOption, route: Route, wasSuccessful: Bool) async throws {
+        try await mock.recordJourneyFromOption(option, route: route, wasSuccessful: wasSuccessful)
+    }
+
+    override func clearAllHistory() async throws {
+        try await mock.clearAllHistory()
+    }
+
+    override func exportHistory() async throws -> Data {
+        return try await mock.exportHistory()
+    }
+
+    override func exportAnonymizedHistory() async throws -> Data {
+        return try await mock.exportAnonymizedHistory()
+    }
+
+    override func cleanupOldEntries() async throws {
+        try await mock.cleanupOldEntries()
+    }
+}
+
+class UserSettingsStoreWrapper: UserSettingsStore {
+    private let mock: UserSettingsStoreProtocol
+
+    init(mock: UserSettingsStoreProtocol) {
+        self.mock = mock
+        super.init()
+    }
+
+    override var refreshInterval: TimeInterval {
+        get { mock.refreshInterval }
+        set { /* Not needed for testing */ }
+    }
+
+    override var notificationsEnabled: Bool {
+        get { mock.notificationsEnabled }
+        set { /* Not needed for testing */ }
+    }
+
+    override var theme: String {
+        get { mock.theme }
+        set { /* Not needed for testing */ }
+    }
+
+    override var language: String {
+        get { mock.language }
+        set { /* Not needed for testing */ }
+    }
+}
+
 @MainActor
 struct JourneyHistoryViewModelTests {
     
@@ -137,8 +231,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel initializes with correct default values")
     func testInitialization() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         #expect(viewModel.historyEntries.isEmpty)
@@ -156,8 +249,7 @@ struct JourneyHistoryViewModelTests {
         UserDefaults.standard.removeObject(forKey: "journey_tracking_enabled")
         UserDefaults.standard.removeObject(forKey: "anonymized_export_enabled")
         
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Should default to true when no previous setting exists
@@ -169,8 +261,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel loads history successfully")
     func testLoadHistorySuccess() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Setup mock data
@@ -188,8 +279,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel handles load history error")
     func testLoadHistoryError() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         mockService.shouldThrowError = true
@@ -205,8 +295,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel skips loading when tracking disabled")
     func testLoadHistoryWhenTrackingDisabled() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.isTrackingEnabled = false
@@ -220,8 +309,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel loads route-specific history")
     func testLoadRouteSpecificHistory() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let routeId = UUID()
@@ -240,8 +328,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel loads route statistics")
     func testLoadRouteStatistics() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let route1 = createMockRoute(name: "Route 1")
@@ -262,8 +349,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel handles route statistics errors gracefully")
     func testLoadRouteStatisticsWithErrors() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let route = createMockRoute(name: "Error Route")
@@ -278,8 +364,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel records journey successfully")
     func testRecordJourney() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let entry = createMockJourneyHistoryEntry()
@@ -293,8 +378,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel skips recording when tracking disabled")
     func testRecordJourneyWhenTrackingDisabled() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.isTrackingEnabled = false
@@ -307,8 +391,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel records journey from option")
     func testRecordJourneyFromOption() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let option = createMockJourneyOption()
@@ -325,8 +408,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel exports history")
     func testExportHistory() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.isAnonymizedExportEnabled = false
@@ -340,8 +422,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel exports anonymized history")
     func testExportAnonymizedHistory() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.isAnonymizedExportEnabled = true
@@ -355,8 +436,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel clears history")
     func testClearHistory() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Setup initial data
@@ -374,8 +454,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel performs cleanup")
     func testPerformCleanup() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Setup old entries
@@ -394,8 +473,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel updates time range")
     func testUpdateTimeRange() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         await viewModel.updateTimeRange(TimeRange.lastWeek)
@@ -405,8 +483,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel updates route filter")
     func testUpdateRouteFilter() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let routeId = UUID()
@@ -417,8 +494,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel clears error")
     func testClearError() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.errorMessage = "Test error"
@@ -431,8 +507,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel groups entries by date")
     func testGroupedEntries() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let today = Date()
@@ -449,8 +524,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel provides recent entries")
     func testRecentEntries() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Create 15 entries
@@ -466,8 +540,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel creates statistics summary")
     func testStatisticsSummary() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         let stats = createMockStatistics(
@@ -495,8 +568,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel handles tracking consent")
     func testTrackingConsent() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         viewModel.isTrackingEnabled = true
@@ -510,8 +582,7 @@ struct JourneyHistoryViewModelTests {
     
     @Test("JourneyHistoryViewModel disables tracking and clears data")
     func testDisableTrackingAndClearData() async throws {
-        let mockService = MockJourneyHistoryService()
-        let mockSettings = MockUserSettingsStore()
+        let (mockService, mockSettings) = createWrappedServices()
         let viewModel = JourneyHistoryViewModel(historyService: mockService, settings: mockSettings)
         
         // Setup initial data
@@ -528,6 +599,12 @@ struct JourneyHistoryViewModelTests {
 // MARK: - Test Helpers
 
 extension JourneyHistoryViewModelTests {
+
+    private func createWrappedServices() -> (JourneyHistoryService, UserSettingsStore) {
+        let mockService = MockJourneyHistoryService()
+        let mockSettings = MockUserSettingsStore()
+        return (JourneyHistoryServiceWrapper(mock: mockService), UserSettingsStoreWrapper(mock: mockSettings))
+    }
     
     private func createMockJourneyHistoryEntry(
         routeId: UUID = UUID(),
