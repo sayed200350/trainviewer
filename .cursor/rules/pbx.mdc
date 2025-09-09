@@ -1,0 +1,5 @@
+---
+description: Do not make edits to the PBX project format.
+globs:
+alwaysApply: true
+---

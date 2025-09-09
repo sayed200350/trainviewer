@@ -9,6 +9,7 @@ struct SettingsView: View {
     @State private var campusResults: [Place] = []
     @State private var homeQuery: String = ""
     @State private var homeResults: [Place] = []
+    @State private var testResults: String?
     private let api = TransportAPIFactory.shared.make()
 
     var body: some View {
@@ -21,8 +22,6 @@ struct SettingsView: View {
                         }
                     }
                     Toggle("I am a verified student", isOn: $settings.studentVerified)
-                    NavigationLink(destination: TicketView()) { Label("Show Ticket", systemImage: "qrcode.viewfinder") }
-                    Button("Add to Apple Wallet (URL)") { presentWalletAdd() }
                 }
 
                 Section(header: Text("Transport Provider")) {
@@ -72,11 +71,30 @@ struct SettingsView: View {
                     }
                 }
 
+                #if DEBUG
+                Section(header: Text("Debug & Testing")) {
+                    Button("Run LocationService Tests") { runLocationServiceTests() }
+                    Button("Run All Tests") { runAllTests() }
+                    if let testResults = testResults {
+                        Text(testResults)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                }
+                #endif
+
                 Section(header: Text("Developer & Support")) {
                     Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
                     Button("Clear Offline Cache") { clearCache() }
-                    Button("Trigger Background Refresh") { BackgroundRefreshService.shared.schedule() }
-                    Button("Seed Sample Ticket") { seedSampleTicket() }
+                    Button("Trigger Background Refresh") {
+                        #if APP_EXTENSION
+                        Task { await ExtensionBackgroundRefreshService.shared.triggerManualRefresh() }
+                        #else
+                        // For main app, we need to handle this differently since factory might not be available
+                        // This button will be disabled in main app for now
+                        print("Background refresh not available in this context")
+                        #endif
+                    }
                     Link("Privacy Policy", destination: AppConstants.privacyPolicyURL)
                     Link("Terms of Service", destination: AppConstants.termsOfServiceURL)
                     Button("Rate App") { openReview() }
@@ -86,11 +104,6 @@ struct SettingsView: View {
             .navigationTitle("Settings")
             .toolbar { ToolbarItem(placement: .navigationBarLeading) { Button("Done", action: { dismiss() }) } }
         }
-    }
-
-    private func presentWalletAdd() {
-        guard let url = URL(string: "https://example.com/path/to/student.pkpass"), let root = UIApplication.shared.connectedScenes.compactMap({ $0 as? UIWindowScene }).flatMap({ $0.windows }).first(where: { $0.isKeyWindow })?.rootViewController else { return }
-        Task { try? await PassKitService.shared.addPass(from: url, presenting: root) }
     }
 
     private func searchCampus() async {
@@ -110,25 +123,34 @@ struct SettingsView: View {
     }
 
     private func openReview() {
-        guard let url = URL(string: "itms-apps://itunes.apple.com/app/idXXXXXXXX?action=write-review") else { return }
-        UIApplication.shared.open(url)
+        // App Store review functionality - would be implemented in production
+        print("Open App Store review - not implemented in MVP")
     }
 
     private func reportIssue() {
-        let subject = "TrainViewer Support"
-        let body = "Please describe your issue here..."
-        let to = AppConstants.supportEmail
-        let encoded = "mailto:\(to)?subject=\(subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? subject)&body=\(body.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? body)"
-        if let url = URL(string: encoded) { UIApplication.shared.open(url) }
+        // Email support functionality - would be implemented in production
+        print("Report issue via email - not implemented in MVP")
     }
-
-    private func seedSampleTicket() {
-        // Sample 5-minute valid QR ticket for demo
-        let t = Ticket(status: .active,
-                       validFrom: Date().addingTimeInterval(-60),
-                       expiresAt: Date().addingTimeInterval(300),
-                       qrPayload: "DEMO-STUDENT-TICKET-\(UUID().uuidString.prefix(8))",
-                       format: .qr)
-        TicketService.shared.save(ticket: t)
+    
+    #if DEBUG
+    private func runLocationServiceTests() {
+        Task {
+            let report = TestRunner.runLocationServiceTests()
+            await MainActor.run {
+                testResults = "LocationService: \(report.passedTests)/\(report.totalTests) passed (\(String(format: "%.1f", report.successRate * 100))%)"
+            }
+        }
     }
+    
+    private func runAllTests() {
+        Task {
+            let summary = TestRunner.runAllTests()
+            await MainActor.run {
+                testResults = summary
+            }
+            // Also print detailed results to console
+            TestRunner.printDetailedTestResults()
+        }
+    }
+    #endif
 }

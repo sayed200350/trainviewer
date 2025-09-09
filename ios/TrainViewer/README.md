@@ -1,17 +1,3 @@
-# TrainViewer (iOS)
-
-## Student Ticket (MVP)
-- Ticket model stored securely in Keychain via `TicketService`
-- `TicketView` renders QR/Aztec, uses Face ID and boosts screen brightness
-- Add to Wallet support via `PassKitService` (URL-based)
-- Entry points:
-  - Main list: "Show Ticket" row
-  - Settings: "Show Ticket" link and "Add to Apple Wallet" button
-  - Deep link: `trainviewer://show-ticket`
-  - App Intent: "Show Student Ticket"
-
-Note: Configure URL scheme `trainviewer` in the app target and add Wallet capability if using PassKit.
-
 # TrainViewer iOS App
 
 A SwiftUI iOS app that shows real-time German public transport departures for your saved routes, with optional widgets and notifications.
@@ -53,9 +39,9 @@ No API key required. See `Shared/Constants.swift` to change providers.
    - Background Modes: Background fetch
    - Location Updates (optional if you want significant-change updates)
    - Push Notifications: not required (we use local notifications)
-   - App Groups: add one, e.g. `group.com.yourcompany.trainviewer`
+   - App Groups: add one, e.g. `group.com.trainviewer`
 4. Capabilities (Targets → TrainViewerWidget → Signing & Capabilities):
-   - App Groups: enable the same group `group.com.yourcompany.trainviewer`
+   - App Groups: enable the same group `group.com.trainviewer`
    - Widgets don’t need Location or Notifications
 5. Update `Shared/Constants.swift` with your App Group identifier.
 6. Info.plist keys (Targets → TrainViewer → Info):

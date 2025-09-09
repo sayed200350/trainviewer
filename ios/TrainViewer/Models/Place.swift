@@ -1,14 +1,14 @@
 import Foundation
 import CoreLocation
 
-struct Place: Identifiable, Codable, Hashable {
-    var id: String { rawId ?? computedId }
-    let rawId: String?
-    let name: String
-    let latitude: Double?
-    let longitude: Double?
+public struct Place: Identifiable, Codable, Hashable {
+    public var id: String { rawId ?? computedId }
+    public let rawId: String?
+    public let name: String
+    public let latitude: Double?
+    public let longitude: Double?
 
-    var coordinate: CLLocationCoordinate2D? {
+    public var coordinate: CLLocationCoordinate2D? {
         guard let lat = latitude, let lon = longitude else { return nil }
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
@@ -19,19 +19,26 @@ struct Place: Identifiable, Codable, Hashable {
         }
         return name
     }
+    
+    public init(rawId: String?, name: String, latitude: Double?, longitude: Double?) {
+        self.rawId = rawId
+        self.name = name
+        self.latitude = latitude
+        self.longitude = longitude
+    }
 }
 
 // MARK: - Transport.rest decoding
 
-struct DBPlace: Codable {
-    let id: String?
-    let name: String?
-    let type: String?
-    let location: DBLocation?
+public struct DBPlace: Codable {
+    public let id: String?
+    public let name: String?
+    public let type: String?
+    public let location: DBLocation?
 }
 
-struct DBLocation: Codable {
-    let type: String?
-    let latitude: Double?
-    let longitude: Double?
+public struct DBLocation: Codable {
+    public let type: String?
+    public let latitude: Double?
+    public let longitude: Double?
 }

@@ -4,7 +4,7 @@ final class AnalyticsService {
     static let shared = AnalyticsService()
     private init() {}
 
-    private var sessionStart: Date?
+    private var sessionStartTime: Date?
 
     private var isEnabled: Bool { UserSettingsStore.shared.analyticsEnabled }
 
@@ -23,15 +23,15 @@ final class AnalyticsService {
 
     func sessionStart() {
         guard isEnabled else { return }
-        sessionStart = Date()
+        sessionStartTime = Date()
         track(event: "session_start")
     }
 
     func sessionEnd() {
         guard isEnabled else { return }
         let end = Date()
-        let duration = sessionStart.map { Int(end.timeIntervalSince($0)) } ?? 0
+        let duration = sessionStartTime.map { Int(end.timeIntervalSince($0)) } ?? 0
         track(event: "session_end", properties: ["duration_s": String(duration)])
-        sessionStart = nil
+        sessionStartTime = nil
     }
 }

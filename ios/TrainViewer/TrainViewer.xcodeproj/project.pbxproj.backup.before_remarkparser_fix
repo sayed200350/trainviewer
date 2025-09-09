@@ -1,0 +1,1178 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 70;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F35B52BB2E65CF3800E50591 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B82E65CF3700E50591 /* RouteStore.swift */; };
+		F35B52BC2E65CF3800E50591 /* BackgroundRefreshFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */; };
+		F35B52BD2E65CF3800E50591 /* BackgroundRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */; };
+		F35B52BE2E65CF3800E50591 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B72E65CF3700E50591 /* CoreDataStack.swift */; };
+		F35B52BF2E65CF3800E50591 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B92E65CF3700E50591 /* RouteValidation.swift */; };
+		F35B52C02E65CF3800E50591 /* JourneyServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */; };
+		F35B52C22E65D06400E50591 /* BackgroundRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */; };
+		F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62902E510ECF004CB01A /* TestRunner.swift */; };
+		F35F62922E510ECF004CB01A /* LocationServiceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */; };
+		F35F62932E510ECF004CB01A /* TestRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62902E510ECF004CB01A /* TestRunner.swift */; };
+		F35F62942E510ECF004CB01A /* LocationServiceValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */; };
+		F35F62962E511327004CB01A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62952E511327004CB01A /* MapViewModel.swift */; };
+		F35F62972E511327004CB01A /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62952E511327004CB01A /* MapViewModel.swift */; };
+		F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62A12E51134A004CB01A /* MapComponentValidator.swift */; };
+		F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62A12E51134A004CB01A /* MapComponentValidator.swift */; };
+		F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
+		F35F62C12E5116DA004CB01A /* TransitStation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62BE2E5116D9004CB01A /* TransitStation.swift */; };
+		F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
+		F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
+		F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
+		F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62D02E51225E004CB01A /* RouteValidation.swift */; };
+		F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CD2E51225E004CB01A /* CompilationValidator.swift */; };
+		F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CE2E51225E004CB01A /* CoreDataStack.swift */; };
+		F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CF2E51225E004CB01A /* RouteStore.swift */; };
+		F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35F62CC2E51225E004CB01A /* BuildValidator.swift */; };
+		F36206652E65D33F0095E161 /* JourneyServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */; };
+		F36206662E65D71C0095E161 /* BackgroundRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */; };
+		F36D105D2E65E133006326DE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */; };
+		F38C5ABC2E528735000B70AC /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB62E528735000B70AC /* RemarkParser.swift */; };
+		F38C5ABD2E528735000B70AC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB82E528735000B70AC /* CoreDataStack.swift */; };
+		F38C5ABE2E528735000B70AC /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB92E528735000B70AC /* RouteStore.swift */; };
+		F38C5ABF2E528735000B70AC /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5ABA2E528735000B70AC /* RouteValidation.swift */; };
+		F38C5AC02E528735000B70AC /* LocationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB52E528735000B70AC /* LocationResolver.swift */; };
+		F38C5AC12E528735000B70AC /* SmartJourneyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB72E528735000B70AC /* SmartJourneyService.swift */; };
+		F38C5AC22E528735000B70AC /* ErrorHandlingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */; };
+		F38C5AC32E528735000B70AC /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB62E528735000B70AC /* RemarkParser.swift */; };
+		F38C5AC42E528735000B70AC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB82E528735000B70AC /* CoreDataStack.swift */; };
+		F38C5AC52E528735000B70AC /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB92E528735000B70AC /* RouteStore.swift */; };
+		F38C5AC62E528735000B70AC /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5ABA2E528735000B70AC /* RouteValidation.swift */; };
+		F38C5AC72E528735000B70AC /* LocationResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB52E528735000B70AC /* LocationResolver.swift */; };
+		F38C5AC82E528735000B70AC /* SmartJourneyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB72E528735000B70AC /* SmartJourneyService.swift */; };
+		F38C5AC92E528735000B70AC /* ErrorHandlingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */; };
+		F39256F02E6DB1F600CB9D6A /* JourneyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256ED2E6DB1F600CB9D6A /* JourneyHistory.swift */; };
+		F39256F12E6DB1F600CB9D6A /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EF2E6DB1F600CB9D6A /* RemarkParser.swift */; };
+		F39256F22E6DB1F600CB9D6A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EC2E6DB1F600CB9D6A /* AppConstants.swift */; };
+		F39256F32E6DB1F600CB9D6A /* JourneyOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EE2E6DB1F600CB9D6A /* JourneyOption.swift */; };
+		F39256F42E6DB1F600CB9D6A /* JourneyHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256ED2E6DB1F600CB9D6A /* JourneyHistory.swift */; };
+		F39256F52E6DB1F600CB9D6A /* RemarkParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EF2E6DB1F600CB9D6A /* RemarkParser.swift */; };
+		F39256F62E6DB1F600CB9D6A /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EC2E6DB1F600CB9D6A /* AppConstants.swift */; };
+		F39256F72E6DB1F600CB9D6A /* JourneyOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39256EE2E6DB1F600CB9D6A /* JourneyOption.swift */; };
+		F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */; };
+		F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C22E6647150093525B /* ErrorPresentationService.swift */; };
+		F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */; };
+		F3AC48C62E6647290093525B /* EnhancedErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */; };
+		F3AC48C72E66472E0093525B /* ErrorIntegrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */; };
+		F3AC48C82E6647330093525B /* ErrorPresentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C22E6647150093525B /* ErrorPresentationService.swift */; };
+		F3AC48E22E6821A30093525B /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DC2E6821A30093525B /* MemoryMonitor.swift */; };
+		F3AC48E32E6821A30093525B /* AppExtensionCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D72E6821A30093525B /* AppExtensionCompilationTest.swift */; };
+		F3AC48E42E6821A30093525B /* PerformanceOptimizationCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DD2E6821A30093525B /* PerformanceOptimizationCompilationTest.swift */; };
+		F3AC48E52E6821A30093525B /* AdaptiveRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D52E6821A30093525B /* AdaptiveRefreshService.swift */; };
+		F3AC48E62E6821A30093525B /* ErrorHandlingIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D92E6821A30093525B /* ErrorHandlingIntegrationTest.swift */; };
+		F3AC48E72E6821A30093525B /* CompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D82E6821A30093525B /* CompilationTest.swift */; };
+		F3AC48E82E6821A30093525B /* IntelligentCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DA2E6821A30093525B /* IntelligentCacheManager.swift */; };
+		F3AC48E92E6821A30093525B /* PrivacyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DF2E6821A30093525B /* PrivacyManager.swift */; };
+		F3AC48EA2E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48E02E6821A30093525B /* RefreshIntervalCompilationTest.swift */; };
+		F3AC48EB2E6821A30093525B /* APIRequestBatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D62E6821A30093525B /* APIRequestBatcher.swift */; };
+		F3AC48EC2E6821A30093525B /* PerformanceOptimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DE2E6821A30093525B /* PerformanceOptimizer.swift */; };
+		F3AC48ED2E6821A30093525B /* JourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DB2E6821A30093525B /* JourneyHistoryService.swift */; };
+		F3AC48EE2E6821A30093525B /* RouteEnhancementCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48E12E6821A30093525B /* RouteEnhancementCompilationTest.swift */; };
+		F3AC48EF2E6821A30093525B /* MemoryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DC2E6821A30093525B /* MemoryMonitor.swift */; };
+		F3AC48F02E6821A30093525B /* AppExtensionCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D72E6821A30093525B /* AppExtensionCompilationTest.swift */; };
+		F3AC48F12E6821A30093525B /* PerformanceOptimizationCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DD2E6821A30093525B /* PerformanceOptimizationCompilationTest.swift */; };
+		F3AC48F22E6821A30093525B /* AdaptiveRefreshService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D52E6821A30093525B /* AdaptiveRefreshService.swift */; };
+		F3AC48F32E6821A30093525B /* ErrorHandlingIntegrationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D92E6821A30093525B /* ErrorHandlingIntegrationTest.swift */; };
+		F3AC48F42E6821A30093525B /* CompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D82E6821A30093525B /* CompilationTest.swift */; };
+		F3AC48F52E6821A30093525B /* IntelligentCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DA2E6821A30093525B /* IntelligentCacheManager.swift */; };
+		F3AC48F62E6821A30093525B /* PrivacyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DF2E6821A30093525B /* PrivacyManager.swift */; };
+		F3AC48F72E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48E02E6821A30093525B /* RefreshIntervalCompilationTest.swift */; };
+		F3AC48F82E6821A30093525B /* APIRequestBatcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48D62E6821A30093525B /* APIRequestBatcher.swift */; };
+		F3AC48F92E6821A30093525B /* PerformanceOptimizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DE2E6821A30093525B /* PerformanceOptimizer.swift */; };
+		F3AC48FA2E6821A30093525B /* JourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48DB2E6821A30093525B /* JourneyHistoryService.swift */; };
+		F3AC48FB2E6821A30093525B /* RouteEnhancementCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48E12E6821A30093525B /* RouteEnhancementCompilationTest.swift */; };
+		F3AC48FE2E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FC2E682DA30093525B /* JourneyHistoryCompilationTest.swift */; };
+		F3AC48FF2E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */; };
+		F3AC49002E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FC2E682DA30093525B /* JourneyHistoryCompilationTest.swift */; };
+		F3AC49012E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */; };
+		F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
+		F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
+		F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
+		F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
+		F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
+		F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
+		F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */; };
+		F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
+		F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */; };
+		F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
+		F3FA08C22E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
+		F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
+		F3FA08C42E50FEEF00091DE9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088E2E50FEEF00091DE9 /* LocationService.swift */; };
+		F3FA08C62E50FEEF00091DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08932E50FEEF00091DE9 /* Constants.swift */; };
+		F3FA08C72E50FEEF00091DE9 /* TransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */; };
+		F3FA08C82E50FEEF00091DE9 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */; };
+		F3FA08C92E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */; };
+		F3FA08CA2E50FEEF00091DE9 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */; };
+		F3FA08CB2E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */; };
+		F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */; };
+		F3FA08CD2E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */; };
+		F3FA08CF2E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */; };
+		F3FA08D22E50FEEF00091DE9 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */; };
+		F3FA08D32E50FEEF00091DE9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */; };
+		F3FA08D42E50FEEF00091DE9 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */; };
+		F3FA08D52E50FEEF00091DE9 /* EventKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */; };
+		F3FA08D62E50FEEF00091DE9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08822E50FEEF00091DE9 /* Route.swift */; };
+		F3FA08D72E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */; };
+		F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08892E50FEEF00091DE9 /* APIClient.swift */; };
+		F3FA08D92E50FEEF00091DE9 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08962E50FEEF00091DE9 /* SharedStore.swift */; };
+		F3FA08DA2E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
+		F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
+		F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
+		F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
+		F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
+		F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
+		F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
+		F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
+		F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AB2E50FEEF00091DE9 /* MainView.swift */; };
+		F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
+		F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
+		F3FA08E92E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
+		F3FA08EA2E50FEEF00091DE9 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088E2E50FEEF00091DE9 /* LocationService.swift */; };
+		F3FA08EC2E50FEEF00091DE9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08932E50FEEF00091DE9 /* Constants.swift */; };
+		F3FA08ED2E50FEEF00091DE9 /* TransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */; };
+		F3FA08EE2E50FEEF00091DE9 /* RouteDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */; };
+		F3FA08EF2E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */; };
+		F3FA08F02E50FEEF00091DE9 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */; };
+		F3FA08F12E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */; };
+		F3FA08F22E50FEEF00091DE9 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */; };
+		F3FA08F32E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */; };
+		F3FA08F42E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */; };
+		F3FA08F52E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */; };
+		F3FA08F62E50FEEF00091DE9 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */; };
+		F3FA08F82E50FEEF00091DE9 /* AnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */; };
+		F3FA08F92E50FEEF00091DE9 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */; };
+		F3FA08FA2E50FEEF00091DE9 /* EditRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */; };
+		F3FA08FB2E50FEEF00091DE9 /* EventKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */; };
+		F3FA08FC2E50FEEF00091DE9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08822E50FEEF00091DE9 /* Route.swift */; };
+		F3FA08FD2E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */; };
+		F3FA08FE2E50FEEF00091DE9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08892E50FEEF00091DE9 /* APIClient.swift */; };
+		F3FA08FF2E50FEEF00091DE9 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08962E50FEEF00091DE9 /* SharedStore.swift */; };
+		F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
+		F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
+		F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA09012E51008500091DE9 /* RouteValidation.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F35F62AC2E51143C004CB01A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 020CCDA01B9EC3D11E391CBB;
+			remoteInfo = TrainViewer;
+		};
+		FF75CD8CAF9324B77540CD6F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0A0F8E280A4E6772414A459B;
+			remoteInfo = NextDepartureWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		40E26D68E7C80697319C584F /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshFactory.swift; sourceTree = "<group>"; };
+		F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshProtocol.swift; sourceTree = "<group>"; };
+		F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyServiceProtocol.swift; sourceTree = "<group>"; };
+		F35B52B72E65CF3700E50591 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F35B52B82E65CF3700E50591 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F35B52B92E65CF3700E50591 /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
+		F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NextDepartureWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F62882E510CCA004CB01A /* TrainViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrainViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationServiceValidator.swift; sourceTree = "<group>"; };
+		F35F62902E510ECF004CB01A /* TestRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestRunner.swift; sourceTree = "<group>"; };
+		F35F62952E511327004CB01A /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		F35F62A12E51134A004CB01A /* MapComponentValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapComponentValidator.swift; sourceTree = "<group>"; };
+		F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrainViewerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F35F62BE2E5116D9004CB01A /* TransitStation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitStation.swift; sourceTree = "<group>"; };
+		F35F62CC2E51225E004CB01A /* BuildValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildValidator.swift; sourceTree = "<group>"; };
+		F35F62CD2E51225E004CB01A /* CompilationValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationValidator.swift; sourceTree = "<group>"; };
+		F35F62CE2E51225E004CB01A /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F35F62CF2E51225E004CB01A /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F35F62D02E51225E004CB01A /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
+		F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlingService.swift; sourceTree = "<group>"; };
+		F38C5AB52E528735000B70AC /* LocationResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationResolver.swift; sourceTree = "<group>"; };
+		F38C5AB62E528735000B70AC /* RemarkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarkParser.swift; sourceTree = "<group>"; };
+		F38C5AB72E528735000B70AC /* SmartJourneyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartJourneyService.swift; sourceTree = "<group>"; };
+		F38C5AB82E528735000B70AC /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F38C5AB92E528735000B70AC /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F38C5ABA2E528735000B70AC /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
+		F39256EC2E6DB1F600CB9D6A /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
+		F39256ED2E6DB1F600CB9D6A /* JourneyHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHistory.swift; sourceTree = "<group>"; };
+		F39256EE2E6DB1F600CB9D6A /* JourneyOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyOption.swift; sourceTree = "<group>"; };
+		F39256EF2E6DB1F600CB9D6A /* RemarkParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemarkParser.swift; sourceTree = "<group>"; };
+		F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedErrorHandling.swift; sourceTree = "<group>"; };
+		F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorIntegrationService.swift; sourceTree = "<group>"; };
+		F3AC48C22E6647150093525B /* ErrorPresentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationService.swift; sourceTree = "<group>"; };
+		F3AC48D52E6821A30093525B /* AdaptiveRefreshService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveRefreshService.swift; sourceTree = "<group>"; };
+		F3AC48D62E6821A30093525B /* APIRequestBatcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequestBatcher.swift; sourceTree = "<group>"; };
+		F3AC48D72E6821A30093525B /* AppExtensionCompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppExtensionCompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48D82E6821A30093525B /* CompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48D92E6821A30093525B /* ErrorHandlingIntegrationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorHandlingIntegrationTest.swift; sourceTree = "<group>"; };
+		F3AC48DA2E6821A30093525B /* IntelligentCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelligentCacheManager.swift; sourceTree = "<group>"; };
+		F3AC48DB2E6821A30093525B /* JourneyHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHistoryService.swift; sourceTree = "<group>"; };
+		F3AC48DC2E6821A30093525B /* MemoryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryMonitor.swift; sourceTree = "<group>"; };
+		F3AC48DD2E6821A30093525B /* PerformanceOptimizationCompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceOptimizationCompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48DE2E6821A30093525B /* PerformanceOptimizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceOptimizer.swift; sourceTree = "<group>"; };
+		F3AC48DF2E6821A30093525B /* PrivacyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyManager.swift; sourceTree = "<group>"; };
+		F3AC48E02E6821A30093525B /* RefreshIntervalCompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RefreshIntervalCompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48E12E6821A30093525B /* RouteEnhancementCompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteEnhancementCompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48FC2E682DA30093525B /* JourneyHistoryCompilationTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyHistoryCompilationTest.swift; sourceTree = "<group>"; };
+		F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleJourneyHistoryService.swift; sourceTree = "<group>"; };
+		F3FA087A2E50FEEF00091DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerApp.swift; sourceTree = "<group>"; };
+		F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsIntents.swift; sourceTree = "<group>"; };
+		F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDecoding.swift; sourceTree = "<group>"; };
+		F3FA08812E50FEEF00091DE9 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		F3FA08822E50FEEF00091DE9 /* Route.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		F3FA08842E50FEEF00091DE9 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		F3FA08862E50FEEF00091DE9 /* RouteStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteStore.swift; sourceTree = "<group>"; };
+		F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsService.swift; sourceTree = "<group>"; };
+		F3FA08892E50FEEF00091DE9 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoTransportAPI.swift; sourceTree = "<group>"; };
+		F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshService.swift; sourceTree = "<group>"; };
+		F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBTransportAPI.swift; sourceTree = "<group>"; };
+		F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitService.swift; sourceTree = "<group>"; };
+		F3FA088E2E50FEEF00091DE9 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportAPI.swift; sourceTree = "<group>"; };
+		F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransportAPIFactory.swift; sourceTree = "<group>"; };
+		F3FA08932E50FEEF00091DE9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfflineCache.swift; sourceTree = "<group>"; };
+		F3FA08952E50FEEF00091DE9 /* SharedModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedModels.swift; sourceTree = "<group>"; };
+		F3FA08962E50FEEF00091DE9 /* SharedStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedStore.swift; sourceTree = "<group>"; };
+		F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsStore.swift; sourceTree = "<group>"; };
+		F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = TrainViewer.xcodeproj; sourceTree = "<group>"; };
+		F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRouteViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutesViewModel.swift; sourceTree = "<group>"; };
+		F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		F3FA08A72E50FEEF00091DE9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRouteView.swift; sourceTree = "<group>"; };
+		F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditRouteView.swift; sourceTree = "<group>"; };
+		F3FA08AB2E50FEEF00091DE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
+		F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAppIntent.swift; sourceTree = "<group>"; };
+		F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerWidget.swift; sourceTree = "<group>"; };
+		F3FA09012E51008500091DE9 /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		F35F62A92E51143C004CB01A /* TrainViewerTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TrainViewerTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F35F62A52E51143C004CB01A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A1CCC79382C94D40D2ECDF60 = {
+			isa = PBXGroup;
+			children = (
+				F3FA087C2E50FEEF00091DE9 /* App */,
+				F3FA087E2E50FEEF00091DE9 /* AppIntents */,
+				F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */,
+				F3FA08832E50FEEF00091DE9 /* Models */,
+				F3FA08842E50FEEF00091DE9 /* README.md */,
+				F3FA08922E50FEEF00091DE9 /* Services */,
+				F3FA08982E50FEEF00091DE9 /* Shared */,
+				F3FA089C2E50FEEF00091DE9 /* Sources */,
+				F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */,
+				F3FA08B22E50FEEF00091DE9 /* Widgets */,
+				F3FA08A52E50FEEF00091DE9 /* ViewModels */,
+				F3FA08AE2E50FEEF00091DE9 /* Views */,
+				F35F62A92E51143C004CB01A /* TrainViewerTests */,
+				F35F62872E510CCA004CB01A /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F35B52BA2E65CF3700E50591 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F35B52B72E65CF3700E50591 /* CoreDataStack.swift */,
+				F35B52B82E65CF3700E50591 /* RouteStore.swift */,
+				F35B52B92E65CF3700E50591 /* RouteValidation.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F35F62872E510CCA004CB01A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */,
+				F35F62882E510CCA004CB01A /* TrainViewer.app */,
+				F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F35F62D12E51225E004CB01A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F35F62CE2E51225E004CB01A /* CoreDataStack.swift */,
+				F35F62CF2E51225E004CB01A /* RouteStore.swift */,
+				F35F62D02E51225E004CB01A /* RouteValidation.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F38C5ABB2E528735000B70AC /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F38C5AB82E528735000B70AC /* CoreDataStack.swift */,
+				F38C5AB92E528735000B70AC /* RouteStore.swift */,
+				F38C5ABA2E528735000B70AC /* RouteValidation.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F3FA087C2E50FEEF00091DE9 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA087A2E50FEEF00091DE9 /* Info.plist */,
+				F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		F3FA087E2E50FEEF00091DE9 /* AppIntents */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */,
+			);
+			path = AppIntents;
+			sourceTree = "<group>";
+		};
+		F3FA08832E50FEEF00091DE9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */,
+				F35F62BE2E5116D9004CB01A /* TransitStation.swift */,
+				F39256EC2E6DB1F600CB9D6A /* AppConstants.swift */,
+				F39256ED2E6DB1F600CB9D6A /* JourneyHistory.swift */,
+				F39256EE2E6DB1F600CB9D6A /* JourneyOption.swift */,
+				F39256EF2E6DB1F600CB9D6A /* RemarkParser.swift */,
+				F3FA08812E50FEEF00091DE9 /* Place.swift */,
+				F3FA08822E50FEEF00091DE9 /* Route.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F3FA08872E50FEEF00091DE9 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA09012E51008500091DE9 /* RouteValidation.swift */,
+				F3FA08852E50FEEF00091DE9 /* CoreDataStack.swift */,
+				F3FA08862E50FEEF00091DE9 /* RouteStore.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F3FA08922E50FEEF00091DE9 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08872E50FEEF00091DE9 /* Storage */,
+				F3FA08882E50FEEF00091DE9 /* AnalyticsService.swift */,
+				F3FA08892E50FEEF00091DE9 /* APIClient.swift */,
+				F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */,
+				F38C5AB52E528735000B70AC /* LocationResolver.swift */,
+				F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */,
+				F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */,
+				F3AC48C22E6647150093525B /* ErrorPresentationService.swift */,
+				F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */,
+				F3AC48D52E6821A30093525B /* AdaptiveRefreshService.swift */,
+				F3AC48D62E6821A30093525B /* APIRequestBatcher.swift */,
+				F3AC48D72E6821A30093525B /* AppExtensionCompilationTest.swift */,
+				F3AC48D82E6821A30093525B /* CompilationTest.swift */,
+				F3AC48FC2E682DA30093525B /* JourneyHistoryCompilationTest.swift */,
+				F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */,
+				F3AC48D92E6821A30093525B /* ErrorHandlingIntegrationTest.swift */,
+				F3AC48DA2E6821A30093525B /* IntelligentCacheManager.swift */,
+				F3AC48DB2E6821A30093525B /* JourneyHistoryService.swift */,
+				F3AC48DC2E6821A30093525B /* MemoryMonitor.swift */,
+				F3AC48DD2E6821A30093525B /* PerformanceOptimizationCompilationTest.swift */,
+				F3AC48DE2E6821A30093525B /* PerformanceOptimizer.swift */,
+				F3AC48DF2E6821A30093525B /* PrivacyManager.swift */,
+				F3AC48E02E6821A30093525B /* RefreshIntervalCompilationTest.swift */,
+				F3AC48E12E6821A30093525B /* RouteEnhancementCompilationTest.swift */,
+				F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */,
+				F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */,
+				F35B52BA2E65CF3700E50591 /* Storage */,
+				F38C5AB62E528735000B70AC /* RemarkParser.swift */,
+				F38C5AB72E528735000B70AC /* SmartJourneyService.swift */,
+				F38C5ABB2E528735000B70AC /* Storage */,
+				F3FA088A2E50FEEF00091DE9 /* AutoTransportAPI.swift */,
+				F3FA088B2E50FEEF00091DE9 /* BackgroundRefreshService.swift */,
+				F35F628F2E510ECF004CB01A /* LocationServiceValidator.swift */,
+				F35F62CC2E51225E004CB01A /* BuildValidator.swift */,
+				F35F62CD2E51225E004CB01A /* CompilationValidator.swift */,
+				F35F62D12E51225E004CB01A /* Storage */,
+				F35F62902E510ECF004CB01A /* TestRunner.swift */,
+				F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */,
+				F3FA088D2E50FEEF00091DE9 /* EventKitService.swift */,
+				F35F62A12E51134A004CB01A /* MapComponentValidator.swift */,
+				F3FA088E2E50FEEF00091DE9 /* LocationService.swift */,
+				F3FA088F2E50FEEF00091DE9 /* NotificationService.swift */,
+				F3FA08902E50FEEF00091DE9 /* TransportAPI.swift */,
+				F3FA08912E50FEEF00091DE9 /* TransportAPIFactory.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		F3FA08982E50FEEF00091DE9 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08932E50FEEF00091DE9 /* Constants.swift */,
+				F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */,
+				F3FA08952E50FEEF00091DE9 /* SharedModels.swift */,
+				F3FA08962E50FEEF00091DE9 /* SharedStore.swift */,
+				F3FA08972E50FEEF00091DE9 /* UserSettingsStore.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		F3FA089A2E50FEEF00091DE9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F3FA089B2E50FEEF00091DE9 /* TrainViewer */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA089A2E50FEEF00091DE9 /* Model */,
+			);
+			path = TrainViewer;
+			sourceTree = "<group>";
+		};
+		F3FA089C2E50FEEF00091DE9 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA089B2E50FEEF00091DE9 /* TrainViewer */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		F3FA08A52E50FEEF00091DE9 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F35F62952E511327004CB01A /* MapViewModel.swift */,
+				F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */,
+				F3FA08A22E50FEEF00091DE9 /* EditRouteViewModel.swift */,
+				F3FA08A32E50FEEF00091DE9 /* RouteDetailViewModel.swift */,
+				F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F3FA08A82E50FEEF00091DE9 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08A62E50FEEF00091DE9 /* ShareSheet.swift */,
+				F3FA08A72E50FEEF00091DE9 /* ToastView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F3FA08AE2E50FEEF00091DE9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08A82E50FEEF00091DE9 /* Components */,
+				F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */,
+				F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */,
+				F3FA08AB2E50FEEF00091DE9 /* MainView.swift */,
+				F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */,
+				F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F3FA08B02E50FEEF00091DE9 /* AppIntents */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */,
+				F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */,
+			);
+			path = AppIntents;
+			sourceTree = "<group>";
+		};
+		F3FA08B22E50FEEF00091DE9 /* Widgets */ = {
+			isa = PBXGroup;
+			children = (
+				F3FA08B02E50FEEF00091DE9 /* AppIntents */,
+			);
+			path = Widgets;
+			sourceTree = "<group>";
+		};
+		F3FA08B32E50FEEF00091DE9 /* Products */ = {
+			isa = PBXGroup;
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		020CCDA01B9EC3D11E391CBB /* TrainViewer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89D9B8FCC671AD2A928879CD /* Build configuration list for PBXNativeTarget "TrainViewer" */;
+			buildPhases = (
+				701A9CA1DB147DDCC2DA92FA /* Sources */,
+				40E26D68E7C80697319C584F /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A31811B4943C57403B829CC /* PBXTargetDependency */,
+			);
+			name = TrainViewer;
+			productName = TrainViewer;
+			productReference = F35F62882E510CCA004CB01A /* TrainViewer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		0A0F8E280A4E6772414A459B /* NextDepartureWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5DD9C8DE3A8841C61A573100 /* Build configuration list for PBXNativeTarget "NextDepartureWidget" */;
+			buildPhases = (
+				9E48CE1BDB73E2EF7EBCEE61 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NextDepartureWidget;
+			productName = NextDepartureWidget;
+			productReference = F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		F35F62A72E51143C004CB01A /* TrainViewerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F35F62AE2E51143C004CB01A /* Build configuration list for PBXNativeTarget "TrainViewerTests" */;
+			buildPhases = (
+				F35F62A42E51143C004CB01A /* Sources */,
+				F35F62A52E51143C004CB01A /* Frameworks */,
+				F35F62A62E51143C004CB01A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F35F62AD2E51143C004CB01A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F35F62A92E51143C004CB01A /* TrainViewerTests */,
+			);
+			name = TrainViewerTests;
+			packageProductDependencies = (
+			);
+			productName = TrainViewerTests;
+			productReference = F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4BEE41D8E55C9F557353FE11 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					0A0F8E280A4E6772414A459B = {
+						ProvisioningStyle = Automatic;
+					};
+					F35F62A72E51143C004CB01A = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = 020CCDA01B9EC3D11E391CBB;
+					};
+				};
+			};
+			buildConfigurationList = ADF0C304EBCE936D44455D05 /* Build configuration list for PBXProject "TrainViewer" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = A1CCC79382C94D40D2ECDF60;
+			productRefGroup = F35F62872E510CCA004CB01A /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = F3FA08B32E50FEEF00091DE9 /* Products */;
+					ProjectRef = F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				0A0F8E280A4E6772414A459B /* NextDepartureWidget */,
+				020CCDA01B9EC3D11E391CBB /* TrainViewer */,
+				F35F62A72E51143C004CB01A /* TrainViewerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F35F62A62E51143C004CB01A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		701A9CA1DB147DDCC2DA92FA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
+				F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
+				F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
+				F35F62932E510ECF004CB01A /* TestRunner.swift in Sources */,
+				F35F62942E510ECF004CB01A /* LocationServiceValidator.swift in Sources */,
+				F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */,
+				F3FA08E02E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
+				F39256F02E6DB1F600CB9D6A /* JourneyHistory.swift in Sources */,
+				F39256F12E6DB1F600CB9D6A /* RemarkParser.swift in Sources */,
+				F39256F22E6DB1F600CB9D6A /* AppConstants.swift in Sources */,
+				F39256F32E6DB1F600CB9D6A /* JourneyOption.swift in Sources */,
+				F3FA08E12E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
+				F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */,
+				F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */,
+				F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */,
+				F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */,
+				F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */,
+				F3AC48EF2E6821A30093525B /* MemoryMonitor.swift in Sources */,
+				F3AC48F02E6821A30093525B /* AppExtensionCompilationTest.swift in Sources */,
+				F3AC48F12E6821A30093525B /* PerformanceOptimizationCompilationTest.swift in Sources */,
+				F3AC48F22E6821A30093525B /* AdaptiveRefreshService.swift in Sources */,
+				F3AC48F32E6821A30093525B /* ErrorHandlingIntegrationTest.swift in Sources */,
+				F3AC48F42E6821A30093525B /* CompilationTest.swift in Sources */,
+				F3AC48F52E6821A30093525B /* IntelligentCacheManager.swift in Sources */,
+				F3AC48F62E6821A30093525B /* PrivacyManager.swift in Sources */,
+				F3AC48F72E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */,
+				F3AC48F82E6821A30093525B /* APIRequestBatcher.swift in Sources */,
+				F3AC48F92E6821A30093525B /* PerformanceOptimizer.swift in Sources */,
+				F3AC48FA2E6821A30093525B /* JourneyHistoryService.swift in Sources */,
+				F3AC48FB2E6821A30093525B /* RouteEnhancementCompilationTest.swift in Sources */,
+				F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */,
+				F3FA09022E51008500091DE9 /* RouteValidation.swift in Sources */,
+				F3FA08E72E50FEEF00091DE9 /* RouteStore.swift in Sources */,
+				F3FA08E82E50FEEF00091DE9 /* Place.swift in Sources */,
+				F3FA08E92E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */,
+				F3FA08EA2E50FEEF00091DE9 /* LocationService.swift in Sources */,
+				F35F62962E511327004CB01A /* MapViewModel.swift in Sources */,
+				F3FA08EC2E50FEEF00091DE9 /* Constants.swift in Sources */,
+				F3FA08ED2E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
+				F3FA08EE2E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
+				F3FA08EF2E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
+				F36206662E65D71C0095E161 /* BackgroundRefreshService.swift in Sources */,
+				F3FA08F02E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
+				F3FA08F12E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
+				F3FA08F22E50FEEF00091DE9 /* NotificationService.swift in Sources */,
+				F3FA08F32E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
+				F3FA08F42E50FEEF00091DE9 /* TrainViewerApp.swift in Sources */,
+				F3FA08F52E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D72E51225E004CB01A /* RouteValidation.swift in Sources */,
+				F35F62D82E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D92E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62DA2E51225E004CB01A /* RouteStore.swift in Sources */,
+				F3AC49002E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */,
+				F3AC49012E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */,
+				F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */,
+				F3FA08F62E50FEEF00091DE9 /* SettingsView.swift in Sources */,
+				F35B52BB2E65CF3800E50591 /* RouteStore.swift in Sources */,
+				F35B52BC2E65CF3800E50591 /* BackgroundRefreshFactory.swift in Sources */,
+				F35B52BD2E65CF3800E50591 /* BackgroundRefreshProtocol.swift in Sources */,
+				F35B52BE2E65CF3800E50591 /* CoreDataStack.swift in Sources */,
+				F35B52BF2E65CF3800E50591 /* RouteValidation.swift in Sources */,
+				F35B52C02E65CF3800E50591 /* JourneyServiceProtocol.swift in Sources */,
+				F38C5AC32E528735000B70AC /* RemarkParser.swift in Sources */,
+				F38C5AC42E528735000B70AC /* CoreDataStack.swift in Sources */,
+				F38C5AC52E528735000B70AC /* RouteStore.swift in Sources */,
+				F38C5AC62E528735000B70AC /* RouteValidation.swift in Sources */,
+				F38C5AC72E528735000B70AC /* LocationResolver.swift in Sources */,
+				F38C5AC82E528735000B70AC /* SmartJourneyService.swift in Sources */,
+				F38C5AC92E528735000B70AC /* ErrorHandlingService.swift in Sources */,
+				F3FA08F82E50FEEF00091DE9 /* AnalyticsService.swift in Sources */,
+				F3FA08F92E50FEEF00091DE9 /* CoreDataStack.swift in Sources */,
+				F3FA08FA2E50FEEF00091DE9 /* EditRouteView.swift in Sources */,
+				F3FA08FB2E50FEEF00091DE9 /* EventKitService.swift in Sources */,
+				F3FA08FC2E50FEEF00091DE9 /* Route.swift in Sources */,
+				F35F62C12E5116DA004CB01A /* TransitStation.swift in Sources */,
+				F3FA08FD2E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */,
+				F3FA08FE2E50FEEF00091DE9 /* APIClient.swift in Sources */,
+				F3FA08FF2E50FEEF00091DE9 /* SharedStore.swift in Sources */,
+				F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9E48CE1BDB73E2EF7EBCEE61 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
+				F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
+				F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
+				F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */,
+				F35F62922E510ECF004CB01A /* LocationServiceValidator.swift in Sources */,
+				F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */,
+				F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */,
+				F3AC48FE2E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */,
+				F3AC48FF2E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */,
+				F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
+				F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */,
+				F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */,
+				F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */,
+				F35B52C22E65D06400E50591 /* BackgroundRefreshProtocol.swift in Sources */,
+				F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */,
+				F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */,
+				F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */,
+				F3FA08C22E50FEEF00091DE9 /* Place.swift in Sources */,
+				F3AC48C82E6647330093525B /* ErrorPresentationService.swift in Sources */,
+				F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */,
+				F3FA08C42E50FEEF00091DE9 /* LocationService.swift in Sources */,
+				F35F62972E511327004CB01A /* MapViewModel.swift in Sources */,
+				F3AC48C62E6647290093525B /* EnhancedErrorHandling.swift in Sources */,
+				F3FA08C62E50FEEF00091DE9 /* Constants.swift in Sources */,
+				F3FA08C72E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
+				F36206652E65D33F0095E161 /* JourneyServiceProtocol.swift in Sources */,
+				F3FA08C82E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
+				F3FA08C92E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
+				F3FA08CA2E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
+				F3FA08CB2E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
+				F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */,
+				F3FA08CD2E50FEEF00091DE9 /* UserSettingsStore.swift in Sources */,
+				F3FA08CF2E50FEEF00091DE9 /* AutoTransportAPI.swift in Sources */,
+				F35F62D22E51225E004CB01A /* RouteValidation.swift in Sources */,
+				F35F62D32E51225E004CB01A /* CompilationValidator.swift in Sources */,
+				F35F62D42E51225E004CB01A /* CoreDataStack.swift in Sources */,
+				F35F62D52E51225E004CB01A /* RouteStore.swift in Sources */,
+				F35F62D62E51225E004CB01A /* BuildValidator.swift in Sources */,
+				F38C5ABC2E528735000B70AC /* RemarkParser.swift in Sources */,
+				F38C5ABD2E528735000B70AC /* CoreDataStack.swift in Sources */,
+				F38C5ABE2E528735000B70AC /* RouteStore.swift in Sources */,
+				F38C5ABF2E528735000B70AC /* RouteValidation.swift in Sources */,
+				F38C5AC02E528735000B70AC /* LocationResolver.swift in Sources */,
+				F38C5AC12E528735000B70AC /* SmartJourneyService.swift in Sources */,
+				F38C5AC22E528735000B70AC /* ErrorHandlingService.swift in Sources */,
+				F3FA08D22E50FEEF00091DE9 /* AnalyticsService.swift in Sources */,
+				F3FA08D32E50FEEF00091DE9 /* CoreDataStack.swift in Sources */,
+				F39256F42E6DB1F600CB9D6A /* JourneyHistory.swift in Sources */,
+				F39256F52E6DB1F600CB9D6A /* RemarkParser.swift in Sources */,
+				F39256F62E6DB1F600CB9D6A /* AppConstants.swift in Sources */,
+				F39256F72E6DB1F600CB9D6A /* JourneyOption.swift in Sources */,
+				F3FA08D42E50FEEF00091DE9 /* EditRouteView.swift in Sources */,
+				F3AC48E22E6821A30093525B /* MemoryMonitor.swift in Sources */,
+				F3AC48E32E6821A30093525B /* AppExtensionCompilationTest.swift in Sources */,
+				F3AC48E42E6821A30093525B /* PerformanceOptimizationCompilationTest.swift in Sources */,
+				F3AC48E52E6821A30093525B /* AdaptiveRefreshService.swift in Sources */,
+				F3AC48E62E6821A30093525B /* ErrorHandlingIntegrationTest.swift in Sources */,
+				F3AC48E72E6821A30093525B /* CompilationTest.swift in Sources */,
+				F3AC48E82E6821A30093525B /* IntelligentCacheManager.swift in Sources */,
+				F3AC48E92E6821A30093525B /* PrivacyManager.swift in Sources */,
+				F3AC48EA2E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */,
+				F3AC48EB2E6821A30093525B /* APIRequestBatcher.swift in Sources */,
+				F3AC48EC2E6821A30093525B /* PerformanceOptimizer.swift in Sources */,
+				F3AC48ED2E6821A30093525B /* JourneyHistoryService.swift in Sources */,
+				F3AC48EE2E6821A30093525B /* RouteEnhancementCompilationTest.swift in Sources */,
+				F3FA08D52E50FEEF00091DE9 /* EventKitService.swift in Sources */,
+				F3FA08D62E50FEEF00091DE9 /* Route.swift in Sources */,
+				F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */,
+				F36D105D2E65E133006326DE /* SettingsView.swift in Sources */,
+				F3FA08D72E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */,
+				F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */,
+				F3FA08D92E50FEEF00091DE9 /* SharedStore.swift in Sources */,
+				F3FA08DA2E50FEEF00091DE9 /* OfflineCache.swift in Sources */,
+				F3AC48C72E66472E0093525B /* ErrorIntegrationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F35F62A42E51143C004CB01A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A31811B4943C57403B829CC /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0A0F8E280A4E6772414A459B /* NextDepartureWidget */;
+			targetProxy = FF75CD8CAF9324B77540CD6F /* PBXContainerItemProxy */;
+		};
+		F35F62AD2E51143C004CB01A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 020CCDA01B9EC3D11E391CBB /* TrainViewer */;
+			targetProxy = F35F62AC2E51143C004CB01A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		2BF565D0B5FB5D223D5EB6E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = NextDepartureWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"APP_EXTENSION=1",
+				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Support/NextDepartureWidget-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.widget;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		3EF4AA8FB4E7B1F6D4EB2EAE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Release;
+		};
+		7FFD63B0F9376ED5B8B350A4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrainViewer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				INFOPLIST_FILE = "Support/TrainViewer-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		BCFB0B47B236E797D1B7BBA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+			};
+			name = Debug;
+		};
+		DB2BF1A46D768450530738C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = TrainViewer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				INFOPLIST_FILE = "Support/TrainViewer-Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.travel";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		E923899A9D985BFDF0D422CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = NextDepartureWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"APP_EXTENSION=1",
+				);
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "Support/NextDepartureWidget-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.widget;
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		F35F62AF2E51143C004CB01A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GG.TrainViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainViewer";
+			};
+			name = Debug;
+		};
+		F35F62B02E51143C004CB01A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = GG.TrainViewerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrainViewer.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TrainViewer";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5DD9C8DE3A8841C61A573100 /* Build configuration list for PBXNativeTarget "NextDepartureWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E923899A9D985BFDF0D422CD /* Debug */,
+				2BF565D0B5FB5D223D5EB6E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		89D9B8FCC671AD2A928879CD /* Build configuration list for PBXNativeTarget "TrainViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB2BF1A46D768450530738C2 /* Debug */,
+				7FFD63B0F9376ED5B8B350A4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		ADF0C304EBCE936D44455D05 /* Build configuration list for PBXProject "TrainViewer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BCFB0B47B236E797D1B7BBA6 /* Debug */,
+				3EF4AA8FB4E7B1F6D4EB2EAE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F35F62AE2E51143C004CB01A /* Build configuration list for PBXNativeTarget "TrainViewerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F35F62AF2E51143C004CB01A /* Debug */,
+				F35F62B02E51143C004CB01A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4BEE41D8E55C9F557353FE11 /* Project object */;
+}

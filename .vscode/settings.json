@@ -1,0 +1,8 @@
+{
+    "kiroAgent.configureMCP": "Enabled",
+    "editor.quickSuggestions": {
+        "comments": "off",
+        "strings": "off",
+        "other": "off"
+    }
+}

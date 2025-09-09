@@ -46,6 +46,16 @@ struct EditRouteView: View {
                         Text("Buffer: \(vm.bufferMinutes) min")
                     }
                 }
+                
+                Section(header: Text("Refresh Settings")) {
+                    RefreshIntervalSettingsView(
+                        selectedInterval: $vm.refreshInterval,
+                        route: route,
+                        onIntervalChanged: { interval in
+                            vm.refreshInterval = interval
+                        }
+                    )
+                }
 
                 Section {
                     Button("Save Changes") { vm.saveChanges(); dismiss() }

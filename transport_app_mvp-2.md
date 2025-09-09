@@ -33,6 +33,14 @@ An iOS app with widgets that provides instant departure times for saved routes, 
 - **Preparation Buffer**: Add configurable buffer time (e.g., 2-5 minutes)
 - **Smart Notifications**: Optional notifications for "time to leave" alerts
 
+### 5. Semester Ticket Management
+- **Digital Ticket Storage**: Store and display valid semester tickets
+- **QR Code Generation**: Generate scannable codes for ticket validation
+- **Multi-University Support**: Handle different university ticket formats
+- **Validity Tracking**: Alert users before ticket expiration
+- **Zone Integration**: Show transport zones covered by student ticket
+- **Renewal Reminders**: Notifications for upcoming semester ticket renewal
+
 ## Technical Requirements
 
 ### Data Source
@@ -54,11 +62,24 @@ An iOS app with widgets that provides instant departure times for saved routes, 
 
 ## User Interface (MVP)
 
-### Main Screen
-- List of saved routes with next departure time prominently displayed
-- "Leave now" or "Leave in X min" status for each route
-- Pull-to-refresh for manual updates
-- Quick action buttons (+ to add route, edit existing)
+### Home Screen (Map-Based)
+- **Full-Screen Map**: Dark mode map showing user's current location
+- **Nearby Stations**: Transit stops/stations displayed as pins with real-time info
+- **Route Overlay**: Saved routes shown as colored lines on map
+- **Quick Departure Card**: Sliding bottom panel showing next departures for saved routes
+- **Location Button**: Center map on user's current position
+- **Semester Ticket Button**: Floating action button to view ticket details
+
+### Dark Mode Design Principles
+- **Background**: Dark gray (#1C1C1E) with pure black (#000000) for OLED efficiency
+- **Map Style**: Dark map theme with high contrast transit lines
+- **Accent Colors**: 
+  - Primary: Electric blue (#007AFF) for buttons and active states
+  - Success: Green (#34C759) for "on time" status
+  - Warning: Orange (#FF9500) for delays
+  - Error: Red (#FF3B30) for disruptions
+- **Typography**: SF Pro with high contrast white text on dark backgrounds
+- **Cards**: Semi-transparent dark cards with subtle borders
 
 ### Add Route Screen
 - Location picker with search functionality
@@ -66,11 +87,19 @@ An iOS app with widgets that provides instant departure times for saved routes, 
 - Route naming option
 - Save and test functionality
 
-### Route Details Screen
-- Full journey breakdown (connections, platforms, walking directions)
-- Alternative departure times
-- Share route option
-- Settings for this route (notifications, buffer time)
+### Semester Ticket Integration
+- **Digital Ticket Display**: Full-screen semester ticket with QR code
+- **Validity Checker**: Show remaining days/months on current ticket
+- **Zone Coverage**: Visual map showing covered transport zones
+- **University Integration**: Connect with student portal for automatic renewal
+- **Backup Storage**: Offline access when network is unavailable
+- **Quick Access**: Swipe down from ticket button for instant display
+
+### Bottom Sheet UI Components
+- **Next Departures Panel**: Expandable sheet showing departure times
+- **Route Quick Actions**: Add route, edit favorites, view full journey
+- **Ticket Quick View**: Mini ticket card showing validity status
+- **Settings Access**: Dark mode toggle, notifications, account settings
 
 ## Widget Specifications
 

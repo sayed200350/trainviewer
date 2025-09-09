@@ -8,14 +8,11 @@
 	<string>Used to estimate walking time to your station</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Used to estimate walking time to your station</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>trainviewer</string>
-			</array>
-		</dict>
-	</array>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Voice commands allow you to quickly add routes and get transit information by speaking naturally to your device.</string>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Get notified when it's time to leave for your train, receive alerts about service disruptions, and stay updated on your journey status.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access your calendar events to suggest optimal travel times and remind you to leave for class or appointments.</string>
 </dict>
 </plist>
