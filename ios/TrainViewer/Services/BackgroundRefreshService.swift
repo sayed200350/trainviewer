@@ -92,26 +92,39 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
     // Handle background app refresh task - only available in main app
     internal func handleAppRefresh(task: BGAppRefreshTask) {
         print("🔄 [BackgroundRefreshService] Handling background refresh task")
-        
+
         // Schedule the next refresh immediately
         schedule()
 
-        // Set up task completion handling
+        // Set up task completion handling with timeout
         let refreshOperation = BackgroundRefreshOperation { [weak self] in
             await self?.triggerManualRefresh()
         }
 
-        // Perform the refresh
-        refreshOperation.completionBlock = {
-            print("✅ [BackgroundRefreshService] Background refresh completed successfully")
-            task.setTaskCompleted(success: true)
-        }
-
         // Handle task expiration
         task.expirationHandler = {
-            print("⏰ [BackgroundRefreshService] Background refresh task expired")
+            print("⏰ [BackgroundRefreshService] Background refresh task expired - cancelling operation")
             refreshOperation.cancel()
             task.setTaskCompleted(success: false)
+        }
+
+        // Add timeout protection for the operation
+        let timeoutWorkItem = DispatchWorkItem {
+            if !refreshOperation.isFinished {
+                print("⏰ [BackgroundRefreshService] Operation timed out - cancelling")
+                refreshOperation.cancel()
+                task.setTaskCompleted(success: false)
+            }
+        }
+
+        // Schedule timeout (25 seconds to allow BG task to complete)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 25, execute: timeoutWorkItem)
+
+        // Set completion block that handles both normal completion and timeout cancellation
+        refreshOperation.completionBlock = {
+            timeoutWorkItem.cancel()
+            print("✅ [BackgroundRefreshService] Background refresh completed successfully")
+            task.setTaskCompleted(success: true)
         }
 
         let operationQueue = OperationQueue()

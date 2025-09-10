@@ -12,28 +12,203 @@ final class AddRouteViewModel: ObservableObject {
     @Published var selectedFrom: Place?
     @Published var selectedTo: Place?
 
+    @Published var isSearchingFrom: Bool = false
+    @Published var isSearchingTo: Bool = false
+
+    @Published var showRecentFrom: Bool = false
+    @Published var showRecentTo: Bool = false
+
+    @Published var recentFromLocations: [Place] = []
+    @Published var recentToLocations: [Place] = []
+
     private let api: TransportAPI
     private let store: RouteStore
+    private let locationService: LocationService?
 
-    init(api: TransportAPI = TransportAPIFactory.shared.make(), store: RouteStore = RouteStore()) {
+    private var searchFromTask: Task<Void, Never>?
+    private var searchToTask: Task<Void, Never>?
+
+    init(api: TransportAPI = TransportAPIFactory.shared.make(), store: RouteStore = RouteStore(), locationService: LocationService? = nil) {
         self.api = api
         self.store = store
+        self.locationService = locationService
+
+        // Load recent locations
+        loadRecentLocations()
     }
 
     func searchFrom() async {
-        guard !fromQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { fromResults = []; return }
-        fromResults = (try? await api.searchLocations(query: fromQuery, limit: 8)) ?? []
+        // Cancel previous search
+        searchFromTask?.cancel()
+
+        let query = fromQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else {
+            fromResults = []
+            isSearchingFrom = false
+            return
+        }
+
+        isSearchingFrom = true
+        showRecentFrom = false
+
+        searchFromTask = Task {
+            do {
+                let results = try await api.searchLocations(query: query, limit: 8)
+                if !Task.isCancelled {
+                    fromResults = results
+                    isSearchingFrom = false
+                }
+            } catch {
+                if !Task.isCancelled {
+                    fromResults = []
+                    isSearchingFrom = false
+                }
+            }
+        }
+
+        await searchFromTask?.value
     }
 
     func searchTo() async {
-        guard !toQuery.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { toResults = []; return }
-        toResults = (try? await api.searchLocations(query: toQuery, limit: 8)) ?? []
+        // Cancel previous search
+        searchToTask?.cancel()
+
+        let query = toQuery.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else {
+            toResults = []
+            isSearchingTo = false
+            return
+        }
+
+        isSearchingTo = true
+        showRecentTo = false
+
+        searchToTask = Task {
+            do {
+                let results = try await api.searchLocations(query: query, limit: 8)
+                if !Task.isCancelled {
+                    toResults = results
+                    isSearchingTo = false
+                }
+            } catch {
+                if !Task.isCancelled {
+                    toResults = []
+                    isSearchingTo = false
+                }
+            }
+        }
+
+        await searchToTask?.value
+    }
+
+    func useCurrentLocationForFrom() {
+        // This would require location permissions and service
+        // For now, we'll show a placeholder
+        let currentLocation = Place(
+            rawId: "current_location",
+            name: "Current Location",
+            latitude: nil,
+            longitude: nil
+        )
+        selectedFrom = currentLocation
+        fromQuery = currentLocation.name
+        showRecentFrom = false
+        fromResults = []
+    }
+
+    func useCurrentLocationForTo() {
+        let currentLocation = Place(
+            rawId: "current_location",
+            name: "Current Location",
+            latitude: nil,
+            longitude: nil
+        )
+        selectedTo = currentLocation
+        toQuery = currentLocation.name
+        showRecentTo = false
+        toResults = []
     }
 
     func saveRoute() {
         guard let from = selectedFrom, let to = selectedTo else { return }
-        let name = routeName.isEmpty ? "\(from.name) → \(to.name)" : routeName
-        let route = Route(name: name, origin: from, destination: to)
+
+        // Auto-generate route name if empty
+        var routeName = self.routeName
+        if routeName.isEmpty {
+            routeName = generateSmartRouteName(from: from, to: to)
+        }
+
+        let route = Route(name: routeName, origin: from, destination: to)
         store.add(route: route)
+
+        // Save to recent locations
+        saveToRecentLocations(from: from, to: to)
+    }
+
+    private func generateSmartRouteName(from: Place, to: Place) -> String {
+        let fromName = from.name.components(separatedBy: ",").first?.trimmingCharacters(in: .whitespaces) ?? from.name
+        let toName = to.name.components(separatedBy: ",").first?.trimmingCharacters(in: .whitespaces) ?? to.name
+
+        // Try to make it more readable
+        let commonPatterns = ["Station", "Railway", "Train", "Bahnhof", "Gare", "Stazione"]
+        var shortFrom = fromName
+        var shortTo = toName
+
+        for pattern in commonPatterns {
+            shortFrom = shortFrom.replacingOccurrences(of: pattern, with: "").trimmingCharacters(in: .whitespaces)
+            shortTo = shortTo.replacingOccurrences(of: pattern, with: "").trimmingCharacters(in: .whitespaces)
+        }
+
+        return "\(shortFrom) → \(shortTo)"
+    }
+
+    private func loadRecentLocations() {
+        // Load recent locations from UserDefaults
+        loadRecentLocationsFromStorage()
+
+        // If no recent locations exist, start with empty arrays
+        // This will be populated as users search and select locations
+        if recentFromLocations.isEmpty && recentToLocations.isEmpty {
+            // No hardcoded locations - users will build their own recent list
+            recentFromLocations = []
+            recentToLocations = []
+        }
+    }
+
+    private func loadRecentLocationsFromStorage() {
+        // TODO: Implement UserDefaults storage for recent locations
+        // For now, return empty arrays to avoid hardcoded data
+        recentFromLocations = []
+        recentToLocations = []
+    }
+
+    private func saveRecentLocationsToStorage() {
+        // TODO: Implement UserDefaults storage for recent locations
+        // This should persist the recentFromLocations and recentToLocations arrays
+    }
+
+    private func saveToRecentLocations(from: Place, to: Place) {
+        // Add to recent locations if not already there
+        if !recentFromLocations.contains(where: { $0.id == from.id }) {
+            recentFromLocations.insert(from, at: 0)
+            if recentFromLocations.count > 5 {
+                recentFromLocations = Array(recentFromLocations.prefix(5))
+            }
+        }
+
+        if !recentToLocations.contains(where: { $0.id == to.id }) {
+            recentToLocations.insert(to, at: 0)
+            if recentToLocations.count > 5 {
+                recentToLocations = Array(recentToLocations.prefix(5))
+            }
+        }
+
+        // Save to persistent storage
+        saveRecentLocationsToStorage()
+    }
+
+    deinit {
+        searchFromTask?.cancel()
+        searchToTask?.cancel()
     }
 }

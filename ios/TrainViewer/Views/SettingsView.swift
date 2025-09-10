@@ -85,6 +85,7 @@ struct SettingsView: View {
 
                 Section(header: Text("Developer & Support")) {
                     Button("Reload Widgets") { WidgetCenter.shared.reloadAllTimelines() }
+                    Button("Test Widget Data Flow") { testWidgetDataFlow() }
                     Button("Clear Offline Cache") { clearCache() }
                     Button("Trigger Background Refresh") {
                         #if APP_EXTENSION
@@ -152,5 +153,35 @@ struct SettingsView: View {
             TestRunner.printDetailedTestResults()
         }
     }
+
     #endif
+
+    private func testWidgetDataFlow() {
+        // Test the SharedStore data flow for widgets
+        print("🧪 SETTINGS: Testing widget data flow...")
+
+        // Test saving a sample snapshot
+        let sampleSnapshot = WidgetSnapshot(
+            routeId: UUID(),
+            routeName: "Test Route",
+            leaveInMinutes: 15,
+            departure: Date().addingTimeInterval(900),
+            arrival: Date().addingTimeInterval(2700),
+            walkingTime: 8 // Sample walking time for test
+        )
+
+        SharedStore.shared.save(snapshot: sampleSnapshot)
+        print("🧪 SETTINGS: Sample snapshot saved")
+
+        // Test loading it back
+        if let loadedSnapshot = SharedStore.shared.loadSnapshot() {
+            print("✅ SETTINGS: Snapshot loaded successfully: \(loadedSnapshot.routeName)")
+        } else {
+            print("❌ SETTINGS: Failed to load snapshot")
+        }
+
+        // Reload widget timelines
+        WidgetCenter.shared.reloadAllTimelines()
+        print("🔄 SETTINGS: Widget timelines reloaded")
+    }
 }

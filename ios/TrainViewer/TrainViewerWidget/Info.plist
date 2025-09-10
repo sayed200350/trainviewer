@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>TrainViewerWidget</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.trainviewer.TrainViewerWidget</string>
+	<key>CFBundleName</key>
+	<string>TrainViewerWidget</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>WKSupportedFamilies</key>
+			<array>
+				<string>systemSmall</string>
+				<string>systemMedium</string>
+				<string>accessoryRectangular</string>
+				<string>accessoryInline</string>
+				<string>accessoryCircular</string>
+			</array>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.widgetkit-extension</string>
+	</dict>
+</dict>
+</plist>

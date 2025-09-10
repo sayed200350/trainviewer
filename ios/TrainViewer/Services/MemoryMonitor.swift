@@ -10,10 +10,15 @@ final class MemoryMonitor: ObservableObject {
     @Published var currentMemoryUsage: Int64 = 0
     @Published var isMemoryPressureHigh: Bool = false
     @Published var memoryWarningCount: Int = 0
-    
+
     private var timer: Timer?
     private var cancellables = Set<AnyCancellable>()
     private let memoryThresholdMB: Int64 = 150 // Alert when app uses more than 150MB
+
+    // Memory tracking
+    private var memoryReadings: [Double] = []
+    private var peakMemoryUsage: Double = 0
+    private let maxReadingsCount = 100 // Keep last 100 readings for average calculation
     
     // Memory pressure levels
     enum MemoryPressureLevel {
@@ -65,6 +70,14 @@ final class MemoryMonitor: ObservableObject {
         timer?.invalidate()
         timer = nil
         print("📊 [MemoryMonitor] Stopped monitoring memory usage")
+    }
+
+    /// Reset memory tracking statistics
+    func resetStatistics() {
+        memoryReadings.removeAll()
+        peakMemoryUsage = 0
+        memoryWarningCount = 0
+        print("📊 [MemoryMonitor] Reset memory statistics")
     }
     
     /// Handle memory pressure by clearing caches and reducing memory usage
@@ -119,9 +132,20 @@ final class MemoryMonitor: ObservableObject {
     
     private func updateMemoryUsage() {
         currentMemoryUsage = getMemoryUsage()
-        
+
         let usageMB = memoryUsageMB
-        
+
+        // Track memory readings for average calculation
+        memoryReadings.append(usageMB)
+        if memoryReadings.count > maxReadingsCount {
+            memoryReadings.removeFirst()
+        }
+
+        // Track peak memory usage
+        if usageMB > peakMemoryUsage {
+            peakMemoryUsage = usageMB
+        }
+
         // Update pressure level based on usage
         if usageMB > Double(memoryThresholdMB) {
             if currentPressureLevel == .normal {
@@ -186,10 +210,12 @@ struct MemoryStatistics {
 extension MemoryMonitor {
     /// Get comprehensive memory statistics
     func getStatistics() -> MemoryStatistics {
+        let averageUsageMB = memoryReadings.isEmpty ? memoryUsageMB : memoryReadings.reduce(0, +) / Double(memoryReadings.count)
+
         return MemoryStatistics(
             currentUsageMB: memoryUsageMB,
-            peakUsageMB: memoryUsageMB, // TODO: Track peak usage
-            averageUsageMB: memoryUsageMB, // TODO: Track average usage
+            peakUsageMB: peakMemoryUsage,
+            averageUsageMB: averageUsageMB,
             memoryWarningCount: memoryWarningCount,
             pressureLevel: currentPressureLevel
         )

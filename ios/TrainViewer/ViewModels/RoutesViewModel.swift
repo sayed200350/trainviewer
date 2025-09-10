@@ -2,6 +2,7 @@ import Foundation
 import CoreLocation
 import WidgetKit
 import SwiftUI
+import ActivityKit
 
 // MARK: - Shared Types
 /// Achievement badge types for route usage milestones
@@ -133,6 +134,10 @@ final class RoutesViewModel: ObservableObject {
     private let sharedStore: SharedStore
     private let settings: UserSettingsStore
     private let journeyHistoryService: SimpleJourneyHistoryService?
+    private let liveActivityService = LiveActivityService.shared
+
+    // Track active Live Activities by route ID
+    private var activeLiveActivities: [UUID: String] = [:]
 
     init(store: RouteStore = RouteStore(), api: TransportAPI = TransportAPIFactory.shared.make(), locationService: LocationService = .shared, sharedStore: SharedStore = .shared, settings: UserSettingsStore = .shared, journeyHistoryService: SimpleJourneyHistoryService? = SimpleJourneyHistoryService.shared) {
         self.store = store
@@ -337,6 +342,10 @@ final class RoutesViewModel: ObservableObject {
                 publishSnapshotIfAvailable()
                 notifyIfDisruptions()
             }
+
+            // Manage Live Activities for upcoming departures (outside MainActor.run since it's async)
+            await manageLiveActivities(for: newStatus)
+
             await refreshClassSuggestion()
         }
     }
@@ -390,7 +399,18 @@ final class RoutesViewModel: ObservableObject {
     }
 
     private func publishRouteSummaries() {
-        let summaries = routes.map { RouteSummary(id: $0.id, name: $0.name) }
+        let summaries = routes.compactMap { route -> RouteSummary? in
+            guard let destLat = route.destination.latitude,
+                  let destLon = route.destination.longitude else { return nil }
+            return RouteSummary(
+                id: route.id,
+                name: route.name,
+                fromName: route.origin.name,
+                toName: route.destination.name,
+                toLat: destLat,
+                toLon: destLon
+            )
+        }
         sharedStore.saveRouteSummaries(summaries)
     }
 
@@ -423,8 +443,17 @@ final class RoutesViewModel: ObservableObject {
         print("🔧 MAIN: Publishing snapshot - Route: \(route.name), Leave in: \(leave)min, Walking: \(walkingTime ?? 0)min")
         sharedStore.save(snapshot: snapshot)
         sharedStore.save(snapshot: snapshot, for: route.id)
+        print("🔧 MAIN: Snapshot saved to SharedStore")
+
+        // Debug: Verify the data was saved
+        if let loadedSnapshot = sharedStore.loadSnapshot() {
+            print("✅ MAIN: Snapshot verification successful - Loaded: \(loadedSnapshot.routeName)")
+        } else {
+            print("❌ MAIN: Snapshot verification failed - Could not load saved snapshot")
+        }
+
         WidgetCenter.shared.reloadAllTimelines()
-        print("✅ MAIN: Snapshot published and widget timelines reloaded")
+        print("✅ MAIN: Widget timelines reloaded")
     }
 
     // MARK: - Widget Route Selection
@@ -433,6 +462,13 @@ final class RoutesViewModel: ObservableObject {
         sharedStore.saveWidgetRoute(id: routeId)
         publishSnapshotIfAvailable() // Update widget immediately
         print("✅ MAIN: Widget route selection saved")
+    }
+
+    // MARK: - Widget Testing
+    func testWidgetDataFlow() {
+        print("🧪 MAIN: Testing widget data flow...")
+        publishSnapshotIfAvailable()
+        print("🧪 MAIN: Widget data flow test completed")
     }
 
     func getSelectedWidgetRoute() -> Route? {
@@ -480,6 +516,127 @@ final class RoutesViewModel: ObservableObject {
             print("❌ [RoutesViewModel] Failed to load journey details: \(error)")
         }
     }
+
+    // MARK: - Live Activity Management
+
+    private func manageLiveActivities(for routeStatuses: [UUID: RouteStatus]) async {
+        print("🚂 [LiveActivity] Managing Live Activities for \(routeStatuses.count) routes")
+
+        for (routeId, status) in routeStatuses {
+            guard let route = routes.first(where: { $0.id == routeId }),
+                  let firstOption = status.options.first else {
+                continue
+            }
+
+            let leaveInMinutes = status.leaveInMinutes ?? 0
+            let hasExistingActivity = activeLiveActivities[routeId] != nil
+
+            // Start Live Activity for upcoming departures (within 30 minutes)
+            if leaveInMinutes > 0 && leaveInMinutes <= 30 && !hasExistingActivity {
+                // Use a timeout to prevent Live Activity operations from hanging
+                Task {
+                    do {
+                        // Set a timeout for Live Activity operations
+                        let timeoutTask = Task {
+                            try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds timeout
+                            throw NSError(domain: "LiveActivityTimeout", code: -1, userInfo: [NSLocalizedDescriptionKey: "Live Activity operation timed out"])
+                        }
+
+                        let activityTask = Task {
+                            return try await liveActivityService.startTrainDepartureActivity(
+                                routeId: routeId.uuidString,
+                                routeName: route.name,
+                                originName: route.origin.name,
+                                destinationName: route.destination.name,
+                                departureTime: firstOption.departure,
+                                arrivalTime: firstOption.arrival,
+                                platform: firstOption.platform,
+                                lineName: firstOption.lineName,
+                                delayMinutes: firstOption.delayMinutes,
+                                walkingTime: Int(locationService.calculateWalkingTimeForRoute(route).toOrigin / 60)
+                            )
+                        }
+
+                        let result = try await activityTask.value
+                        timeoutTask.cancel() // Cancel timeout since operation completed
+
+                        if let activityId = result {
+                            await MainActor.run {
+                                activeLiveActivities[routeId] = activityId
+                            }
+                            print("✅ [LiveActivity] Started activity for route: \(route.name) - ID: \(activityId)")
+                        }
+                    } catch {
+                        print("❌ [LiveActivity] Failed to start activity for route: \(route.name) - \(error.localizedDescription)")
+                    }
+                }
+            }
+
+            // Update existing Live Activity
+            else if let activityId = activeLiveActivities[routeId] {
+                Task {
+                    do {
+                        // Set a timeout for Live Activity update operations
+                        let timeoutTask = Task {
+                            try await Task.sleep(nanoseconds: 1_500_000_000) // 1.5 seconds timeout
+                            throw NSError(domain: "LiveActivityUpdateTimeout", code: -1, userInfo: [NSLocalizedDescriptionKey: "Live Activity update timed out"])
+                        }
+
+                        let updateTask = Task {
+                            await liveActivityService.updateTrainDepartureActivity(
+                                activityId: activityId,
+                                routeName: route.name,
+                                leaveInMinutes: leaveInMinutes,
+                                departureTime: firstOption.departure,
+                                arrivalTime: firstOption.arrival,
+                                platform: firstOption.platform,
+                                lineName: firstOption.lineName,
+                                delayMinutes: firstOption.delayMinutes,
+                                walkingTime: Int(locationService.calculateWalkingTimeForRoute(route).toOrigin / 60)
+                            )
+                        }
+
+                        await updateTask.value
+                        timeoutTask.cancel()
+                        print("🔄 [LiveActivity] Updated activity for route: \(route.name)")
+                    } catch {
+                        print("❌ [LiveActivity] Failed to update activity for route: \(route.name) - \(error.localizedDescription)")
+                    }
+                }
+            }
+
+            // End Live Activity if departure is too far away or already departed
+            else if let activityId = activeLiveActivities[routeId], (leaveInMinutes > 30 || leaveInMinutes <= 0) {
+                Task {
+                    do {
+                        // Set a timeout for Live Activity end operations
+                        let timeoutTask = Task {
+                            try await Task.sleep(nanoseconds: 1_000_000_000) // 1 second timeout
+                            throw NSError(domain: "LiveActivityEndTimeout", code: -1, userInfo: [NSLocalizedDescriptionKey: "Live Activity end timed out"])
+                        }
+
+                        let endTask = Task {
+                            await liveActivityService.endTrainDepartureActivity(activityId: activityId, finalStatus: leaveInMinutes <= 0 ? "departed" : "completed")
+                        }
+
+                        await endTask.value
+                        timeoutTask.cancel()
+
+                        await MainActor.run {
+                            activeLiveActivities.removeValue(forKey: routeId)
+                        }
+                        print("🏁 [LiveActivity] Ended activity for route: \(route.name)")
+                    } catch {
+                        print("❌ [LiveActivity] Failed to end activity for route: \(route.name) - \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+
+        print("🚂 [LiveActivity] Active activities: \(activeLiveActivities.count)")
+    }
+
+    // MARK: - Debug Functions
 
     // DEBUG: Manual testing function for journey stops
     func debugJourneyStops() {

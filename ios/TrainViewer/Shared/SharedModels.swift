@@ -21,7 +21,19 @@ public struct WidgetSnapshot: Codable {
 public struct RouteSummary: Codable, Identifiable, Hashable {
     public let id: UUID
     public let name: String
-    public init(id: UUID, name: String) { self.id = id; self.name = name }
+    public let fromName: String
+    public let toName: String
+    public let toLat: Double
+    public let toLon: Double
+
+    public init(id: UUID, name: String, fromName: String, toName: String, toLat: Double, toLon: Double) {
+        self.id = id
+        self.name = name
+        self.fromName = fromName
+        self.toName = toName
+        self.toLat = toLat
+        self.toLon = toLon
+    }
 }
 
 // MARK: - Journey Details with Stops

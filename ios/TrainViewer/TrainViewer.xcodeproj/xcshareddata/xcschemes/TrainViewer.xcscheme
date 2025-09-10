@@ -29,9 +29,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "0A0F8E280A4E6772414A459B"
-               BuildableName = "NextDepartureWidget.appex"
-               BlueprintName = "NextDepartureWidget"
+               BlueprintIdentifier = "F39ED4F42E6FEE0E006A91A6"
+               BuildableName = "TrainViewerWidgetExtension.appex"
+               BlueprintName = "TrainViewerWidgetExtension"
                ReferencedContainer = "container:TrainViewer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F34D71152E71912C0081C52D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F34D71142E71912C0081C52D /* Assets.xcassets */; };
+		F34D71162E71912C0081C52D /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = F34D71132E71912C0081C52D /* appstore.png */; };
 		F35B52BB2E65CF3800E50591 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B82E65CF3700E50591 /* RouteStore.swift */; };
 		F35B52BC2E65CF3800E50591 /* BackgroundRefreshFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */; };
 		F35B52BD2E65CF3800E50591 /* BackgroundRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */; };
@@ -69,6 +71,11 @@
 		F39ED4512E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */; };
 		F39ED4522E6FD029006A91A6 /* AchievementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4452E6FD029006A91A6 /* AchievementView.swift */; };
 		F39ED4532E6FD029006A91A6 /* SkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4482E6FD029006A91A6 /* SkeletonView.swift */; };
+		F39ED4E12E6FE100006A91A6 /* LiveActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4E02E6FE100006A91A6 /* LiveActivityService.swift */; };
+		F39ED4E22E6FE100006A91A6 /* LiveActivityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F39ED4E02E6FE100006A91A6 /* LiveActivityService.swift */; };
+		F39ED4F82E6FEE0E006A91A6 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39ED4F72E6FEE0E006A91A6 /* WidgetKit.framework */; };
+		F39ED4FA2E6FEE0E006A91A6 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F39ED4F92E6FEE0E006A91A6 /* SwiftUI.framework */; };
+		F39ED50B2E6FEE10006A91A6 /* TrainViewerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F39ED4F52E6FEE0E006A91A6 /* TrainViewerWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */; };
 		F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C22E6647150093525B /* ErrorPresentationService.swift */; };
 		F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */; };
@@ -111,9 +118,7 @@
 		F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
 		F3FA08BA2E50FEEF00091DE9 /* DBTransportAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA088C2E50FEEF00091DE9 /* DBTransportAPI.swift */; };
 		F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A92E50FEEF00091DE9 /* AddRouteView.swift */; };
-		F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */; };
 		F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A72E50FEEF00091DE9 /* ToastView.swift */; };
-		F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */; };
 		F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08862E50FEEF00091DE9 /* RouteStore.swift */; };
 		F3FA08C22E50FEEF00091DE9 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08812E50FEEF00091DE9 /* Place.swift */; };
 		F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A42E50FEEF00091DE9 /* RoutesViewModel.swift */; };
@@ -180,6 +185,13 @@
 			remoteGlobalIDString = 020CCDA01B9EC3D11E391CBB;
 			remoteInfo = TrainViewer;
 		};
+		F39ED5092E6FEE10006A91A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F39ED4F42E6FEE0E006A91A6;
+			remoteInfo = TrainViewerWidgetExtension;
+		};
 		FF75CD8CAF9324B77540CD6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4BEE41D8E55C9F557353FE11 /* Project object */;
@@ -196,6 +208,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				F39ED50B2E6FEE10006A91A6 /* TrainViewerWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -203,6 +216,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F34D71132E71912C0081C52D /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appstore.png; sourceTree = "<group>"; };
+		F34D71142E71912C0081C52D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshFactory.swift; sourceTree = "<group>"; };
 		F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshProtocol.swift; sourceTree = "<group>"; };
 		F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyServiceProtocol.swift; sourceTree = "<group>"; };
@@ -238,6 +253,11 @@
 		F39ED4472E6FD029006A91A6 /* RouteCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteCardView.swift; sourceTree = "<group>"; };
 		F39ED4482E6FD029006A91A6 /* SkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkeletonView.swift; sourceTree = "<group>"; };
 		F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceCommandsView.swift; sourceTree = "<group>"; };
+		F39ED4E02E6FE100006A91A6 /* LiveActivityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveActivityService.swift; sourceTree = "<group>"; };
+		F39ED4F52E6FEE0E006A91A6 /* TrainViewerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TrainViewerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		F39ED4F72E6FEE0E006A91A6 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		F39ED4F92E6FEE0E006A91A6 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		F39ED5122E6FFC17006A91A6 /* TrainViewerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TrainViewerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedErrorHandling.swift; sourceTree = "<group>"; };
 		F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorIntegrationService.swift; sourceTree = "<group>"; };
 		F3AC48C22E6647150093525B /* ErrorPresentationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPresentationService.swift; sourceTree = "<group>"; };
@@ -293,13 +313,22 @@
 		F3FA08AB2E50FEEF00091DE9 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F3FA08AC2E50FEEF00091DE9 /* RouteDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteDetailView.swift; sourceTree = "<group>"; };
 		F3FA08AD2E50FEEF00091DE9 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteAppIntent.swift; sourceTree = "<group>"; };
-		F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerWidget.swift; sourceTree = "<group>"; };
 		F3FA09012E51008500091DE9 /* RouteValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouteValidation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F39ED50C2E6FEE10006A91A6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F39ED4F42E6FEE0E006A91A6 /* TrainViewerWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F35F62A92E51143C004CB01A /* TrainViewerTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TrainViewerTests; sourceTree = "<group>"; };
+		F39ED4FB2E6FEE0E006A91A6 /* TrainViewerWidget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (F39ED50C2E6FEE10006A91A6 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = TrainViewerWidget; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,12 +339,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F39ED4F22E6FEE0E006A91A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F39ED4FA2E6FEE0E006A91A6 /* SwiftUI.framework in Frameworks */,
+				F39ED4F82E6FEE0E006A91A6 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		A1CCC79382C94D40D2ECDF60 = {
 			isa = PBXGroup;
 			children = (
+				F39ED5122E6FFC17006A91A6 /* TrainViewerWidgetExtension.entitlements */,
+				F34D71132E71912C0081C52D /* appstore.png */,
+				F34D71142E71912C0081C52D /* Assets.xcassets */,
 				F3FA087C2E50FEEF00091DE9 /* App */,
 				F3FA087E2E50FEEF00091DE9 /* AppIntents */,
 				F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */,
@@ -325,10 +366,11 @@
 				F3FA08982E50FEEF00091DE9 /* Shared */,
 				F3FA089C2E50FEEF00091DE9 /* Sources */,
 				F3FA08A02E50FEEF00091DE9 /* TrainViewer.xcodeproj */,
-				F3FA08B22E50FEEF00091DE9 /* Widgets */,
 				F3FA08A52E50FEEF00091DE9 /* ViewModels */,
 				F3FA08AE2E50FEEF00091DE9 /* Views */,
 				F35F62A92E51143C004CB01A /* TrainViewerTests */,
+				F39ED4FB2E6FEE0E006A91A6 /* TrainViewerWidget */,
+				F39ED4F62E6FEE0E006A91A6 /* Frameworks */,
 				F35F62872E510CCA004CB01A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -349,6 +391,7 @@
 				F35F62862E510CCA004CB01A /* NextDepartureWidget.appex */,
 				F35F62882E510CCA004CB01A /* TrainViewer.app */,
 				F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */,
+				F39ED4F52E6FEE0E006A91A6 /* TrainViewerWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -368,6 +411,15 @@
 				F38C5ABA2E528735000B70AC /* RouteValidation.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		F39ED4F62E6FEE0E006A91A6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F39ED4F72E6FEE0E006A91A6 /* WidgetKit.framework */,
+				F39ED4F92E6FEE0E006A91A6 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		F3FA087C2E50FEEF00091DE9 /* App */ = {
@@ -419,6 +471,7 @@
 				F38C5AB42E528735000B70AC /* ErrorHandlingService.swift */,
 				F38C5AB52E528735000B70AC /* LocationResolver.swift */,
 				F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */,
+				F39ED4E02E6FE100006A91A6 /* LiveActivityService.swift */,
 				F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */,
 				F3AC48C22E6647150093525B /* ErrorPresentationService.swift */,
 				F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */,
@@ -540,23 +593,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		F3FA08B02E50FEEF00091DE9 /* AppIntents */ = {
-			isa = PBXGroup;
-			children = (
-				F3FA08AF2E50FEEF00091DE9 /* RouteAppIntent.swift */,
-				F3FA08B12E50FEEF00091DE9 /* TrainViewerWidget.swift */,
-			);
-			path = AppIntents;
-			sourceTree = "<group>";
-		};
-		F3FA08B22E50FEEF00091DE9 /* Widgets */ = {
-			isa = PBXGroup;
-			children = (
-				F3FA08B02E50FEEF00091DE9 /* AppIntents */,
-			);
-			path = Widgets;
-			sourceTree = "<group>";
-		};
 		F3FA08B32E50FEEF00091DE9 /* Products */ = {
 			isa = PBXGroup;
 			name = Products;
@@ -571,11 +607,13 @@
 			buildPhases = (
 				701A9CA1DB147DDCC2DA92FA /* Sources */,
 				40E26D68E7C80697319C584F /* Embed Foundation Extensions */,
+				F34D71122E718F830081C52D /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4A31811B4943C57403B829CC /* PBXTargetDependency */,
+				F39ED50A2E6FEE10006A91A6 /* PBXTargetDependency */,
 			);
 			name = TrainViewer;
 			productName = TrainViewer;
@@ -620,6 +658,28 @@
 			productReference = F35F62A82E51143C004CB01A /* TrainViewerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		F39ED4F42E6FEE0E006A91A6 /* TrainViewerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F39ED50D2E6FEE10006A91A6 /* Build configuration list for PBXNativeTarget "TrainViewerWidgetExtension" */;
+			buildPhases = (
+				F39ED4F12E6FEE0E006A91A6 /* Sources */,
+				F39ED4F22E6FEE0E006A91A6 /* Frameworks */,
+				F39ED4F32E6FEE0E006A91A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				F39ED4FB2E6FEE0E006A91A6 /* TrainViewerWidget */,
+			);
+			name = TrainViewerWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = TrainViewerWidgetExtension;
+			productReference = F39ED4F52E6FEE0E006A91A6 /* TrainViewerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -636,6 +696,9 @@
 					F35F62A72E51143C004CB01A = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = 020CCDA01B9EC3D11E391CBB;
+					};
+					F39ED4F42E6FEE0E006A91A6 = {
+						CreatedOnToolsVersion = 16.2;
 					};
 				};
 			};
@@ -661,12 +724,29 @@
 				0A0F8E280A4E6772414A459B /* NextDepartureWidget */,
 				020CCDA01B9EC3D11E391CBB /* TrainViewer */,
 				F35F62A72E51143C004CB01A /* TrainViewerTests */,
+				F39ED4F42E6FEE0E006A91A6 /* TrainViewerWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F34D71122E718F830081C52D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F34D71152E71912C0081C52D /* Assets.xcassets in Resources */,
+				F34D71162E71912C0081C52D /* appstore.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F35F62A62E51143C004CB01A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F39ED4F32E6FEE0E006A91A6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,6 +773,7 @@
 				F35F62A22E51134A004CB01A /* MapComponentValidator.swift in Sources */,
 				F3FA08E32E50FEEF00091DE9 /* ToastView.swift in Sources */,
 				F3AC48C32E6647150093525B /* ErrorIntegrationService.swift in Sources */,
+				F39ED4E12E6FE100006A91A6 /* LiveActivityService.swift in Sources */,
 				F3AC48C42E6647150093525B /* ErrorPresentationService.swift in Sources */,
 				F3AC48C52E6647150093525B /* EnhancedErrorHandling.swift in Sources */,
 				F39ED44F2E6FD029006A91A6 /* RouteCardView.swift in Sources */,
@@ -786,11 +867,10 @@
 				F3AC48FE2E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */,
 				F3AC48FF2E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */,
 				F3FA08BB2E50FEEF00091DE9 /* AddRouteView.swift in Sources */,
-				F3FA08BC2E50FEEF00091DE9 /* RouteAppIntent.swift in Sources */,
 				F35F62A32E51134A004CB01A /* MapComponentValidator.swift in Sources */,
 				F3FA08BD2E50FEEF00091DE9 /* ToastView.swift in Sources */,
+				F39ED4E22E6FE100006A91A6 /* LiveActivityService.swift in Sources */,
 				F35B52C22E65D06400E50591 /* BackgroundRefreshProtocol.swift in Sources */,
-				F3FA08BF2E50FEEF00091DE9 /* TrainViewerWidget.swift in Sources */,
 				F3FA09032E51008500091DE9 /* RouteValidation.swift in Sources */,
 				F3FA08C12E50FEEF00091DE9 /* RouteStore.swift in Sources */,
 				F39257852E6DBF0800CB9D6A /* SimpleJourneyHistoryViewModel.swift in Sources */,
@@ -860,6 +940,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F39ED4F12E6FEE0E006A91A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -872,6 +959,11 @@
 			isa = PBXTargetDependency;
 			target = 020CCDA01B9EC3D11E391CBB /* TrainViewer */;
 			targetProxy = F35F62AC2E51143C004CB01A /* PBXContainerItemProxy */;
+		};
+		F39ED50A2E6FEE10006A91A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F39ED4F42E6FEE0E006A91A6 /* TrainViewerWidgetExtension */;
+			targetProxy = F39ED5092E6FEE10006A91A6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -909,6 +1001,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -965,6 +1058,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TrainViewer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -993,6 +1087,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1056,6 +1151,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = TrainViewer.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1163,6 +1259,82 @@
 			};
 			name = Release;
 		};
+		F39ED50E2E6FEE10006A91A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TrainViewerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainViewerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrainViewerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.TrainViewerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F39ED50F2E6FEE10006A91A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_ENTITLEMENTS = TrainViewerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AZ3UBYX9QX;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TrainViewerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TrainViewerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.TrainViewerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1198,6 +1370,15 @@
 			buildConfigurations = (
 				F35F62AF2E51143C004CB01A /* Debug */,
 				F35F62B02E51143C004CB01A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		F39ED50D2E6FEE10006A91A6 /* Build configuration list for PBXNativeTarget "TrainViewerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F39ED50E2E6FEE10006A91A6 /* Debug */,
+				F39ED50F2E6FEE10006A91A6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
