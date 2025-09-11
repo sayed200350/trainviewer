@@ -12,6 +12,7 @@ public final class SharedStore {
     private let homeKey = "settings.homePlace"
     private let lastLocationLatKey = "lastLocation.lat"
     private let lastLocationLonKey = "lastLocation.lon"
+    private let lastLocationTimestampKey = "lastLocation.timestamp"
     private let pendingRouteKey = "pending.routeId"
 
     private var defaults: UserDefaults? {
@@ -68,8 +69,21 @@ public final class SharedStore {
 
     // MARK: - Last location
     public func saveLastLocation(latitude: Double, longitude: Double) {
+        let now = Date()
         defaults?.set(latitude, forKey: lastLocationLatKey)
         defaults?.set(longitude, forKey: lastLocationLonKey)
+        defaults?.set(now, forKey: lastLocationTimestampKey)
+    }
+
+    public func saveLocationForSmartWidget(latitude: Double, longitude: Double) {
+        let now = Date()
+        // Save to main app UserDefaults
+        defaults?.set(latitude, forKey: "currentLocation.latitude")
+        defaults?.set(longitude, forKey: "currentLocation.longitude")
+        defaults?.set(now, forKey: "currentLocation.timestamp")
+
+        // Also save the regular location
+        saveLastLocation(latitude: latitude, longitude: longitude)
     }
 
     public func loadLastLocation() -> (lat: Double, lon: Double)? {

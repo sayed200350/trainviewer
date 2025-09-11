@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 /// Service for managing Live Activities for train departures
 final class LiveActivityService {
@@ -130,6 +131,18 @@ extension LiveActivityService {
     func updateActivity(activityId: String, from status: RouteStatus, routeName: String) async {
         guard let firstOption = status.options.first else { return }
 
+        // Get current location from SharedStore
+        let currentLocation: CLLocation?
+        if let locationCoords = SharedStore.shared.loadLastLocation() {
+            currentLocation = CLLocation(latitude: locationCoords.lat, longitude: locationCoords.lon)
+        } else {
+            currentLocation = nil
+        }
+
+        // Calculate walking time if we have location and departure station info
+        // For now, we'll pass nil as walking time calculation requires more route context
+        let walkingTime: Int? = nil
+
         await updateTrainDepartureActivity(
             activityId: activityId,
             routeName: routeName,
@@ -139,7 +152,32 @@ extension LiveActivityService {
             platform: firstOption.platform,
             lineName: firstOption.lineName,
             delayMinutes: firstOption.delayMinutes,
-            walkingTime: 10 // TODO: Pass route for actual walking time calculation
+            walkingTime: walkingTime
         )
+    }
+
+    // MARK: - Helper Methods
+
+    private func calculateWalkingTime(from currentLocation: CLLocation?, to destination: Place?) -> Int? {
+        guard let currentLocation = currentLocation,
+              let destination = destination,
+              let destCoord = destination.coordinate else {
+            return nil
+        }
+
+        // Calculate distance in meters
+        let distance = currentLocation.distance(from: CLLocation(latitude: destCoord.latitude, longitude: destCoord.longitude))
+
+        // Use research-backed walking speed (1.31 m/s = ~4.7 km/h)
+        let walkingSpeed = AppConstants.defaultWalkingSpeedMetersPerSecond
+
+        // Calculate walking time in minutes
+        let walkingTimeSeconds = distance / walkingSpeed
+        let walkingTimeMinutes = Int(ceil(walkingTimeSeconds / 60))
+
+        // Add preparation buffer
+        let totalTime = walkingTimeMinutes + AppConstants.defaultPreparationBufferMinutes
+
+        return max(1, totalTime) // Minimum 1 minute
     }
 }

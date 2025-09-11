@@ -3,17 +3,78 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>TrainViewer</string>
+	<string>BahnBlitz</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<string>com.bahnblitz.app</string>
+	<key>NSSiriUsageDescription</key>
+	<string>This app uses Siri to provide voice-activated train schedule information even when the app is closed or your device is locked.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>com.bahnblitz.app.trainquery</string>
+	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Used to estimate walking time to your station</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Used to estimate walking time to your station</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Voice commands allow you to quickly add routes and get transit information by speaking naturally to your device.</string>
+	<key>INAlternativeAppNames</key>
+	<array>
+		<dict>
+			<key>INAlternativeAppName</key>
+			<string>Bahn Blitz</string>
+		</dict>
+		<dict>
+			<key>INAlternativeAppName</key>
+			<string>Bahn App</string>
+		</dict>
+	</array>
+	<key>NSUserNotificationsUsageDescription</key>
+	<string>Get notified when it's time to leave for your train, receive alerts about service disruptions, and stay updated on your journey status.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Access your calendar events to suggest optimal travel times and remind you to leave for class or appointments.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Access your photo library to upload and store your semester ticket photos for easy access and display.</string>
+	<key>CFBundleIconName</key>
+	<string>AppIcon</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon-60@2x.png</string>
+		<string>Icon-60@3x.png</string>
+	</array>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconName</key>
+			<string>AppIcon</string>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>Icon-60@2x.png</string>
+				<string>Icon-60@3x.png</string>
+			</array>
+		</dict>
+	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>trainviewer</string>
+				<string>bahnblitz</string>
+			</array>
+			<key>CFBundleURLName</key>
+			<string>com.bahnblitz.app</string>
+		</dict>
+	</array>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
 	<string>$(PRODUCT_NAME)</string>
 	<key>CFBundlePackageType</key>
-	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
+	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -51,14 +112,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Used to estimate walking time to your station</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Used to estimate walking time to your station</string>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.yourcompany.trainviewer.refresh</string>
 	</array>
 </dict>
 </plist>

@@ -41,6 +41,10 @@ final class UserSettingsStore: ObservableObject {
 
     @Published var campusPlace: Place? { didSet { save() } }
     @Published var homePlace: Place? { didSet { save() } }
+    @Published var preparationBufferMinutes: Int { didSet { save() } }
+
+    // Onboarding
+    @Published var onboardingCompleted: Bool { didSet { save() } }
 
     private let defaults = UserDefaults.standard
 
@@ -60,6 +64,8 @@ final class UserSettingsStore: ObservableObject {
         
         self.campusPlace = defaults.decode(key: "settings.campusPlace", default: Optional<Place>.none)
         self.homePlace = defaults.decode(key: "settings.homePlace", default: Optional<Place>.none)
+        self.preparationBufferMinutes = defaults.object(forKey: "settings.preparationBufferMinutes") as? Int ?? AppConstants.defaultPreparationBufferMinutes
+        self.onboardingCompleted = defaults.object(forKey: "settings.onboardingCompleted") as? Bool ?? false
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
     }
 
@@ -79,6 +85,8 @@ final class UserSettingsStore: ObservableObject {
         
         defaults.encode(campusPlace, key: "settings.campusPlace")
         defaults.encode(homePlace, key: "settings.homePlace")
+        defaults.set(preparationBufferMinutes, forKey: "settings.preparationBufferMinutes")
+        defaults.set(onboardingCompleted, forKey: "settings.onboardingCompleted")
         SharedStore.shared.saveSettings(campusPlace: campusPlace, homePlace: homePlace)
     }
 

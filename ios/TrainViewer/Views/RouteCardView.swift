@@ -124,16 +124,6 @@ struct RouteCardView: View {
                         Spacer()
 
                         HStack(spacing: 8) {
-                            Button(action: {
-                                var updatedRoute = route
-                                updatedRoute.toggleFavorite()
-                            }) {
-                                Image(systemName: route.isFavorite ? "heart.fill" : "heart")
-                                    .foregroundColor(route.isFavorite ? .accentRed : .textSecondary)
-                                    .font(.system(size: 16))
-                            }
-                            .buttonStyle(.borderless)
-
                             Button(action: { onWidgetSelect(route) }) {
                                 HStack(spacing: 4) {
                                     Image(systemName: vm.getSelectedWidgetRoute()?.id == route.id ? "star.fill" : "star")
@@ -231,25 +221,6 @@ struct RouteCardView: View {
                 }
             }
 
-            // Right action (Favorite)
-            if offset.width > 0 {
-                HStack {
-                    VStack(spacing: 8) {
-                        Image(systemName: route.isFavorite ? "heart.slash.fill" : "heart.fill")
-                            .font(.system(size: 20))
-                            .foregroundColor(.white)
-                        Text(route.isFavorite ? "Unfavorite" : "Favorite")
-                            .font(.system(size: 12, weight: .semibold))
-                            .foregroundColor(.white)
-                    }
-                    .frame(width: min(offset.width, maxSwipeOffset))
-                    .frame(maxHeight: .infinity)
-                    .background(route.isFavorite ? Color.warningColor.opacity(0.9) : Color.accentRed.opacity(0.9))
-                    .cornerRadius(12)
-                    .shadow(color: (route.isFavorite ? Color.warningColor : Color.accentRed).opacity(0.3), radius: 8, x: 0, y: 0)
-                    Spacer()
-                }
-            }
 
             // Main card content
             VStack(alignment: .leading, spacing: 12) {
@@ -292,18 +263,6 @@ struct RouteCardView: View {
 
                 // Quick actions
                 HStack(spacing: 8) {
-                    // Favorite button
-                    Button(action: {
-                        var updatedRoute = route
-                        updatedRoute.toggleFavorite()
-                        // TODO: Update route in view model
-                    }) {
-                        Image(systemName: route.isFavorite ? "heart.fill" : "heart")
-                            .foregroundColor(route.isFavorite ? .accentRed : .textSecondary)
-                            .font(.system(size: 16))
-                    }
-                    .buttonStyle(.borderless)
-
                     // Widget button
                     Button(action: { onWidgetSelect(route) }) {
                         HStack(spacing: 4) {
@@ -394,10 +353,7 @@ struct RouteCardView: View {
                     .onChanged { gesture in
                         let translation = gesture.translation.width
                         // Limit the swipe distance
-                        if translation > 0 {
-                            // Right swipe (favorite)
-                            offset.width = min(translation, maxSwipeOffset)
-                        } else {
+                        if translation < 0 {
                             // Left swipe (delete)
                             offset.width = max(translation, -maxSwipeOffset)
                         }
@@ -406,11 +362,7 @@ struct RouteCardView: View {
                         let translation = gesture.translation.width
 
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
-                            if translation > swipeThreshold {
-                                // Right swipe - toggle favorite
-                                handleFavoriteToggle()
-                                offset = .zero
-                            } else if translation < -swipeThreshold {
+                            if translation < -swipeThreshold {
                                 // Left swipe - show delete confirmation
                                 showingDeleteConfirmation = true
                                 offset = .zero
@@ -433,14 +385,6 @@ struct RouteCardView: View {
         }
     }
 
-    private func handleFavoriteToggle() {
-        // Create a haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-
-        // Toggle favorite in the view model
-        vm.toggleFavorite(for: route)
-    }
 
     private func formatTime(_ date: Date) -> String {
         let formatter = DateFormatter()

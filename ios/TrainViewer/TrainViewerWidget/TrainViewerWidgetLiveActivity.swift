@@ -10,7 +10,7 @@ import WidgetKit
 import SwiftUI
 
 // MARK: - Live Activity Attributes
-struct TrainViewerAttributes: ActivityAttributes {
+struct BahnBlitzAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         var routeName: String
         var leaveInMinutes: Int
@@ -29,11 +29,11 @@ struct TrainViewerAttributes: ActivityAttributes {
 }
 
 // MARK: - Live Activity Widget
-struct TrainViewerLiveActivity: Widget {
+struct BahnBlitzLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: TrainViewerAttributes.self) { context in
+        ActivityConfiguration(for: BahnBlitzAttributes.self) { context in
             // Lock screen/banner UI
-            LockScreenLiveActivityView(context: context)
+            BahnBlitzLockScreenLiveActivityView(context: context)
 
         } dynamicIsland: { context in
             DynamicIsland {
@@ -101,8 +101,8 @@ struct TrainViewerLiveActivity: Widget {
 }
 
 // MARK: - Lock Screen View
-struct LockScreenLiveActivityView: View {
-    let context: ActivityViewContext<TrainViewerAttributes>
+struct BahnBlitzLockScreenLiveActivityView: View {
+    let context: ActivityViewContext<BahnBlitzAttributes>
 
     var body: some View {
         HStack(spacing: 12) {

@@ -132,7 +132,8 @@ extension DBJourney {
         print("🔍 [JourneyDecoding] - Warnings: \(warnings)")
         
         // Convert DBLegs to JourneyLegs for detailed journey information
-        let journeyLegs = legs.enumerated().map { (index, leg) -> JourneyLeg in
+        // Filter out legs where origin and destination are the same (platform changes only)
+        let journeyLegs = legs.enumerated().compactMap { (index, leg) -> JourneyLeg? in
             let origin = StopInfo(
                 id: leg.origin.id ?? "origin_\(index)",
                 name: leg.origin.name ?? "Unknown Origin",
@@ -152,6 +153,16 @@ extension DBJourney {
                 scheduledDeparture: nil,
                 actualDeparture: nil
             )
+
+            // Skip legs where origin and destination are the same station (platform changes)
+            // This prevents showing redundant "Düsseldorf → Düsseldorf" legs
+            let originName = origin.name.lowercased().trimmingCharacters(in: .whitespaces)
+            let destinationName = destination.name.lowercased().trimmingCharacters(in: .whitespaces)
+
+            if originName == destinationName || originName.isEmpty || destinationName.isEmpty {
+                print("🔍 [JourneyDecoding] Skipping platform change leg \(index): \(origin.name) → \(destination.name)")
+                return nil
+            }
 
             // Parse real intermediate stops from API response
             let intermediateStops = parseRealStopovers(for: leg, legIndex: index)
@@ -193,10 +204,23 @@ extension DBJourney {
 private func parseRealStopovers(for leg: DBLeg, legIndex: Int) -> [StopInfo] {
     guard let stopovers = leg.stopovers else {
         print("🔍 [JourneyDecoding] No stopovers found for leg \(legIndex)")
+        // Debug: Print line information to understand transport type
+        if let lineName = leg.line?.name {
+            print("🔍 [JourneyDecoding] Line name: \(lineName) (may indicate transport type)")
+        }
         return []
     }
 
     print("🔍 [JourneyDecoding] Parsing \(stopovers.count) real stopovers for leg \(legIndex)")
+
+    // Debug: Print transport type information
+    if let lineName = leg.line?.name {
+        print("🔍 [JourneyDecoding] Transport line: \(lineName)")
+        // Check if this is a regional train (common issue)
+        if lineName.contains("RE") || lineName.contains("RB") || lineName.contains("Regional") {
+            print("🔍 [JourneyDecoding] ⚠️  REGIONAL TRAIN DETECTED - checking stopovers")
+        }
+    }
 
     // Get origin and destination identifiers to filter out duplicates
     let originName = leg.origin.name?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -217,6 +241,8 @@ private func parseRealStopovers(for leg: DBLeg, legIndex: Int) -> [StopInfo] {
 
         let stopoverName = stopName.trimmingCharacters(in: .whitespacesAndNewlines)
         let stopoverId = stopover.stop.id
+
+        print("🔍 [JourneyDecoding] Processing stopover \(index): \(stopName) (\(stopoverId ?? "no-id"))")
 
         // Skip if this stopover matches the origin or destination
         if (stopoverName == originName && stopoverId == originId) ||

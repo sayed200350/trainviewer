@@ -280,13 +280,89 @@ final class RoutesViewModel: ObservableObject {
         }
     }
 
+    /// Perform initial refresh when app launches
+    func performInitialRefresh() async {
+        print("🚀 [RoutesViewModel] Performing initial refresh for \(routes.count) routes")
+
+        // Only refresh if we have routes and it's not already refreshing
+        guard !routes.isEmpty && !isRefreshing else {
+            print("🚀 [RoutesViewModel] Skipping initial refresh - no routes or already refreshing")
+            return
+        }
+
+        // Add a timeout to prevent infinite loading
+        let refreshTask = Task {
+            await refreshAll()
+        }
+
+        // Wait for the refresh with a timeout
+        do {
+            try await withTimeout(seconds: 30) {
+                _ = await refreshTask.value
+            }
+            print("✅ [RoutesViewModel] Initial refresh completed successfully")
+        } catch {
+            print("⚠️ [RoutesViewModel] Initial refresh timed out or failed: \(error)")
+            // Ensure refreshing state is reset
+            await MainActor.run {
+                isRefreshing = false
+            }
+
+            // Schedule a retry in 5 seconds for better UX
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+                Task { [weak self] in
+                    await self?.retryInitialRefresh()
+                }
+            }
+        }
+    }
+
+    /// Retry initial refresh with exponential backoff
+    private func retryInitialRefresh() async {
+        print("🔄 [RoutesViewModel] Retrying initial refresh...")
+
+        // Only retry if we still have routes and aren't refreshing
+        guard !routes.isEmpty && !isRefreshing else {
+            print("🔄 [RoutesViewModel] Skipping retry - no routes or already refreshing")
+            return
+        }
+
+        // Use a shorter timeout for retry
+        let refreshTask = Task {
+            await refreshAll()
+        }
+
+        do {
+            try await withTimeout(seconds: 15) {
+                _ = await refreshTask.value
+            }
+            print("✅ [RoutesViewModel] Retry refresh completed successfully")
+        } catch {
+            print("❌ [RoutesViewModel] Retry refresh also failed: \(error)")
+            // Final fallback - ensure refreshing state is reset
+            await MainActor.run {
+                isRefreshing = false
+                isOffline = true
+            }
+        }
+    }
+
     func refreshAll() async {
         print("🔄 [RoutesViewModel] Starting refreshAll for \(routes.count) routes")
+        let wasRefreshing = isRefreshing
         isRefreshing = true
-        defer { isRefreshing = false }
+
+        // Ensure isRefreshing is always reset, even on early returns
+        defer {
+            if !wasRefreshing { // Only reset if we set it to true
+                isRefreshing = false
+            }
+        }
+
         var usedCacheAny = false
-        
-        await withTaskGroup(of: (UUID, RouteStatus?, Bool).self) { group in
+
+        do {
+            try await withTaskGroup(of: (UUID, RouteStatus?, Bool).self) { group in
             for route in routes {
                 print("🔄 [RoutesViewModel] Adding task for route: \(route.name)")
                 group.addTask { [weak self] in
@@ -347,6 +423,14 @@ final class RoutesViewModel: ObservableObject {
             await manageLiveActivities(for: newStatus)
 
             await refreshClassSuggestion()
+            }
+        } catch {
+            print("❌ [RoutesViewModel] Critical error during refreshAll: \(error)")
+            // Ensure we still update the UI even on error
+            await MainActor.run {
+                isOffline = true
+                publishSnapshotIfAvailable()
+            }
         }
     }
     
@@ -439,7 +523,50 @@ final class RoutesViewModel: ObservableObject {
         let leave = status.leaveInMinutes ?? 0
         // Calculate walking time (you can enhance this with actual location-based calculation)
         let walkingTime = calculateWalkingTime(for: route)
-        let snapshot = WidgetSnapshot(routeId: route.id, routeName: route.name, leaveInMinutes: leave, departure: firstOption.departure, arrival: firstOption.arrival, walkingTime: walkingTime)
+
+        // Extract platform, line name, delay, and direction from the first journey option
+        let platform = firstOption.platform ?? (firstOption.legs?.first?.platform)
+        let lineName = firstOption.lineName ?? (firstOption.legs?.first?.lineName)
+        let delayMinutes = firstOption.delayMinutes ?? (firstOption.legs?.first?.delayMinutes)
+        let direction = firstOption.legs?.first?.direction
+
+        // Debug: Log delay information for accuracy tracking
+        print("🔧 DELAY DEBUG: Route '\(route.name)' - API delay: \(firstOption.delayMinutes ?? 0)min, Leg delay: \((firstOption.legs?.first?.delayMinutes) ?? 0)min, Final delay: \(delayMinutes ?? 0)min")
+        print("🔧 DELAY DEBUG: Scheduled departure: \(firstOption.departure), Now: \(Date())")
+        if let delay = delayMinutes {
+            print("🔧 DELAY DEBUG: Will show as \(delay > 0 ? "delayed by \(delay) min" : "on time")")
+        }
+
+        // Create next departures from additional options (up to 3 total including current)
+        var nextDepartures: [UpcomingDeparture] = []
+        if status.options.count > 1 {
+            let additionalOptions = status.options.prefix(3) // Include current + 2 more
+            for option in additionalOptions {
+                if option.id != firstOption.id { // Skip the current option
+                    let upcomingDep = UpcomingDeparture(
+                        departure: option.departure,
+                        lineName: option.lineName ?? option.legs?.first?.lineName,
+                        platform: option.platform ?? option.legs?.first?.platform,
+                        delayMinutes: option.delayMinutes ?? option.legs?.first?.delayMinutes
+                    )
+                    nextDepartures.append(upcomingDep)
+                }
+            }
+        }
+
+        let snapshot = WidgetSnapshot(
+            routeId: route.id,
+            routeName: route.name,
+            leaveInMinutes: leave,
+            departure: firstOption.departure,
+            arrival: firstOption.arrival,
+            walkingTime: walkingTime,
+            platform: platform,
+            lineName: lineName,
+            delayMinutes: delayMinutes,
+            direction: direction,
+            nextDepartures: nextDepartures.isEmpty ? nil : nextDepartures
+        )
         print("🔧 MAIN: Publishing snapshot - Route: \(route.name), Leave in: \(leave)min, Walking: \(walkingTime ?? 0)min")
         sharedStore.save(snapshot: snapshot)
         sharedStore.save(snapshot: snapshot, for: route.id)
@@ -476,16 +603,13 @@ final class RoutesViewModel: ObservableObject {
         return routes.first(where: { $0.id == routeId })
     }
 
-    private func calculateWalkingTime(for route: Route) -> Int {
-        // Simple walking time calculation based on route name
-        // You can enhance this with actual location-based calculations
-        if route.name.lowercased().contains("home") {
-            return 5 // 5 minutes to home station
-        } else if route.name.lowercased().contains("work") || route.name.lowercased().contains("office") {
-            return 8 // 8 minutes to work station
-        } else {
-            return 6 // Default 6 minutes
-        }
+    private func calculateWalkingTime(for route: Route) -> Int? {
+        // Use location-based walking time calculation (same as Live Activities)
+        let walkingTimes = locationService.calculateWalkingTimeForRoute(route)
+        let walkingTimeMinutes = Int(ceil(walkingTimes.toOrigin / 60.0))
+
+        // Return nil if walking time is 0 (no location available or invalid coordinates)
+        return walkingTimeMinutes > 0 ? walkingTimeMinutes : nil
     }
 
     // MARK: - Journey Details with Stops
@@ -754,16 +878,18 @@ final class RoutesViewModel: ObservableObject {
             print("⏰ [RoutesViewModel] Delay: \(first.delayMinutes ?? 0) minutes")
             
             let walkingMinutes = computeWalkingMinutes(to: route.origin)
-            let baseBuffer = route.preparationBufferMinutes
+            let routeBuffer = route.preparationBufferMinutes
+            let userBuffer = settings.preparationBufferMinutes
             let examExtra = settings.examModeEnabled ? 5 : 0
-            let buffer = baseBuffer + examExtra
+            let buffer = routeBuffer + userBuffer + examExtra
             let minutesUntilDeparture = Int(first.departure.timeIntervalSince(now) / 60)
             let minutesToLeave = minutesUntilDeparture - walkingMinutes - buffer
             leaveIn = max(0, minutesToLeave)
             
             print("⏰ [RoutesViewModel] Calculation breakdown:")
             print("⏰ [RoutesViewModel] - Walking time: \(walkingMinutes) minutes")
-            print("⏰ [RoutesViewModel] - Base buffer: \(baseBuffer) minutes")
+            print("⏰ [RoutesViewModel] - Route buffer: \(routeBuffer) minutes")
+            print("⏰ [RoutesViewModel] - User buffer: \(userBuffer) minutes")
             print("⏰ [RoutesViewModel] - Exam extra: \(examExtra) minutes")
             print("⏰ [RoutesViewModel] - Total buffer: \(buffer) minutes")
             print("⏰ [RoutesViewModel] - Minutes until departure: \(minutesUntilDeparture)")
@@ -985,5 +1111,111 @@ final class RoutesViewModel: ObservableObject {
                 )
             }
             .map { $0 }
+    }
+
+    // MARK: - Smart Departure Fetching
+
+    /// Refresh routes that have expired departures to ensure widget always shows future departures
+    func refreshExpiredDepartures() async {
+        print("🎯 [RoutesViewModel] Checking for routes with expired departures...")
+
+        let now = Date()
+        var routesNeedingRefresh: [Route] = []
+
+        // Find routes where the current departure has passed
+        for route in routes {
+            if let status = statusByRouteId[route.id],
+               let currentDeparture = status.options.first?.departure,
+               currentDeparture <= now {
+                print("🎯 [RoutesViewModel] Route \(route.name) has expired departure: \(currentDeparture)")
+                routesNeedingRefresh.append(route)
+            }
+        }
+
+        // Refresh all expired routes
+        if !routesNeedingRefresh.isEmpty {
+            print("🎯 [RoutesViewModel] Refreshing \(routesNeedingRefresh.count) routes with expired departures")
+
+            await withTaskGroup(of: Void.self) { group in
+                for route in routesNeedingRefresh {
+                    group.addTask {
+                        await self.refreshRoute(route)
+                    }
+                }
+            }
+
+            // Publish updated snapshots after refresh
+            await MainActor.run {
+                publishSnapshotIfAvailable()
+            }
+        } else {
+            print("🎯 [RoutesViewModel] No routes with expired departures found")
+        }
+    }
+
+    /// Auto-refresh expired departures with smart timing
+    func startSmartDepartureRefresh() {
+        print("🎯 [RoutesViewModel] Starting smart departure refresh monitor")
+
+        // Create a timer that checks for expired departures and widget refresh requests every minute
+        Timer.scheduledTimer(withTimeInterval: 60.0, repeats: true) { [weak self] _ in
+            Task { [weak self] in
+                await self?.checkAndHandleRefreshRequests()
+            }
+        }
+    }
+
+    /// Utility function to add timeout to async operations
+    private func withTimeout<T>(seconds: TimeInterval, operation: @escaping () async throws -> T) async throws -> T {
+        try await withThrowingTaskGroup(of: T.self) { group in
+            // Add the main operation
+            group.addTask {
+                try await operation()
+            }
+
+            // Add a timeout task
+            group.addTask {
+                try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+                throw NSError(domain: "TimeoutError", code: -1, userInfo: [NSLocalizedDescriptionKey: "Operation timed out after \(seconds) seconds"])
+            }
+
+            // Wait for the first task to complete (either success or timeout)
+            let result = try await group.next()!
+            group.cancelAll() // Cancel the remaining task
+            return result
+        }
+    }
+
+    /// Check for widget refresh requests and expired departures
+    private func checkAndHandleRefreshRequests() async {
+        // First check for widget refresh requests
+        if WidgetDataLoader.wasRefreshRequested() {
+            print("🎯 [RoutesViewModel] Widget refresh requested, refreshing all routes")
+            WidgetDataLoader.clearRefreshRequest()
+
+            // Refresh all routes to provide fresh data to widget
+            await refreshAllRoutes()
+
+            // Publish updated snapshots
+            await MainActor.run {
+                publishSnapshotIfAvailable()
+            }
+        } else {
+            // Check for expired departures
+            await refreshExpiredDepartures()
+        }
+    }
+
+    /// Refresh all routes (used when widget requests immediate refresh)
+    private func refreshAllRoutes() async {
+        print("🎯 [RoutesViewModel] Refreshing all routes for widget")
+
+        await withTaskGroup(of: Void.self) { group in
+            for route in routes {
+                group.addTask {
+                    await self.refreshRoute(route)
+                }
+            }
+        }
     }
 }

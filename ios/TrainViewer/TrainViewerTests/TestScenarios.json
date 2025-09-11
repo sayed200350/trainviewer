@@ -1,0 +1,144 @@
+{
+  "testScenarios": {
+    "locations": {
+      "home": {
+        "name": "München Home",
+        "latitude": 48.1351,
+        "longitude": 11.5820,
+        "description": "Typical residential area in Munich"
+      },
+      "campus": {
+        "name": "TU München Campus",
+        "latitude": 48.1500,
+        "longitude": 11.5800,
+        "description": "Technical University of Munich main campus"
+      },
+      "nearHome": {
+        "name": "Near Home",
+        "latitude": 48.1450,
+        "longitude": 11.5820,
+        "description": "Location within 1km of home but outside detection radius"
+      },
+      "nearCampus": {
+        "name": "Near Campus",
+        "latitude": 48.1400,
+        "longitude": 11.5800,
+        "description": "Location within 1km of campus but outside detection radius"
+      },
+      "overlapping": {
+        "name": "Between Home and Campus",
+        "latitude": 48.1400,
+        "longitude": 11.5820,
+        "description": "Location where both home and campus are within detection radius"
+      }
+    },
+    "timeScenarios": {
+      "morning": {
+        "hour": 8,
+        "minute": 0,
+        "expectedContext": "atHome",
+        "description": "Morning commute time - user likely at home"
+      },
+      "midday": {
+        "hour": 14,
+        "minute": 0,
+        "expectedContext": "unknown",
+        "description": "Midday - ambiguous location context"
+      },
+      "evening": {
+        "hour": 18,
+        "minute": 0,
+        "expectedContext": "atCampus",
+        "description": "Evening commute time - user likely at work/campus"
+      },
+      "weekend": {
+        "weekday": 7,
+        "hour": 14,
+        "minute": 0,
+        "expectedContext": "nearCampus",
+        "description": "Weekend afternoon - leisure time"
+      },
+      "lateNight": {
+        "hour": 2,
+        "minute": 0,
+        "expectedContext": "unknown",
+        "description": "Late night - ambiguous location context"
+      }
+    },
+    "routeScenarios": {
+      "commuteMorning": {
+        "from": "home",
+        "to": "campus",
+        "walkingTime": 8,
+        "description": "Morning commute from home to university"
+      },
+      "commuteEvening": {
+        "from": "campus",
+        "to": "home",
+        "walkingTime": 5,
+        "description": "Evening commute from university to home"
+      },
+      "weekdayOverride": {
+        "weekday": 2,
+        "routeType": "special",
+        "description": "Monday-specific route (e.g., via different station)"
+      }
+    }
+  },
+  "configuration": {
+    "detectionRadii": {
+      "homeRadius": 300,
+      "campusRadius": 500,
+      "proximityRadius": 1000
+    },
+    "timeouts": {
+      "locationTimeout": 1800,
+      "locationFreshnessThreshold": 1800
+    },
+    "defaults": {
+      "smartSwitchingEnabled": true,
+      "timeBasedFallbackEnabled": true,
+      "vacationModeEnabled": false
+    }
+  },
+  "edgeCases": {
+    "locationTimeout": {
+      "description": "Test behavior when location data is older than 30 minutes",
+      "expectedBehavior": "fallbackToTimeBased"
+    },
+    "noLocationPermission": {
+      "description": "Test behavior when location permissions are denied",
+      "expectedBehavior": "fallbackToTimeBased"
+    },
+    "gpsUnavailable": {
+      "description": "Test behavior when GPS signal is lost",
+      "expectedBehavior": "fallbackToTimeBased"
+    },
+    "overlappingRadii": {
+      "description": "Test behavior when user is within both home and campus detection radii",
+      "expectedBehavior": "chooseCloserLocation"
+    },
+    "noRoutesConfigured": {
+      "description": "Test behavior when no routes are set up",
+      "expectedBehavior": "showSetupPrompt"
+    },
+    "singleRouteOnly": {
+      "description": "Test behavior when only one route is configured",
+      "expectedBehavior": "useAvailableRoute"
+    }
+  },
+  "performanceTests": {
+    "locationUpdateFrequency": {
+      "description": "Test how often location updates trigger widget refresh",
+      "expectedFrequency": "every 5-10 minutes"
+    },
+    "contextSwitchingDelay": {
+      "description": "Test delay between location change and widget update",
+      "expectedDelay": "< 30 seconds"
+    },
+    "routeCalculationTime": {
+      "description": "Test time taken to calculate optimal route",
+      "expectedTime": "< 100ms"
+    }
+  }
+}

@@ -67,7 +67,7 @@ final class RouteStore {
             entity.destLon = route.destination.longitude.map { NSNumber(value: $0) }
             entity.preparationBufferMinutes = Int16(route.preparationBufferMinutes)
             entity.walkingSpeedMetersPerSecond = route.walkingSpeedMetersPerSecond
-            
+
             // Update new MVP properties
             entity.isWidgetEnabled = route.isWidgetEnabled
             entity.widgetPriority = Int16(route.widgetPriority)
@@ -75,11 +75,11 @@ final class RouteStore {
             entity.isFavorite = route.isFavorite
             entity.createdAt = route.createdAt
             entity.lastUsed = route.lastUsed
-            
+
             // Update enhanced properties for task 4
             entity.customRefreshIntervalRaw = Int16(route.customRefreshInterval.rawValue)
             entity.usageCount = Int32(route.usageCount)
-            
+
             CoreDataStack.shared.save()
         }
     }

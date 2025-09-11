@@ -150,6 +150,12 @@ final class DBTransportAPI: TransportAPI {
             URLQueryItem(name: "remarks", value: "true"),
             URLQueryItem(name: "language", value: "en")
         ]
+
+        // Debug: Confirm stopovers parameter
+        print("🚂 [DBTransportAPI] Request parameters:")
+        print("🚂 [DBTransportAPI] - stopovers: true")
+        print("🚂 [DBTransportAPI] - results: \(results)")
+        print("🚂 [DBTransportAPI] - provider: \(provider)")
         
         // from - with safe encoding and fallback resolution
         if let id = from.rawId, !id.isEmpty {

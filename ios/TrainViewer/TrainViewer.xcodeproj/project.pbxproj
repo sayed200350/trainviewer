@@ -9,6 +9,30 @@
 /* Begin PBXBuildFile section */
 		F34D71152E71912C0081C52D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F34D71142E71912C0081C52D /* Assets.xcassets */; };
 		F34D71162E71912C0081C52D /* appstore.png in Resources */ = {isa = PBXBuildFile; fileRef = F34D71132E71912C0081C52D /* appstore.png */; };
+		F34D711A2E71C0530081C52D /* SemesterTicketSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71192E71C0530081C52D /* SemesterTicketSetupView.swift */; };
+		F34D711B2E71C0530081C52D /* SemesterTicketDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71172E71C0530081C52D /* SemesterTicketDisplayView.swift */; };
+		F34D711C2E71C0530081C52D /* SemesterTicketListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71182E71C0530081C52D /* SemesterTicketListView.swift */; };
+		F34D711D2E71C0530081C52D /* SemesterTicketSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71192E71C0530081C52D /* SemesterTicketSetupView.swift */; };
+		F34D711F2E71C0530081C52D /* SemesterTicketListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71182E71C0530081C52D /* SemesterTicketListView.swift */; };
+		F34D71222E71C1790081C52D /* SemesterTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71202E71C1790081C52D /* SemesterTicket.swift */; };
+		F34D71232E71C1790081C52D /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71212E71C1790081C52D /* University.swift */; };
+		F34D71242E71C1790081C52D /* SemesterTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71202E71C1790081C52D /* SemesterTicket.swift */; };
+		F34D71252E71C1790081C52D /* University.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71212E71C1790081C52D /* University.swift */; };
+		F34D71282E71C9A70081C52D /* SemesterTicketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71272E71C9A70081C52D /* SemesterTicketService.swift */; };
+		F34D71292E71C9A70081C52D /* PhotoPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71262E71C9A70081C52D /* PhotoPickerManager.swift */; };
+		F34D712A2E71C9A70081C52D /* SemesterTicketService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71272E71C9A70081C52D /* SemesterTicketService.swift */; };
+		F34D712B2E71C9A70081C52D /* PhotoPickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71262E71C9A70081C52D /* PhotoPickerManager.swift */; };
+		F34D712D2E71D2620081C52D /* SemesterTicketEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D712C2E71D2620081C52D /* SemesterTicketEditView.swift */; };
+		F34D712E2E71D2620081C52D /* SemesterTicketEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D712C2E71D2620081C52D /* SemesterTicketEditView.swift */; };
+		F34D718D2E7200C50081C52D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D718C2E7200C50081C52D /* OnboardingView.swift */; };
+		F34D718E2E7200C50081C52D /* OnboardingTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D718B2E7200C50081C52D /* OnboardingTestView.swift */; };
+		F34D718F2E7200C50081C52D /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D718C2E7200C50081C52D /* OnboardingView.swift */; };
+		F34D71902E7200C50081C52D /* OnboardingTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D718B2E7200C50081C52D /* OnboardingTestView.swift */; };
+		F34D71C52E7279DF0081C52D /* SemesterTicketNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71C42E7279DF0081C52D /* SemesterTicketNotificationService.swift */; };
+		F34D71C62E7279E00081C52D /* SemesterTicketNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71C42E7279DF0081C52D /* SemesterTicketNotificationService.swift */; };
+		F34D71C82E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71C72E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift */; };
+		F34D71C92E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71C72E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift */; };
+		F34D72262E7282190081C52D /* SemesterTicketDisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34D71172E71C0530081C52D /* SemesterTicketDisplayView.swift */; };
 		F35B52BB2E65CF3800E50591 /* RouteStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B82E65CF3700E50591 /* RouteStore.swift */; };
 		F35B52BC2E65CF3800E50591 /* BackgroundRefreshFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */; };
 		F35B52BD2E65CF3800E50591 /* BackgroundRefreshProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */; };
@@ -112,7 +136,6 @@
 		F3AC48FF2E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */; };
 		F3AC49002E682DA30093525B /* JourneyHistoryCompilationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FC2E682DA30093525B /* JourneyHistoryCompilationTest.swift */; };
 		F3AC49012E682DA30093525B /* SimpleJourneyHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */; };
-		F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
 		F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
 		F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
 		F3FA08B92E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
@@ -141,7 +164,6 @@
 		F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08892E50FEEF00091DE9 /* APIClient.swift */; };
 		F3FA08D92E50FEEF00091DE9 /* SharedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08962E50FEEF00091DE9 /* SharedStore.swift */; };
 		F3FA08DA2E50FEEF00091DE9 /* OfflineCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08942E50FEEF00091DE9 /* OfflineCache.swift */; };
-		F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */; };
 		F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08A12E50FEEF00091DE9 /* AddRouteViewModel.swift */; };
 		F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */; };
 		F3FA08DF2E50FEEF00091DE9 /* SharedModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3FA08952E50FEEF00091DE9 /* SharedModels.swift */; };
@@ -213,11 +235,33 @@
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F34D71A32E7267960081C52D /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		F34D71132E71912C0081C52D /* appstore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = appstore.png; sourceTree = "<group>"; };
 		F34D71142E71912C0081C52D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F34D71172E71C0530081C52D /* SemesterTicketDisplayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketDisplayView.swift; sourceTree = "<group>"; };
+		F34D71182E71C0530081C52D /* SemesterTicketListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketListView.swift; sourceTree = "<group>"; };
+		F34D71192E71C0530081C52D /* SemesterTicketSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketSetupView.swift; sourceTree = "<group>"; };
+		F34D71202E71C1790081C52D /* SemesterTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicket.swift; sourceTree = "<group>"; };
+		F34D71212E71C1790081C52D /* University.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = University.swift; sourceTree = "<group>"; };
+		F34D71262E71C9A70081C52D /* PhotoPickerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerManager.swift; sourceTree = "<group>"; };
+		F34D71272E71C9A70081C52D /* SemesterTicketService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketService.swift; sourceTree = "<group>"; };
+		F34D712C2E71D2620081C52D /* SemesterTicketEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketEditView.swift; sourceTree = "<group>"; };
+		F34D718B2E7200C50081C52D /* OnboardingTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingTestView.swift; sourceTree = "<group>"; };
+		F34D718C2E7200C50081C52D /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F34D71C42E7279DF0081C52D /* SemesterTicketNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketNotificationService.swift; sourceTree = "<group>"; };
+		F34D71C72E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemesterTicketNotificationSettingsView.swift; sourceTree = "<group>"; };
 		F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshFactory.swift; sourceTree = "<group>"; };
 		F35B52B52E65CF3700E50591 /* BackgroundRefreshProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundRefreshProtocol.swift; sourceTree = "<group>"; };
 		F35B52B62E65CF3700E50591 /* JourneyServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyServiceProtocol.swift; sourceTree = "<group>"; };
@@ -278,7 +322,6 @@
 		F3AC48FD2E682DA30093525B /* SimpleJourneyHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleJourneyHistoryService.swift; sourceTree = "<group>"; };
 		F3FA087A2E50FEEF00091DE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F3FA087B2E50FEEF00091DE9 /* TrainViewerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainViewerApp.swift; sourceTree = "<group>"; };
-		F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsIntents.swift; sourceTree = "<group>"; };
 		F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JourneyDecoding.swift; sourceTree = "<group>"; };
 		F3FA08812E50FEEF00091DE9 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
@@ -358,7 +401,6 @@
 				F34D71132E71912C0081C52D /* appstore.png */,
 				F34D71142E71912C0081C52D /* Assets.xcassets */,
 				F3FA087C2E50FEEF00091DE9 /* App */,
-				F3FA087E2E50FEEF00091DE9 /* AppIntents */,
 				F3FA087F2E50FEEF00091DE9 /* LaunchScreen.storyboard */,
 				F3FA08832E50FEEF00091DE9 /* Models */,
 				F3FA08842E50FEEF00091DE9 /* README.md */,
@@ -431,20 +473,14 @@
 			path = App;
 			sourceTree = "<group>";
 		};
-		F3FA087E2E50FEEF00091DE9 /* AppIntents */ = {
-			isa = PBXGroup;
-			children = (
-				F3FA087D2E50FEEF00091DE9 /* QuickActionsIntents.swift */,
-			);
-			path = AppIntents;
-			sourceTree = "<group>";
-		};
 		F3FA08832E50FEEF00091DE9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				F3FA08802E50FEEF00091DE9 /* JourneyDecoding.swift */,
 				F35F62BE2E5116D9004CB01A /* TransitStation.swift */,
 				F39256ED2E6DB1F600CB9D6A /* JourneyHistory.swift */,
+				F34D71202E71C1790081C52D /* SemesterTicket.swift */,
+				F34D71212E71C1790081C52D /* University.swift */,
 				F39256EE2E6DB1F600CB9D6A /* JourneyOption.swift */,
 				F3FA08812E50FEEF00091DE9 /* Place.swift */,
 				F3FA08822E50FEEF00091DE9 /* Route.swift */,
@@ -473,9 +509,12 @@
 				F3AC48C02E6647150093525B /* EnhancedErrorHandling.swift */,
 				F39ED4E02E6FE100006A91A6 /* LiveActivityService.swift */,
 				F3AC48C12E6647150093525B /* ErrorIntegrationService.swift */,
+				F34D71262E71C9A70081C52D /* PhotoPickerManager.swift */,
+				F34D71272E71C9A70081C52D /* SemesterTicketService.swift */,
 				F3AC48C22E6647150093525B /* ErrorPresentationService.swift */,
 				F35B52B42E65CF3700E50591 /* BackgroundRefreshFactory.swift */,
 				F3AC48D52E6821A30093525B /* AdaptiveRefreshService.swift */,
+				F34D71C42E7279DF0081C52D /* SemesterTicketNotificationService.swift */,
 				F3AC48D62E6821A30093525B /* APIRequestBatcher.swift */,
 				F3AC48D72E6821A30093525B /* AppExtensionCompilationTest.swift */,
 				F3AC48D82E6821A30093525B /* CompilationTest.swift */,
@@ -581,8 +620,15 @@
 				F3FA08AA2E50FEEF00091DE9 /* EditRouteView.swift */,
 				F39257872E6DC2E300CB9D6A /* LocationInfoView.swift */,
 				F39257882E6DC2E300CB9D6A /* RefreshIntervalSettingsView.swift */,
+				F34D71172E71C0530081C52D /* SemesterTicketDisplayView.swift */,
+				F34D71182E71C0530081C52D /* SemesterTicketListView.swift */,
+				F34D71C72E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift */,
+				F34D71192E71C0530081C52D /* SemesterTicketSetupView.swift */,
 				F39ED4452E6FD029006A91A6 /* AchievementView.swift */,
+				F34D712C2E71D2620081C52D /* SemesterTicketEditView.swift */,
 				F39ED4462E6FD029006A91A6 /* RecommendationsView.swift */,
+				F34D718B2E7200C50081C52D /* OnboardingTestView.swift */,
+				F34D718C2E7200C50081C52D /* OnboardingView.swift */,
 				F39ED4472E6FD029006A91A6 /* RouteCardView.swift */,
 				F39ED4482E6FD029006A91A6 /* SkeletonView.swift */,
 				F39ED4492E6FD029006A91A6 /* VoiceCommandsView.swift */,
@@ -608,6 +654,7 @@
 				701A9CA1DB147DDCC2DA92FA /* Sources */,
 				40E26D68E7C80697319C584F /* Embed Foundation Extensions */,
 				F34D71122E718F830081C52D /* Resources */,
+				F34D71A32E7267960081C52D /* Embed ExtensionKit Extensions */,
 			);
 			buildRules = (
 			);
@@ -760,7 +807,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3FA08DB2E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
+				F34D71282E71C9A70081C52D /* SemesterTicketService.swift in Sources */,
+				F34D712D2E71D2620081C52D /* SemesterTicketEditView.swift in Sources */,
+				F34D71292E71C9A70081C52D /* PhotoPickerManager.swift in Sources */,
 				F3FA08DC2E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
 				F3FA08DE2E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
 				F35F62932E510ECF004CB01A /* TestRunner.swift in Sources */,
@@ -779,6 +828,8 @@
 				F39ED44F2E6FD029006A91A6 /* RouteCardView.swift in Sources */,
 				F39ED4502E6FD029006A91A6 /* RecommendationsView.swift in Sources */,
 				F39ED4512E6FD029006A91A6 /* VoiceCommandsView.swift in Sources */,
+				F34D718F2E7200C50081C52D /* OnboardingView.swift in Sources */,
+				F34D71902E7200C50081C52D /* OnboardingTestView.swift in Sources */,
 				F39ED4522E6FD029006A91A6 /* AchievementView.swift in Sources */,
 				F39ED4532E6FD029006A91A6 /* SkeletonView.swift in Sources */,
 				F3AC48EF2E6821A30093525B /* MemoryMonitor.swift in Sources */,
@@ -794,6 +845,7 @@
 				F3AC48F72E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */,
 				F3AC48F82E6821A30093525B /* APIRequestBatcher.swift in Sources */,
 				F3AC48F92E6821A30093525B /* PerformanceOptimizer.swift in Sources */,
+				F34D71C62E7279E00081C52D /* SemesterTicketNotificationService.swift in Sources */,
 				F3AC48FA2E6821A30093525B /* JourneyHistoryService.swift in Sources */,
 				F3AC48FB2E6821A30093525B /* RouteEnhancementCompilationTest.swift in Sources */,
 				F3FA08E42E50FEEF00091DE9 /* MainView.swift in Sources */,
@@ -809,6 +861,9 @@
 				F3FA08ED2E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
 				F3FA08EE2E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
 				F3FA08EF2E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
+				F34D711A2E71C0530081C52D /* SemesterTicketSetupView.swift in Sources */,
+				F34D711B2E71C0530081C52D /* SemesterTicketDisplayView.swift in Sources */,
+				F34D711C2E71C0530081C52D /* SemesterTicketListView.swift in Sources */,
 				F36206662E65D71C0095E161 /* BackgroundRefreshService.swift in Sources */,
 				F3FA08F02E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
 				F3FA08F12E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
@@ -822,6 +877,7 @@
 				F35F62DB2E51225E004CB01A /* BuildValidator.swift in Sources */,
 				F3FA08F62E50FEEF00091DE9 /* SettingsView.swift in Sources */,
 				F35B52BB2E65CF3800E50591 /* RouteStore.swift in Sources */,
+				F34D71C92E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift in Sources */,
 				F35B52BC2E65CF3800E50591 /* BackgroundRefreshFactory.swift in Sources */,
 				F35B52BD2E65CF3800E50591 /* BackgroundRefreshProtocol.swift in Sources */,
 				F35B52BE2E65CF3800E50591 /* CoreDataStack.swift in Sources */,
@@ -845,6 +901,8 @@
 				F3FA08FE2E50FEEF00091DE9 /* APIClient.swift in Sources */,
 				F3FA08FF2E50FEEF00091DE9 /* SharedStore.swift in Sources */,
 				F3FA09002E50FEEF00091DE9 /* OfflineCache.swift in Sources */,
+				F34D71222E71C1790081C52D /* SemesterTicket.swift in Sources */,
+				F34D71232E71C1790081C52D /* University.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -852,7 +910,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3FA08B52E50FEEF00091DE9 /* QuickActionsIntents.swift in Sources */,
 				F3FA08B62E50FEEF00091DE9 /* AddRouteViewModel.swift in Sources */,
 				F3FA08B82E50FEEF00091DE9 /* JourneyDecoding.swift in Sources */,
 				F35F62912E510ECF004CB01A /* TestRunner.swift in Sources */,
@@ -880,14 +937,18 @@
 				F3FA08C32E50FEEF00091DE9 /* RoutesViewModel.swift in Sources */,
 				F3FA08C42E50FEEF00091DE9 /* LocationService.swift in Sources */,
 				F35F62972E511327004CB01A /* MapViewModel.swift in Sources */,
+				F34D712E2E71D2620081C52D /* SemesterTicketEditView.swift in Sources */,
 				F3AC48C62E6647290093525B /* EnhancedErrorHandling.swift in Sources */,
 				F3FA08C62E50FEEF00091DE9 /* Constants.swift in Sources */,
+				F34D718D2E7200C50081C52D /* OnboardingView.swift in Sources */,
+				F34D718E2E7200C50081C52D /* OnboardingTestView.swift in Sources */,
 				F3FA08C72E50FEEF00091DE9 /* TransportAPI.swift in Sources */,
 				F36206652E65D33F0095E161 /* JourneyServiceProtocol.swift in Sources */,
 				F3FA08C82E50FEEF00091DE9 /* RouteDetailView.swift in Sources */,
 				F3FA08C92E50FEEF00091DE9 /* RouteDetailViewModel.swift in Sources */,
 				F3FA08CA2E50FEEF00091DE9 /* ShareSheet.swift in Sources */,
 				F39257892E6DC2E300CB9D6A /* RefreshIntervalSettingsView.swift in Sources */,
+				F34D71C52E7279DF0081C52D /* SemesterTicketNotificationService.swift in Sources */,
 				F392578A2E6DC2E300CB9D6A /* LocationInfoView.swift in Sources */,
 				F3FA08CB2E50FEEF00091DE9 /* EditRouteViewModel.swift in Sources */,
 				F3FA08CC2E50FEEF00091DE9 /* NotificationService.swift in Sources */,
@@ -900,10 +961,13 @@
 				F38C5ABF2E528735000B70AC /* RouteValidation.swift in Sources */,
 				F38C5AC02E528735000B70AC /* LocationResolver.swift in Sources */,
 				F38C5AC12E528735000B70AC /* SmartJourneyService.swift in Sources */,
+				F34D71242E71C1790081C52D /* SemesterTicket.swift in Sources */,
+				F34D71252E71C1790081C52D /* University.swift in Sources */,
 				F38C5AC22E528735000B70AC /* ErrorHandlingService.swift in Sources */,
 				F3FA08D22E50FEEF00091DE9 /* AnalyticsService.swift in Sources */,
 				F3FA08D32E50FEEF00091DE9 /* CoreDataStack.swift in Sources */,
 				F39256F42E6DB1F600CB9D6A /* JourneyHistory.swift in Sources */,
+				F34D72262E7282190081C52D /* SemesterTicketDisplayView.swift in Sources */,
 				F39256F72E6DB1F600CB9D6A /* JourneyOption.swift in Sources */,
 				F3FA08D42E50FEEF00091DE9 /* EditRouteView.swift in Sources */,
 				F3AC48E22E6821A30093525B /* MemoryMonitor.swift in Sources */,
@@ -914,6 +978,9 @@
 				F3AC48E72E6821A30093525B /* CompilationTest.swift in Sources */,
 				F3AC48E82E6821A30093525B /* IntelligentCacheManager.swift in Sources */,
 				F39ED34F2E6DCBA9006A91A6 /* FinalJourneyHistoryTest.swift in Sources */,
+				F34D711D2E71C0530081C52D /* SemesterTicketSetupView.swift in Sources */,
+				F34D71C82E727AB10081C52D /* SemesterTicketNotificationSettingsView.swift in Sources */,
+				F34D711F2E71C0530081C52D /* SemesterTicketListView.swift in Sources */,
 				F39ED3502E6DCBA9006A91A6 /* RemarkParser.swift in Sources */,
 				F3AC48E92E6821A30093525B /* PrivacyManager.swift in Sources */,
 				F3AC48EA2E6821A30093525B /* RefreshIntervalCompilationTest.swift in Sources */,
@@ -924,6 +991,8 @@
 				F3FA08D52E50FEEF00091DE9 /* EventKitService.swift in Sources */,
 				F3FA08D62E50FEEF00091DE9 /* Route.swift in Sources */,
 				F35F62BF2E5116DA004CB01A /* TransitStation.swift in Sources */,
+				F34D712A2E71C9A70081C52D /* SemesterTicketService.swift in Sources */,
+				F34D712B2E71C9A70081C52D /* PhotoPickerManager.swift in Sources */,
 				F36D105D2E65E133006326DE /* SettingsView.swift in Sources */,
 				F3FA08D72E50FEEF00091DE9 /* TransportAPIFactory.swift in Sources */,
 				F3FA08D82E50FEEF00091DE9 /* APIClient.swift in Sources */,
@@ -987,7 +1056,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app.BahnBlitzWidget;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1037,6 +1106,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1072,7 +1142,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1165,7 +1235,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 0.1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1195,7 +1265,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.widget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app.BahnBlitzWidget;
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -1289,7 +1359,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.TrainViewerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app.BahnBlitzWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
@@ -1325,7 +1395,7 @@
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.trainviewer.app.TrainViewerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bahnblitz.app.BahnBlitzWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -1,6 +1,7 @@
 import Foundation
 import UIKit
 import CoreTelephony
+import Network
 
 /// Service that manages adaptive refresh intervals based on departure times, battery, and network conditions
 final class AdaptiveRefreshService {
@@ -55,22 +56,24 @@ final class AdaptiveRefreshService {
     
     private func getDepartureTimeMultiplier(nextDeparture: Date?) -> Double {
         guard let departure = nextDeparture else { return 1.0 }
-        
+
         let timeUntilDeparture = departure.timeIntervalSinceNow
-        
-        // Increase refresh frequency as departure approaches
-        if timeUntilDeparture < 300 { // Less than 5 minutes
-            return 0.2 // 5x more frequent
-        } else if timeUntilDeparture < 600 { // Less than 10 minutes
-            return 0.3 // 3.3x more frequent
-        } else if timeUntilDeparture < 900 { // Less than 15 minutes
-            return 0.5 // 2x more frequent
-        } else if timeUntilDeparture < 1800 { // Less than 30 minutes
-            return 0.7 // 1.4x more frequent
-        } else if timeUntilDeparture < 3600 { // Less than 1 hour
-            return 1.0 // Normal frequency
+
+        // Dramatically increase refresh frequency as departure approaches
+        if timeUntilDeparture <= 120 { // Less than 2 minutes - critical
+            return 0.1 // 10x more frequent (every 30 seconds for 5-minute base)
+        } else if timeUntilDeparture <= 300 { // Less than 5 minutes - very urgent
+            return 0.15 // 6.7x more frequent (every 45 seconds for 5-minute base)
+        } else if timeUntilDeparture <= 600 { // Less than 10 minutes - urgent
+            return 0.2 // 5x more frequent (every 1 minute for 5-minute base)
+        } else if timeUntilDeparture <= 900 { // Less than 15 minutes - soon
+            return 0.3 // 3.3x more frequent (every 1.5 minutes for 5-minute base)
+        } else if timeUntilDeparture <= 1800 { // Less than 30 minutes - approaching
+            return 0.5 // 2x more frequent (every 2.5 minutes for 5-minute base)
+        } else if timeUntilDeparture <= 3600 { // Less than 1 hour - upcoming
+            return 0.8 // 1.25x more frequent (every 4 minutes for 5-minute base)
         } else {
-            return 1.5 // Less frequent for distant departures
+            return 1.2 // Slightly less frequent for distant departures
         }
     }
     
@@ -113,8 +116,23 @@ final class AdaptiveRefreshService {
     }
     
     private func isOnWiFi() -> Bool {
-        // Simple check - in a full implementation, you'd use more sophisticated network detection
-        return true // Placeholder - would need proper network detection
+        let monitor = NWPathMonitor()
+        let semaphore = DispatchSemaphore(value: 0)
+        var isWiFi = false
+
+        monitor.pathUpdateHandler = { path in
+            isWiFi = path.usesInterfaceType(.wifi)
+            semaphore.signal()
+        }
+
+        let queue = DispatchQueue(label: "NetworkMonitor")
+        monitor.start(queue: queue)
+
+        // Wait for initial path update (with timeout)
+        _ = semaphore.wait(timeout: .now() + 0.5)
+
+        monitor.cancel()
+        return isWiFi
     }
     
     private func isOnCellular() -> Bool {
@@ -156,7 +174,12 @@ final class AdaptiveRefreshService {
         // Force refresh if departure is very soon and we haven't refreshed recently
         if let departure = nextDeparture {
             let timeUntilDeparture = departure.timeIntervalSinceNow
-            if timeUntilDeparture < 300 && timeSinceLastRefresh > 60 { // 5 minutes until departure, 1 minute since refresh
+            // Much more aggressive refresh logic near departure times
+            if timeUntilDeparture <= 120 && timeSinceLastRefresh > 30 { // 2 minutes until departure, 30 seconds since refresh
+                return true
+            } else if timeUntilDeparture <= 300 && timeSinceLastRefresh > 45 { // 5 minutes until departure, 45 seconds since refresh
+                return true
+            } else if timeUntilDeparture <= 600 && timeSinceLastRefresh > 60 { // 10 minutes until departure, 1 minute since refresh
                 return true
             }
         }

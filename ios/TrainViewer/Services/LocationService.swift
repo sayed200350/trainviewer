@@ -249,8 +249,8 @@ extension LocationService: CLLocationManagerDelegate {
             self.currentLocation = newLocation
         }
         
-        // Save location to shared store
-        SharedStore.shared.saveLastLocation(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
+        // Save location to shared store for smart widget
+        SharedStore.shared.saveLocationForSmartWidget(latitude: newLocation.coordinate.latitude, longitude: newLocation.coordinate.longitude)
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

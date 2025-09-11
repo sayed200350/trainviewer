@@ -2,11 +2,13 @@ import SwiftUI
 
 struct EditRouteView: View {
     let route: Route
+    let routesViewModel: RoutesViewModel
     @Environment(\.dismiss) private var dismiss
     @StateObject private var vm: EditRouteViewModel
 
-    init(route: Route) {
+    init(route: Route, routesViewModel: RoutesViewModel) {
         self.route = route
+        self.routesViewModel = routesViewModel
         _vm = StateObject(wrappedValue: EditRouteViewModel(route: route))
     }
 
@@ -46,19 +48,13 @@ struct EditRouteView: View {
                         Text("Buffer: \(vm.bufferMinutes) min")
                     }
                 }
-                
-                Section(header: Text("Refresh Settings")) {
-                    RefreshIntervalSettingsView(
-                        selectedInterval: $vm.refreshInterval,
-                        route: route,
-                        onIntervalChanged: { interval in
-                            vm.refreshInterval = interval
-                        }
-                    )
-                }
 
                 Section {
-                    Button("Save Changes") { vm.saveChanges(); dismiss() }
+                    Button("Save Changes") {
+                        vm.saveChanges()
+                        routesViewModel.loadRoutes()
+                        dismiss()
+                    }
                 }
             }
             .navigationTitle("Edit Route")

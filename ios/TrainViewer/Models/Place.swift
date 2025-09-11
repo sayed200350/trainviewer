@@ -13,6 +13,11 @@ public struct Place: Identifiable, Codable, Hashable {
         return CLLocationCoordinate2D(latitude: lat, longitude: lon)
     }
 
+    public var coordinatesString: String? {
+        guard let lat = latitude, let lon = longitude else { return nil }
+        return String(format: "%.4f, %.4f", lat, lon)
+    }
+
     private var computedId: String {
         if let lat = latitude, let lon = longitude {
             return "coord:\(lat),\(lon)\n\(name)"

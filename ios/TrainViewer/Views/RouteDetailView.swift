@@ -10,7 +10,7 @@ extension Date {
 }
 
 struct RouteDetailView: View {
-    let route: Route
+    @State var route: Route
     @StateObject private var vm: RouteDetailViewModel
     @StateObject private var locationService = LocationService.shared
     @State private var showScheduledAlert = false
@@ -18,10 +18,12 @@ struct RouteDetailView: View {
     @State private var showingJourneyStops = false
     @State private var selectedJourneyOption: JourneyOption?
     @State private var showingQuickActions = false
+    @State private var showingDeleteConfirmation = false
+    @State private var showingEditView = false
     @EnvironmentObject var routesViewModel: RoutesViewModel
 
     init(route: Route) {
-        self.route = route
+        self._route = State(initialValue: route)
         _vm = StateObject(wrappedValue: RouteDetailViewModel(route: route))
     }
 
@@ -82,8 +84,40 @@ struct RouteDetailView: View {
         .sheet(isPresented: $showingShare) {
             ShareSheet(activityItems: [shareMessage])
         }
-        .sheet(isPresented: $showingQuickActions) {
-            QuickActionsSheet(route: route, onEdit: {}, onDelete: {})
+        .actionSheet(isPresented: $showingQuickActions) {
+            ActionSheet(
+                title: Text("Route Options"),
+                buttons: [
+                    .default(Text("Edit Route")) {
+                        showingQuickActions = false
+                        showingEditView = true
+                    },
+                    .destructive(Text("Delete Route")) {
+                        showingDeleteConfirmation = true
+                    },
+                    .cancel()
+                ]
+            )
+        }
+        .confirmationDialog(
+            "Delete Route",
+            isPresented: $showingDeleteConfirmation,
+            titleVisibility: .visible
+        ) {
+            Button("Delete", role: .destructive) {
+                routesViewModel.deleteRouteByObject(route)
+            }
+        } message: {
+            Text("Are you sure you want to delete '\(route.name)'? This action cannot be undone.")
+        }
+        .sheet(isPresented: $showingEditView, onDismiss: {
+            // Update the route with the latest data from RoutesViewModel
+            if let updatedRoute = routesViewModel.routes.first(where: { $0.id == route.id }) {
+                route = updatedRoute
+                vm.updateRoute(updatedRoute)
+            }
+        }) {
+            EditRouteView(route: route, routesViewModel: routesViewModel)
         }
         .alert(isPresented: $showScheduledAlert) {
             Alert(
@@ -396,7 +430,18 @@ struct JourneyOptionCard: View {
                         .font(.system(size: 16, weight: .semibold, design: .rounded))
                         .foregroundColor(.textPrimary)
 
-                    Text("\(option.totalMinutes) min • \(option.lineName ?? "Direct")")
+                    // Enhanced line name display
+                    HStack(spacing: 6) {
+                        Image(systemName: "tram.fill")
+                            .foregroundColor(.brandBlue)
+                            .font(.system(size: 12))
+
+                        Text(option.lineName ?? "Direct")
+                            .font(.system(size: 14, weight: .medium, design: .rounded))
+                            .foregroundColor(.brandBlue)
+                    }
+
+                    Text("\(option.totalMinutes) min")
                         .font(.system(size: 14, weight: .regular, design: .rounded))
                         .foregroundColor(.textSecondary)
                 }
@@ -443,71 +488,39 @@ struct JourneyOptionCard: View {
 
 }
 
-struct QuickActionsSheet: View {
-    let route: Route
-    let onEdit: () -> Void
-    let onDelete: () -> Void
 
-    var body: some View {
-        VStack(spacing: 0) {
-            VStack(spacing: 16) {
-                Text("Route Actions")
-                    .font(.system(size: 18, weight: .semibold, design: .rounded))
-                    .foregroundColor(.textPrimary)
+// MARK: - Helper Functions
 
-                VStack(spacing: 0) {
-                    Button(action: onEdit) {
-                        HStack(spacing: 12) {
-                            Image(systemName: "pencil")
-                                .foregroundColor(.brandBlue)
-                                .font(.system(size: 18))
-                            Text("Edit Route")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.textPrimary)
-                            Spacer()
-                        }
-                        .padding(16)
-                    }
-                    .buttonStyle(.plain)
+private func transportIcon(for lineName: String) -> String {
+    let lowercasedName = lineName.lowercased()
 
-                    Divider()
-                        .background(Color.borderColor)
-
-                    Button(action: onDelete) {
-                        HStack(spacing: 12) {
-                            Image(systemName: "trash")
-                                .foregroundColor(.errorColor)
-                                .font(.system(size: 18))
-                            Text("Delete Route")
-                                .font(.system(size: 16, weight: .regular, design: .rounded))
-                                .foregroundColor(.errorColor)
-                            Spacer()
-                        }
-                        .padding(16)
-                    }
-                    .buttonStyle(.plain)
-                }
-                .background(Color.cardBackground)
-                .cornerRadius(12)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.borderColor, lineWidth: 1)
-                )
-            }
-            .padding(20)
-
-            Button(action: {}) {
-                Text("Cancel")
-                    .font(.system(size: 16, weight: .semibold, design: .rounded))
-                    .foregroundColor(.brandBlue)
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 16)
-            }
-            .padding(.horizontal, 20)
-            .padding(.bottom, 20)
-        }
-        .background(Color.brandDark)
+    // Bus detection
+    if lowercasedName.contains("bus") || lowercasedName.hasPrefix("m") || lowercasedName.hasPrefix("x") {
+        return "bus.fill"
     }
+
+    // Train detection
+    if lowercasedName.contains("ice") || lowercasedName.contains("ec") || lowercasedName.contains("ic") || lowercasedName.contains("rb") || lowercasedName.contains("re") {
+        return "train.side.front.car"
+    }
+
+    // S-Bahn (suburban train)
+    if lowercasedName.hasPrefix("s") {
+        return "tram.fill"
+    }
+
+    // U-Bahn (subway)
+    if lowercasedName.hasPrefix("u") {
+        return "arrowtriangle.down.circle.fill"
+    }
+
+    // Regional train
+    if lowercasedName.contains("regional") {
+        return "tram.fill"
+    }
+
+    // Default to tram for other cases
+    return "tram.fill"
 }
 
 // MARK: - Journey Stops View
@@ -531,8 +544,43 @@ struct JourneyStopsView: View {
                 .buttonStyle(.plain)
             }
 
-            // Journey summary
-            VStack(alignment: .leading, spacing: 8) {
+            // Journey summary with progress indicator
+            VStack(alignment: .leading, spacing: 12) {
+                // Journey overview with origin/destination
+                if let firstLeg = journeyDetails.legs.first,
+                   let lastLeg = journeyDetails.legs.last {
+                    HStack(spacing: 8) {
+                        // Origin
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("From")
+                                .font(.system(size: 10, weight: .regular, design: .rounded))
+                                .foregroundColor(.textTertiary)
+                            Text(firstLeg.origin.name)
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.brandBlue)
+                                .lineLimit(1)
+                        }
+
+                        // Arrow
+                        Image(systemName: "arrow.right")
+                            .foregroundColor(.textTertiary)
+                            .font(.system(size: 12))
+
+                        // Destination
+                        VStack(alignment: .trailing, spacing: 2) {
+                            Text("To")
+                                .font(.system(size: 10, weight: .regular, design: .rounded))
+                                .foregroundColor(.textTertiary)
+                            Text(lastLeg.destination.name)
+                                .font(.system(size: 14, weight: .semibold, design: .rounded))
+                                .foregroundColor(.accentGreen)
+                                .lineLimit(1)
+                        }
+                    }
+                    .padding(.bottom, 4)
+                }
+
+                // Journey stats
                 HStack(spacing: 16) {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("\(journeyDetails.legs.count) legs")
@@ -555,31 +603,40 @@ struct JourneyStopsView: View {
                     }
                 }
             }
-            .padding(12)
+            .padding(16)
             .background(Color.elevatedBackground)
-            .cornerRadius(8)
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(Color.borderColor.opacity(0.5), lineWidth: 1)
+            )
 
             // Journey timeline
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: 24) {
                     ForEach(Array(journeyDetails.legs.enumerated()), id: \.element.id) { index, leg in
                         JourneyLegView(
                             leg: leg,
                             legIndex: index,
-                            totalLegs: journeyDetails.legs.count
+                            totalLegs: journeyDetails.legs.count,
+                            isFirstLeg: index == 0,
+                            isLastLeg: index == journeyDetails.legs.count - 1
                         )
                     }
                 }
+                .padding(.horizontal, 8)
+                .padding(.vertical, 8)
             }
         }
-        .padding(16)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 20)
         .background(Color.cardBackground)
-        .cornerRadius(16)
+        .cornerRadius(20)
         .overlay(
-            RoundedRectangle(cornerRadius: 16)
-                .stroke(Color.borderColor, lineWidth: 1)
+            RoundedRectangle(cornerRadius: 20)
+                .stroke(Color.borderColor.opacity(0.3), lineWidth: 1)
         )
-        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+        .shadow(color: Color.black.opacity(0.08), radius: 12, x: 0, y: 6)
     }
 }
 
@@ -587,6 +644,8 @@ struct JourneyLegView: View {
     let leg: JourneyLeg
     let legIndex: Int
     let totalLegs: Int
+    let isFirstLeg: Bool
+    let isLastLeg: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -595,10 +654,48 @@ struct JourneyLegView: View {
                 stop: leg.origin,
                 isOrigin: true,
                 isDestination: false,
+                showConnection: !leg.intermediateStops.isEmpty || legIndex < totalLegs - 1,
                 legIndex: legIndex,
                 totalLegs: totalLegs,
-                showTransfer: legIndex < totalLegs - 1
+                showTransfer: legIndex < totalLegs - 1,
+                isFirstLeg: isFirstLeg,
+                isLastLeg: isLastLeg,
+                isFirstStopInJourney: isFirstLeg,
+                isLastStopInJourney: isLastLeg && leg.intermediateStops.isEmpty
             )
+
+            // Train/Bus name display
+            if let lineName = leg.lineName {
+                HStack(spacing: 8) {
+                    // Choose appropriate icon based on line name
+                    let transportIcon = transportIcon(for: lineName)
+                    Image(systemName: transportIcon)
+                        .foregroundColor(.brandBlue)
+                        .font(.system(size: 14))
+
+                    Text(lineName)
+                        .font(.system(size: 14, weight: .semibold, design: .rounded))
+                        .foregroundColor(.brandBlue)
+
+                    Spacer()
+
+                    if let platform = leg.platform {
+                        Text("Platform \(platform)")
+                            .font(.system(size: 12, weight: .medium, design: .rounded))
+                            .foregroundColor(.textSecondary)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.elevatedBackground)
+                            .cornerRadius(6)
+                    }
+                }
+                .padding(.vertical, 8)
+                .padding(.horizontal, 16)
+                .background(Color.brandBlue.opacity(0.05))
+                .cornerRadius(8)
+                .padding(.horizontal, 20)
+                .padding(.top, 8)
+            }
 
             // Intermediate stops
             ForEach(Array(leg.intermediateStops.enumerated()), id: \.element.id) { index, stop in
@@ -606,10 +703,14 @@ struct JourneyLegView: View {
                     stop: stop,
                     isOrigin: false,
                     isDestination: false,
-                    showConnection: index < leg.intermediateStops.count - 1,
+                    showConnection: index < leg.intermediateStops.count - 1 || legIndex < totalLegs - 1,
                     legIndex: legIndex,
                     totalLegs: totalLegs,
-                    showTransfer: index == leg.intermediateStops.count - 1 && legIndex < totalLegs - 1
+                    showTransfer: index == leg.intermediateStops.count - 1 && legIndex < totalLegs - 1,
+                    isFirstLeg: isFirstLeg,
+                    isLastLeg: isLastLeg,
+                    isFirstStopInJourney: false,
+                    isLastStopInJourney: false
                 )
             }
 
@@ -618,17 +719,25 @@ struct JourneyLegView: View {
                 stop: leg.destination,
                 isOrigin: false,
                 isDestination: true,
+                showConnection: false, // No connection after destination
                 legIndex: legIndex,
-                totalLegs: totalLegs
+                totalLegs: totalLegs,
+                showTransfer: false,
+                isFirstLeg: isFirstLeg,
+                isLastLeg: isLastLeg,
+                isFirstStopInJourney: false,
+                isLastStopInJourney: isLastLeg
             )
 
             // Transfer indicator (if not the last leg)
             if legIndex < totalLegs - 1 {
                 HStack(spacing: 12) {
+                    // Transfer line
                     Rectangle()
-                        .fill(Color.borderColor)
+                        .fill(Color.accentOrange.opacity(0.3))
                         .frame(width: 2, height: 20)
 
+                    // Transfer information
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Transfer to next leg")
                             .font(.system(size: 12, weight: .medium, design: .rounded))
@@ -658,30 +767,49 @@ struct StopRowView: View {
     let legIndex: Int
     let totalLegs: Int
     var showTransfer: Bool = false
+    let isFirstLeg: Bool
+    let isLastLeg: Bool
+    let isFirstStopInJourney: Bool
+    let isLastStopInJourney: Bool
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             // Timeline indicator
-            ZStack {
-                if isOrigin {
-                    Circle()
-                        .fill(Color.brandBlue)
-                        .frame(width: 12, height: 12)
-                } else if isDestination {
-                    Circle()
-                        .fill(Color.accentGreen)
-                        .frame(width: 12, height: 12)
-                } else {
-                    Circle()
-                        .fill(Color.textTertiary)
-                        .frame(width: 8, height: 8)
+            ZStack(alignment: .center) {
+                // Simple connection line for non-destination stops
+                if showConnection {
+                    Rectangle()
+                        .fill(Color.brandBlue.opacity(0.3))
+                        .frame(width: 2, height: 40)
+                        .offset(y: 20)
                 }
 
-                if showConnection && !isDestination {
-                    Rectangle()
-                        .fill(Color.borderColor)
-                        .frame(width: 2, height: 24)
-                        .offset(y: 18)
+                // Stop indicator
+                ZStack {
+                    if isOrigin {
+                        // Origin circle
+                        Circle()
+                            .fill(Color.brandBlue)
+                            .frame(width: 14, height: 14)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                            )
+                    } else if isDestination {
+                        // Destination circle
+                        Circle()
+                            .fill(Color.accentGreen)
+                            .frame(width: 14, height: 14)
+                            .overlay(
+                                Circle()
+                                    .stroke(Color.white.opacity(0.5), lineWidth: 1)
+                            )
+                    } else {
+                        // Intermediate stops
+                        Circle()
+                            .fill(Color.textTertiary.opacity(0.5))
+                            .frame(width: 8, height: 8)
+                    }
                 }
             }
             .frame(width: 12)

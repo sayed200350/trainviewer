@@ -12,7 +12,6 @@ final class EditRouteViewModel: ObservableObject {
     @Published var selectedFrom: Place
     @Published var selectedTo: Place
     @Published var bufferMinutes: Int
-    @Published var refreshInterval: RefreshInterval
 
     private let api: TransportAPI
     private let store: RouteStore
@@ -28,7 +27,6 @@ final class EditRouteViewModel: ObservableObject {
         self.selectedFrom = route.origin
         self.selectedTo = route.destination
         self.bufferMinutes = route.preparationBufferMinutes
-        self.refreshInterval = route.customRefreshInterval
         self.fromQuery = route.origin.name
         self.toQuery = route.destination.name
     }
@@ -50,7 +48,6 @@ final class EditRouteViewModel: ObservableObject {
         updated.origin = selectedFrom
         updated.destination = selectedTo
         updated.preparationBufferMinutes = bufferMinutes
-        updated.customRefreshInterval = refreshInterval
         store.update(route: updated)
     }
 }

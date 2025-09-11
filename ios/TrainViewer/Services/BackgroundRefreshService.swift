@@ -7,7 +7,7 @@ final class BackgroundRefreshService: BackgroundRefreshProtocol {
     static let shared = BackgroundRefreshService()
     private init() {}
 
-    static let taskIdentifier = "com.trainviewer.refresh"
+    static let taskIdentifier = "com.bahnblitz.refresh"
 
     private var smartJourneyService: JourneyServiceProtocol?
     private var lastRefreshDate: Date?

@@ -1,4 +1,5 @@
 import Foundation
+import WidgetKit
 
 public struct WidgetSnapshot: Codable {
     public let routeId: UUID
@@ -8,13 +9,111 @@ public struct WidgetSnapshot: Codable {
     public let arrival: Date
     public let walkingTime: Int? // Walking time in minutes
 
-    public init(routeId: UUID, routeName: String, leaveInMinutes: Int, departure: Date, arrival: Date, walkingTime: Int? = nil) {
+    // Enhanced fields for better widget experience
+    public let platform: String?
+    public let lineName: String?
+    public let delayMinutes: Int?
+    public let direction: String?
+    public let nextDepartures: [UpcomingDeparture]?
+
+    public init(
+        routeId: UUID,
+        routeName: String,
+        leaveInMinutes: Int,
+        departure: Date,
+        arrival: Date,
+        walkingTime: Int? = nil,
+        platform: String? = nil,
+        lineName: String? = nil,
+        delayMinutes: Int? = nil,
+        direction: String? = nil,
+        nextDepartures: [UpcomingDeparture]? = nil
+    ) {
         self.routeId = routeId
         self.routeName = routeName
         self.leaveInMinutes = leaveInMinutes
         self.departure = departure
         self.arrival = arrival
         self.walkingTime = walkingTime
+        self.platform = platform
+        self.lineName = lineName
+        self.delayMinutes = delayMinutes
+        self.direction = direction
+        self.nextDepartures = nextDepartures
+    }
+}
+
+public struct UpcomingDeparture: Codable, Identifiable {
+    public let id: UUID
+    public let departure: Date
+    public let lineName: String?
+    public let platform: String?
+    public let delayMinutes: Int?
+
+    public init(id: UUID = UUID(), departure: Date, lineName: String? = nil, platform: String? = nil, delayMinutes: Int? = nil) {
+        self.id = id
+        self.departure = departure
+        self.lineName = lineName
+        self.platform = platform
+        self.delayMinutes = delayMinutes
+    }
+}
+
+// MARK: - Enhanced Widget Data for Multiple Routes
+public struct WidgetRouteData: Codable, Identifiable {
+    public let id: UUID
+    public let routeId: UUID
+    public let routeName: String
+    public let leaveInMinutes: Int
+    public let departure: Date
+    public let arrival: Date
+    public let walkingTime: Int?
+    public let platform: String?
+    public let lineName: String?
+    public let delayMinutes: Int?
+    public let direction: String?
+    public let nextDepartures: [UpcomingDeparture]?
+    public let status: String // "onTime", "delayed", "cancelled", "departNow"
+
+    public init(
+        routeId: UUID,
+        routeName: String,
+        leaveInMinutes: Int,
+        departure: Date,
+        arrival: Date,
+        walkingTime: Int? = nil,
+        platform: String? = nil,
+        lineName: String? = nil,
+        delayMinutes: Int? = nil,
+        direction: String? = nil,
+        nextDepartures: [UpcomingDeparture]? = nil,
+        status: String = "onTime"
+    ) {
+        self.id = routeId
+        self.routeId = routeId
+        self.routeName = routeName
+        self.leaveInMinutes = leaveInMinutes
+        self.departure = departure
+        self.arrival = arrival
+        self.walkingTime = walkingTime
+        self.platform = platform
+        self.lineName = lineName
+        self.delayMinutes = delayMinutes
+        self.direction = direction
+        self.nextDepartures = nextDepartures
+        self.status = status
+    }
+}
+
+public struct WidgetMultiRouteSnapshot: Codable {
+    public let routes: [WidgetRouteData]
+    public let lastUpdated: Date
+    public let isConnected: Bool
+
+    public init(routes: [WidgetRouteData], lastUpdated: Date = Date(), isConnected: Bool = true) {
+        self.routes = routes
+        self.lastUpdated = lastUpdated
+        self.isConnected = isConnected
     }
 }
 
@@ -188,5 +287,242 @@ extension Color {
             blue: Double(b) / 255,
             opacity: Double(a) / 255
         )
+    }
+}
+
+// MARK: - Widget Data Loader (Shared between main app and widget)
+public class WidgetDataLoader {
+    private static let snapshotKey = "widget_main_snapshot"
+    private static let multiRouteSnapshotKey = "widget_multi_route_snapshot"
+    private static let refreshRequestKey = "widget_refresh_requested"
+    private static let appGroupIdentifier = "group.com.bahnblitz.app"
+
+    private static var sharedDefaults: UserDefaults? {
+        UserDefaults(suiteName: appGroupIdentifier)
+    }
+
+    public static func loadWidgetSnapshot() -> WidgetSnapshot? {
+        guard let data = sharedDefaults?.data(forKey: snapshotKey) else {
+            return nil
+        }
+        return try? JSONDecoder().decode(WidgetSnapshot.self, from: data)
+    }
+
+    public static func loadMultiRouteSnapshot() -> WidgetMultiRouteSnapshot? {
+        guard let data = sharedDefaults?.data(forKey: multiRouteSnapshotKey) else {
+            return nil
+        }
+        return try? JSONDecoder().decode(WidgetMultiRouteSnapshot.self, from: data)
+    }
+
+    public static func saveMultiRouteSnapshot(_ snapshot: WidgetMultiRouteSnapshot) {
+        if let data = try? JSONEncoder().encode(snapshot) {
+            sharedDefaults?.set(data, forKey: multiRouteSnapshotKey)
+        }
+    }
+
+    public static func isDataAvailable() -> Bool {
+        return sharedDefaults?.data(forKey: snapshotKey) != nil
+    }
+
+    public static func isMultiRouteDataAvailable() -> Bool {
+        return sharedDefaults?.data(forKey: multiRouteSnapshotKey) != nil
+    }
+
+    public static func validateAndCleanEntry(_ entry: WidgetEntry) -> WidgetEntry {
+        let now = Date()
+        var cleanedEntry = entry
+        var departureAdvanced = false
+
+        // If departure time has passed, try to advance to next available departure
+        if entry.departure <= now {
+            // Try to find next departure from nextDepartures array
+            if let nextDeparture = findNextAvailableDeparture(from: entry.nextDepartures, after: now) {
+                cleanedEntry.departure = nextDeparture.departure
+                cleanedEntry.platform = nextDeparture.platform
+                cleanedEntry.lineName = nextDeparture.lineName
+                cleanedEntry.delayMinutes = nextDeparture.delayMinutes
+
+                // Recalculate leave time for the new departure
+                let timeUntilDeparture = nextDeparture.departure.timeIntervalSince(now)
+                let leaveMinutes = max(0, Int(timeUntilDeparture / 60))
+                cleanedEntry.leaveInMinutes = leaveMinutes
+
+                // Update status for new departure
+                if leaveMinutes <= 0 {
+                    cleanedEntry.status = .departNow
+                } else if let delay = nextDeparture.delayMinutes, delay > 0 {
+                    cleanedEntry.status = .delayed(delay)
+                } else {
+                    cleanedEntry.status = .onTime
+                }
+
+                departureAdvanced = true
+                print("🎯 WIDGET: Advanced to next departure: \(nextDeparture.departure)")
+            } else {
+                // No next departure available, show depart now for current
+                cleanedEntry.leaveInMinutes = 0
+                cleanedEntry.status = .departNow
+                print("🎯 WIDGET: No next departure available, showing depart now")
+            }
+        } else {
+            // Recalculate leave time based on current time
+            let timeUntilDeparture = entry.departure.timeIntervalSince(now)
+            let leaveMinutes = max(0, Int(timeUntilDeparture / 60))
+            cleanedEntry.leaveInMinutes = leaveMinutes
+
+            // Update status based on new leave time
+            if leaveMinutes <= 0 {
+                cleanedEntry.status = .departNow
+            }
+        }
+
+        // If we advanced to a new departure, trigger a refresh request
+        if departureAdvanced {
+            requestMainAppRefresh()
+        }
+
+        return cleanedEntry
+    }
+
+    // Helper function to find the next available departure after a given time
+    private static func findNextAvailableDeparture(from departures: [UpcomingDeparture]?, after currentTime: Date) -> UpcomingDeparture? {
+        guard let departures = departures, !departures.isEmpty else { return nil }
+
+        // Find the first departure that is after the current time
+        return departures
+            .filter { $0.departure > currentTime }
+            .sorted { $0.departure < $1.departure }
+            .first
+    }
+
+    // Request main app to refresh widget data
+    private static func requestMainAppRefresh() {
+        // Set a flag in shared defaults that the main app can check
+        sharedDefaults?.set(Date(), forKey: refreshRequestKey)
+        sharedDefaults?.synchronize()
+
+        print("🎯 WIDGET: Requested main app refresh due to expired departure")
+    }
+
+    // Check if widget refresh was requested
+    public static func wasRefreshRequested() -> Bool {
+        guard let refreshRequestTime = sharedDefaults?.object(forKey: refreshRequestKey) as? Date else {
+            return false
+        }
+
+        // Only consider refresh request valid if it's within the last 5 minutes
+        let fiveMinutesAgo = Date().addingTimeInterval(-300)
+        return refreshRequestTime > fiveMinutesAgo
+    }
+
+    // Clear refresh request flag
+    public static func clearRefreshRequest() {
+        sharedDefaults?.removeObject(forKey: refreshRequestKey)
+    }
+}
+
+// MARK: - Widget Entry (Shared)
+public struct WidgetEntry: TimelineEntry {
+    public let date: Date
+    public let routeId: UUID?
+    public let routeName: String
+    public var leaveInMinutes: Int
+    public var departure: Date
+    public let arrival: Date
+    public var platform: String?
+    public var lineName: String?
+    public let walkingTime: Int?
+    public var delayMinutes: Int?
+    public let direction: String?
+    public let nextDepartures: [UpcomingDeparture]?
+    public var status: WidgetStatus
+    public let lastUpdated: Date?
+    public let isConnected: Bool
+
+    public init(
+        date: Date,
+        routeId: UUID?,
+        routeName: String,
+        leaveInMinutes: Int,
+        departure: Date,
+        arrival: Date,
+        platform: String? = nil,
+        lineName: String? = nil,
+        walkingTime: Int? = nil,
+        delayMinutes: Int? = nil,
+        direction: String? = nil,
+        nextDepartures: [UpcomingDeparture]? = nil,
+        status: WidgetStatus = .onTime,
+        lastUpdated: Date? = nil,
+        isConnected: Bool = true
+    ) {
+        self.date = date
+        self.routeId = routeId
+        self.routeName = routeName
+        self.leaveInMinutes = leaveInMinutes
+        self.departure = departure
+        self.arrival = arrival
+        self.platform = platform
+        self.lineName = lineName
+        self.walkingTime = walkingTime
+        self.delayMinutes = delayMinutes
+        self.direction = direction
+        self.nextDepartures = nextDepartures
+        self.status = status
+        self.lastUpdated = lastUpdated
+        self.isConnected = isConnected
+    }
+}
+
+// MARK: - Multi-Route Widget Entry
+public struct MultiRouteWidgetEntry: TimelineEntry {
+    public let date: Date
+    public let routes: [WidgetRouteData]
+    public let lastUpdated: Date
+    public let isConnected: Bool
+    public let currentRouteIndex: Int
+
+    public init(date: Date, routes: [WidgetRouteData], lastUpdated: Date, isConnected: Bool, currentRouteIndex: Int = 0) {
+        self.date = date
+        self.routes = routes
+        self.lastUpdated = lastUpdated
+        self.isConnected = isConnected
+        self.currentRouteIndex = currentRouteIndex
+    }
+}
+
+// MARK: - Widget Status
+public enum WidgetStatus: Equatable {
+    case onTime
+    case delayed(Int)
+    case cancelled
+    case departNow
+
+    public var color: Color {
+        switch self {
+        case .onTime: return Color(hex: "#10b981")     // Green for on time
+        case .delayed: return Color(hex: "#f59e0b")     // Orange for delayed
+        case .cancelled: return Color(hex: "#ef4444")   // Red for cancelled
+        case .departNow: return Color(hex: "#1a73e8")   // Blue for depart now
+        }
+    }
+
+    public var displayText: String {
+        switch self {
+        case .onTime: return "PÜNKTLICH"      // German: "ON TIME"
+        case .delayed(let minutes): return "\(minutes) MIN SPÄTER"  // German: "MIN LATE"
+        case .cancelled: return "ENTFÄLLT"     // German: "CANCELLED"
+        case .departNow: return "JETZT"  // German: "DEPART NOW"
+        }
+    }
+
+    public var shortText: String {
+        switch self {
+        case .onTime: return "OK"
+        case .delayed(let minutes): return "+\(minutes)"
+        case .cancelled: return "X"
+        case .departNow: return "JETZT"
+        }
     }
 }

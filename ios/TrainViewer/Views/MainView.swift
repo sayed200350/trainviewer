@@ -19,8 +19,7 @@ struct MainView: View {
     @State private var showingAdd = false
     @State private var editingRoute: Route?
     @State private var showingSettings = false
-    @State private var showingRecommendations = false
-    @State private var showingVoiceCommands = false
+    @State private var showingSemesterTickets = false
     @State private var toast: Toast?
     @State private var lastWidgetSelection: Route?
 
@@ -53,7 +52,7 @@ struct MainView: View {
                     .edgesIgnoringSafeArea(.bottom)
                 }
             }
-            .navigationTitle("TrainViewer")
+            .navigationTitle("BahnBlitz")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -65,12 +64,8 @@ struct MainView: View {
                             Image(systemName: "arrow.clockwise.circle")
                                 .foregroundColor(.accentOrange)
                         }
-                        Button(action: { showingRecommendations = true }) {
-                            Image(systemName: "sparkles")
-                                .foregroundColor(.accentGreen)
-                        }
-                        Button(action: { showingVoiceCommands = true }) {
-                            Image(systemName: "mic.fill")
+                        Button(action: { showingSemesterTickets = true }) {
+                            Image(systemName: "ticket")
                                 .foregroundColor(.brandBlue)
                         }
                         Button(action: { showingSettings = true }) {
@@ -90,16 +85,13 @@ struct MainView: View {
                 vm.loadRoutes()
                 Task { await vm.refreshAll() }
             }) { route in
-                EditRouteView(route: route)
+                EditRouteView(route: route, routesViewModel: vm)
             }
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
             }
-            .sheet(isPresented: $showingRecommendations) {
-                RecommendationsView()
-            }
-            .sheet(isPresented: $showingVoiceCommands) {
-                VoiceCommandsView()
+            .sheet(isPresented: $showingSemesterTickets) {
+                SemesterTicketListView()
             }
         }
         .toast($toast)
@@ -132,7 +124,7 @@ struct MainView: View {
                 }
 
                 VStack(spacing: 16) {
-                    Text("Welcome to TrainViewer")
+                    Text("Welcome to BahnBlitz")
                         .font(.system(size: 28, weight: .bold, design: .rounded))
                         .foregroundColor(.textPrimary)
                         .multilineTextAlignment(.center)

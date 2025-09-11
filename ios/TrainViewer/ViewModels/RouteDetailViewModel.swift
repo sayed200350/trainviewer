@@ -7,11 +7,15 @@ final class RouteDetailViewModel: ObservableObject {
     @Published private(set) var errorMessage: String?
 
     private let api: TransportAPI
-    private let route: Route
+    private var route: Route
 
     init(route: Route, api: TransportAPI = TransportAPIFactory.shared.make()) {
         self.route = route
         self.api = api
+    }
+
+    func updateRoute(_ newRoute: Route) {
+        self.route = newRoute
     }
 
     func refresh() async {

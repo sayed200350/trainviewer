@@ -176,15 +176,40 @@ final class AddRouteViewModel: ObservableObject {
     }
 
     private func loadRecentLocationsFromStorage() {
-        // TODO: Implement UserDefaults storage for recent locations
-        // For now, return empty arrays to avoid hardcoded data
-        recentFromLocations = []
-        recentToLocations = []
+        let defaults = UserDefaults.standard
+        let maxRecentLocations = 5
+
+        // Load recent "from" locations
+        if let fromData = defaults.data(forKey: "recentFromLocations"),
+           let fromLocations = try? JSONDecoder().decode([Place].self, from: fromData) {
+            recentFromLocations = Array(fromLocations.prefix(maxRecentLocations))
+        } else {
+            recentFromLocations = []
+        }
+
+        // Load recent "to" locations
+        if let toData = defaults.data(forKey: "recentToLocations"),
+           let toLocations = try? JSONDecoder().decode([Place].self, from: toData) {
+            recentToLocations = Array(toLocations.prefix(maxRecentLocations))
+        } else {
+            recentToLocations = []
+        }
     }
 
     private func saveRecentLocationsToStorage() {
-        // TODO: Implement UserDefaults storage for recent locations
-        // This should persist the recentFromLocations and recentToLocations arrays
+        let defaults = UserDefaults.standard
+
+        // Save recent "from" locations
+        if let fromData = try? JSONEncoder().encode(recentFromLocations) {
+            defaults.set(fromData, forKey: "recentFromLocations")
+        }
+
+        // Save recent "to" locations
+        if let toData = try? JSONEncoder().encode(recentToLocations) {
+            defaults.set(toData, forKey: "recentToLocations")
+        }
+
+        defaults.synchronize()
     }
 
     private func saveToRecentLocations(from: Place, to: Place) {

@@ -11,7 +11,7 @@ public enum AppConstants {
 
     // Walking and timing
     public static let defaultWalkingSpeedMetersPerSecond: Double = 1.31 // Research-backed baseline for outdoor walking
-    public static let defaultPreparationBufferMinutes: Int = 3
+    public static let defaultPreparationBufferMinutes: Int = 0
 
     // Refresh intervals
     public static let minRefreshInterval: TimeInterval = 30
@@ -19,14 +19,13 @@ public enum AppConstants {
     public static let maxCacheAge: TimeInterval = 900 // 15 minutes
 
     // Background tasks
-    public static let backgroundTaskIdentifier: String = "com.trainviewer.refresh"
+    public static let backgroundTaskIdentifier: String = "com.bahnblitz.refresh"
 
     // Change to your actual App Group if you enable it in both app and widget targets
-    public static let appGroupIdentifier: String = "group.com.trainviewer"
+    public static let appGroupIdentifier: String = "group.com.bahnblitz.app"
 
     // Legal and support
-    // TODO: Replace with actual URLs and email
-    public static let privacyPolicyURL = URL(string: "https://trainviewer.app/privacy-policy")!
-    public static let termsOfServiceURL = URL(string: "https://trainviewer.app/terms-of-service")!
-    public static let supportEmail = "support@trainviewer.app"
+    public static let privacyPolicyURL = URL(string: "https://bahnblitz.app/privacy-policy")!
+    public static let termsOfServiceURL = URL(string: "https://bahnblitz.app/terms-of-service")!
+    public static let supportEmail = "support@bahnblitz.app"
 }

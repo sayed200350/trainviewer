@@ -205,19 +205,19 @@ struct MemoryMonitorTests {
         await withTaskGroup(of: Void.self) { group in
             for _ in 0..<5 {
                 group.addTask {
-                    monitor.startMonitoring()
+                    await monitor.startMonitoring()
                 }
             }
-            
+
             for _ in 0..<5 {
                 group.addTask {
-                    monitor.handleMemoryPressure()
+                    await monitor.handleMemoryPressure()
                 }
             }
-            
+
             for _ in 0..<5 {
                 group.addTask {
-                    _ = monitor.getStatistics()
+                    _ = await monitor.getStatistics()
                 }
             }
         }

@@ -5,9 +5,9 @@ import ActivityKit
 #endif
 
 @main
-struct TrainViewerWidgetBundle: WidgetBundle {
+struct BahnBlitzWidgetBundle: WidgetBundle {
     init() {
-        print("🔧 WIDGET BUNDLE: TrainViewerWidgetBundle initialized")
+        print("🔧 WIDGET BUNDLE: BahnBlitzWidgetBundle initialized")
         #if canImport(ActivityKit)
         print("🔧 WIDGET BUNDLE: ActivityKit available: true")
         #else
@@ -16,9 +16,10 @@ struct TrainViewerWidgetBundle: WidgetBundle {
     }
 
     var body: some Widget {
-        TrainViewerWidget()
+        BahnBlitzWidget()
+        SmartRouteWidget()
         #if canImport(ActivityKit)
-        TrainViewerLiveActivity()
+        BahnBlitzLiveActivity()
         #endif
     }
 }
