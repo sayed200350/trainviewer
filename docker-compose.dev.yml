@@ -1,0 +1,102 @@
+# BahnBlitz - Development Docker Compose
+# For local development with hot reloading
+
+version: '3.8'
+
+services:
+  # ================================
+  # Backend API (Development)
+  # ================================
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+      target: development
+    container_name: bahnblitz-backend-dev
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+      - "9229:9229"  # Debug port
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - MONGODB_URI=mongodb://mongodb:27017/bahnblitz-beta-dev
+    env_file:
+      - ./backend/.env
+    depends_on:
+      - mongodb
+    networks:
+      - bahnblitz-dev-network
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    command: npm run dev
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ================================
+  # Frontend Website (Development)
+  # ================================
+  website:
+    build:
+      context: ./website
+      dockerfile: Dockerfile.dev
+    container_name: bahnblitz-website-dev
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    networks:
+      - bahnblitz-dev-network
+    volumes:
+      - ./website:/usr/share/nginx/html
+      - /usr/share/nginx/html/node_modules
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ================================
+  # MongoDB (Development)
+  # ================================
+  mongodb:
+    image: mongo:6.0
+    container_name: bahnblitz-mongodb-dev
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=bahnblitz-beta-dev
+    volumes:
+      - mongodb_dev_data:/data/db
+    networks:
+      - bahnblitz-dev-network
+
+  # ================================
+  # Redis (Optional - for caching)
+  # ================================
+  redis:
+    image: redis:7-alpine
+    container_name: bahnblitz-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    networks:
+      - bahnblitz-dev-network
+    volumes:
+      - redis_dev_data:/data
+
+networks:
+  bahnblitz-dev-network:
+    driver: bridge
+
+volumes:
+  mongodb_dev_data:
+    driver: local
+  redis_dev_data:
+    driver: local

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>TrainViewer.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>6C15A04FF2D44876DDF78810A87132DBD004AB47</string>
+				<key>dateExpires</key>
+				<string>09.09.26</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>6C15A04FF2D44876DDF78810A87132DBD004AB47</string>
+						<key>dateExpires</key>
+						<string>09.09.26</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>entitlements</key>
+					<dict>
+						<key>application-identifier</key>
+						<string>AZ3UBYX9QX.com.bahnblitz.app.BahnBlitzWidget</string>
+						<key>beta-reports-active</key>
+						<true/>
+						<key>com.apple.developer.team-identifier</key>
+						<string>AZ3UBYX9QX</string>
+						<key>com.apple.security.application-groups</key>
+						<array>
+							<string>group.com.bahnblitz.app</string>
+						</array>
+						<key>get-task-allow</key>
+						<false/>
+					</dict>
+					<key>name</key>
+					<string>TrainViewerWidgetExtension.appex</string>
+					<key>profile</key>
+					<dict>
+						<key>UUID</key>
+						<string>528889d7-d84d-49f5-a11a-3a9880bc8a9b</string>
+						<key>dateExpires</key>
+						<string>09.09.26</string>
+						<key>name</key>
+						<string>iOS Team Store Provisioning Profile: com.bahnblitz.app.BahnBlitzWidget</string>
+					</dict>
+					<key>symbols</key>
+					<true/>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>AZ3UBYX9QX</string>
+						<key>name</key>
+						<string>Sayed Mohamed</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.0</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>AZ3UBYX9QX.com.bahnblitz.app</string>
+				<key>beta-reports-active</key>
+				<true/>
+				<key>com.apple.developer.siri</key>
+				<true/>
+				<key>com.apple.developer.team-identifier</key>
+				<string>AZ3UBYX9QX</string>
+				<key>com.apple.security.application-groups</key>
+				<array>
+					<string>group.com.bahnblitz.app</string>
+				</array>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>TrainViewer.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>5852c516-c832-4bee-8426-b2e8979eb140</string>
+				<key>dateExpires</key>
+				<string>09.09.26</string>
+				<key>name</key>
+				<string>iOS Team Store Provisioning Profile: com.bahnblitz.app</string>
+			</dict>
+			<key>symbols</key>
+			<true/>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>AZ3UBYX9QX</string>
+				<key>name</key>
+				<string>Sayed Mohamed</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

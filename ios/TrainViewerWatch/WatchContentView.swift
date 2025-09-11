@@ -6,7 +6,7 @@ struct WatchContentView: View {
 
     var body: some View {
         VStack(spacing: 6) {
-            Text(routeName.isEmpty ? "TrainViewer" : routeName)
+            Text(routeName.isEmpty ? "BahnBlitz" : routeName)
                 .font(.headline)
                 .lineLimit(1)
             Text(leaveMinutes <= 0 ? "Leave now" : "Leave in \(leaveMinutes) min")

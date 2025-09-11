@@ -1,0 +1,49 @@
+# BahnBlitz Backend - Development Dockerfile
+# With hot reloading and debugging support
+
+FROM node:18-alpine
+
+# Install development tools
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    git \
+    curl \
+    dumb-init
+
+# Create app user
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# Set working directory
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies)
+RUN npm install
+
+# Copy source code
+COPY --chown=nodejs:nodejs . .
+
+# Create uploads directory
+RUN mkdir -p uploads && \
+    chown -R nodejs:nodejs uploads
+
+# Switch to non-root user
+USER nodejs
+
+# Expose ports
+EXPOSE 3001 9229
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:3001/health || exit 1
+
+# Use dumb-init for proper signal handling
+ENTRYPOINT ["dumb-init", "--"]
+
+# Default command (can be overridden)
+CMD ["npm", "run", "dev"]

@@ -1,0 +1,40 @@
+# BahnBlitz Website - Development Dockerfile
+# With live reloading for development
+
+FROM nginx:alpine
+
+# Install development tools
+RUN apk add --no-cache \
+    curl \
+    inotify-tools \
+    supervisor
+
+# Copy custom nginx configuration for development
+COPY nginx.dev.conf /etc/nginx/nginx.conf
+
+# Copy website files
+COPY . /usr/share/nginx/html
+
+# Create nginx directories with proper permissions
+RUN chown -R nginx:nginx /usr/share/nginx/html && \
+    chown -R nginx:nginx /var/cache/nginx && \
+    chown -R nginx:nginx /var/log/nginx && \
+    chown -R nginx:nginx /etc/nginx/conf.d && \
+    touch /var/run/nginx.pid && \
+    chown nginx:nginx /var/run/nginx.pid
+
+# Create supervisor configuration
+COPY supervisord.conf /etc/supervisord.conf
+
+# Switch to non-root user
+USER nginx
+
+# Expose port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/health || exit 1
+
+# Start supervisor (which manages nginx and file watcher)
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

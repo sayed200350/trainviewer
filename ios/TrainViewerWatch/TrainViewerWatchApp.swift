@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct TrainViewerWatchApp: App {
+struct BahnBlitzWatchApp: App {
     var body: some Scene {
         WindowGroup {
             WatchContentView()

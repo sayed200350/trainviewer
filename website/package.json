@@ -1,0 +1,41 @@
+{
+  "name": "bahnblitz-beta-website",
+  "version": "1.0.0",
+  "description": "Beta testing website for BahnBlitz German train travel app",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'Static site - no build needed'",
+    "preview": "npx serve . --port 3000",
+    "optimize": "npx imagemin assets/images/* --out-dir=assets/images/optimized --plugin=mozjpeg --plugin=pngquant --plugin=svgo",
+    "lint": "npx htmlhint index.html privacy.html && npx stylelint assets/css/styles.css",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "bahnblitz",
+    "german-trains",
+    "beta-testing",
+    "testflight",
+    "siri-integration"
+  ],
+  "author": "BahnBlitz Team",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "htmlhint": "^1.1.4",
+    "stylelint": "^16.2.1",
+    "imagemin-cli": "^8.0.0",
+    "imagemin-mozjpeg": "^10.0.0",
+    "imagemin-pngquant": "^10.0.0",
+    "imagemin-svgo": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bahnblitz/beta-website.git"
+  },
+  "homepage": "https://bahnblitz.app",
+  "bugs": {
+    "url": "https://github.com/bahnblitz/beta-website/issues"
+  }
+}
+

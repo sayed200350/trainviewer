@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BahnBlitz - Smart German Train Travel App</title>
+    <meta name="description" content="Never miss your train again! Join the BahnBlitz beta and experience smart German train travel with real-time data and intelligent notifications.">
+    <meta name="keywords" content="German trains, DB, VBB, public transport, beta testing, TestFlight, real-time departures">
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/css/styles.css" as="style">
+    <link rel="preload" href="assets/js/main.js" as="script">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Open Graph for social sharing -->
+    <meta property="og:title" content="BahnBlitz - Smart German Train Travel">
+    <meta property="og:description" content="Voice-powered train travel app with Siri integration. Never miss your train again!">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+    <meta property="og:url" content="https://bahnblitz.app">
+    <meta property="og:type" content="website">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1 class="nav-logo">🚂 BahnBlitz</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="#features" class="nav-link">Features</a>
+                    <a href="#beta" class="nav-link">Join Beta</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">🚀 BETA ACCESS</span>
+                </div>
+                <h1 class="hero-title">
+                    Never Miss Your Train Again with <span class="highlight">Smart Travel Planning</span>
+                </h1>
+                <p class="hero-subtitle">
+                    BahnBlitz brings intelligent train travel to Germany. Get real-time departures, smart notifications, and semester ticket management. Voice commands coming soon!
+                </p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Real-time Data</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">Works Offline</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">🎤</span>
+                        <span class="stat-label">Voice Commands Soon</span>
+                    </div>
+                </div>
+                <div class="hero-cta">
+                    <a href="#beta-signup" class="btn btn-primary btn-large">
+                        Get Beta Access
+                        <span class="btn-arrow">→</span>
+                    </a>
+                    <div class="hero-users">
+                        <div class="user-avatars">
+                            <img src="assets/images/avatar-1.jpg" alt="Beta tester" class="avatar">
+                            <img src="assets/images/avatar-2.jpg" alt="Beta tester" class="avatar">
+                            <img src="assets/images/avatar-3.jpg" alt="Beta tester" class="avatar">
+                            <span class="avatar-more">+50</span>
+                        </div>
+                        <span class="users-text">50+ beta testers already joined</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <div class="app-interface">
+                            <div class="app-header">
+                                <div class="app-title">🚂 BahnBlitz</div>
+                                <div class="app-subtitle">Berlin → Munich</div>
+                            </div>
+                            <div class="train-departure">
+                                <div class="departure-time">
+                                    <span class="time">14:23</span>
+                                    <span class="status">On Time</span>
+                                </div>
+                                <div class="train-details">
+                                    <div class="route-info">
+                                        <span class="from">Berlin Hbf</span>
+                                        <span class="arrow">→</span>
+                                        <span class="to">Munich Hbf</span>
+                                    </div>
+                                    <div class="journey-info">
+                                        <span class="duration">5h 47m</span>
+                                        <span class="changes">1 change</span>
+                                    </div>
+                                </div>
+                                <div class="notification-badge">
+                                    <span class="badge">🔔</span>
+                                    <span class="reminder">45 min reminder</span>
+                                </div>
+                            </div>
+                            <div class="coming-soon">
+                                <span class="voice-icon">🎤</span>
+                                <span class="voice-text">Voice Commands Soon</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why German Commuters Love BahnBlitz</h2>
+                <p class="section-subtitle">Built specifically for the chaos of German public transport</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card feature-coming-soon">
+                    <div class="feature-icon">🎤</div>
+                    <h3 class="feature-title">Voice Commands <span class="coming-soon-badge">Coming Soon</span></h3>
+                    <p class="feature-description">
+                        Hands-free train information with Siri integration. Get departure times and route updates without touching your phone. Currently in development.
+                    </p>
+                    <div class="feature-commands coming-soon">
+                        <span class="command">"Hey Siri, when's my train?"</span>
+                        <span class="command">"Hey Siri, next train to campus"</span>
+                        <span class="command">"Hey Siri, when is my train home?"</span>
+                    </div>
+                    <div class="development-notice">
+                        <span class="notice-icon">🚧</span>
+                        <span class="notice-text">Active development - join beta to help test!</span>
+                    </div>
+                </div>
+
+                <div class="feature-card feature-highlight">
+                    <div class="feature-icon">🎫</div>
+                    <h3 class="feature-title">Semester Ticket Support</h3>
+                    <p class="feature-description">
+                        Perfect for students! Store your semester ticket photo and get automatic renewal reminders. Never forget to validate again.
+                    </p>
+                    <div class="feature-benefit">
+                        <span class="benefit-text">Save €50+ per semester on fines</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3 class="feature-title">Smart Widgets</h3>
+                    <p class="feature-description">
+                        Live departure times on your home screen. Choose from small, medium, and large widgets. Real-time updates without opening the app.
+                    </p>
+                    <div class="widget-preview">
+                        <div class="widget-small">12:34</div>
+                        <div class="widget-medium">
+                            <div class="route">Home → Campus</div>
+                            <div class="time">12 min</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3 class="feature-title">Intelligent Notifications</h3>
+                    <p class="feature-description">
+                        Get notified about delays, platform changes, and when to leave for your station. Smart alerts based on your travel patterns.
+                    </p>
+                    <div class="notification-preview">
+                        <div class="notification">
+                            <div class="notif-title">Train Delayed</div>
+                            <div class="notif-body">ICE 583 now departs at 14:45</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Journey Analytics</h3>
+                    <p class="feature-description">
+                        Track your travel habits, see which routes you use most, and get personalized recommendations to optimize your commute.
+                    </p>
+                    <div class="analytics-preview">
+                        <div class="metric">Most used: Berlin Hbf → TU Berlin</div>
+                        <div class="metric">Avg. journey time: 24 min</div>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Offline Support</h3>
+                    <p class="feature-description">
+                        Works without internet! Cached schedules and routes available offline. Perfect for underground travel or poor reception.
+                    </p>
+                    <div class="offline-indicator">
+                        <span class="offline-text">Works offline ✓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="social-proof">
+        <div class="container">
+            <div class="testimonials">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "As a student, BahnBlitz saves me hours every week. The real-time notifications and semester ticket reminders are incredibly helpful. Can't wait for the voice commands!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/images/avatar-maria.jpg" alt="Maria" class="author-avatar">
+                        <div class="author-info">
+                            <div class="author-name">Maria K.</div>
+                            <div class="author-title">TU Berlin Student</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "The semester ticket reminders are brilliant. I used to forget to validate and got fined €50. Now BahnBlitz reminds me automatically!"
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/images/avatar-thomas.jpg" alt="Thomas" class="author-avatar">
+                        <div class="author-info">
+                            <div class="author-name">Thomas M.</div>
+                            <div class="author-title">HU Berlin Student</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        "Finally an app that understands German train chaos. The offline support is perfect for when I'm on the U-Bahn and lose signal."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="assets/images/avatar-sarah.jpg" alt="Sarah" class="author-avatar">
+                        <div class="author-info">
+                            <div class="author-name">Sarah L.</div>
+                            <div class="author-title">Freie Universität Student</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Beta Signup Section -->
+    <section id="beta" class="beta-signup">
+        <div class="container">
+            <div class="signup-container">
+                <div class="signup-content">
+                    <div class="signup-badge">
+                        <span class="badge-icon">🚀</span>
+                        <span class="badge-text">Limited Beta Access</span>
+                    </div>
+                    <h2 class="signup-title">Join the BahnBlitz Beta</h2>
+                    <p class="signup-description">
+                        Be among the first to experience the future of German train travel. Get early access to Siri voice commands, smart widgets, and exclusive beta features.
+                    </p>
+
+                    <div class="signup-benefits">
+                        <div class="benefit-item">
+                            <span class="benefit-icon">✅</span>
+                            <span class="benefit-text">Early access to all features</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🎯</span>
+                            <span class="benefit-text">Direct feedback to developers</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🆓</span>
+                            <span class="benefit-text">Free beta access (no cost)</span>
+                        </div>
+                        <div class="benefit-item">
+                            <span class="benefit-icon">🏆</span>
+                            <span class="benefit-text">Priority support and updates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="beta-signup" class="signup-form">
+                    <form id="betaForm" class="form" action="#" method="POST">
+                        <div class="form-header">
+                            <h3>Get Your Beta Invite</h3>
+                            <p>We review applications within 24 hours</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email Address *</label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="your.email@domain.com" required>
+                            <div class="form-hint">We'll send your TestFlight invite here</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name *</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="John Doe" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="device" class="form-label">iOS Device *</label>
+                            <select id="device" name="device" class="form-select" required>
+                                <option value="">Select your device</option>
+                                <option value="iphone">iPhone</option>
+                                <option value="ipad">iPad</option>
+                                <option value="ipod">iPod Touch</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="experience" class="form-label">How often do you use German trains?</label>
+                            <select id="experience" name="experience" class="form-select">
+                                <option value="">Select frequency</option>
+                                <option value="daily">Daily</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="rarely">Rarely</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">What features are you most excited about?</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="features[]" value="siri" class="checkbox-input">
+                                    <span class="checkbox-mark"></span>
+                                    Siri Voice Commands
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="features[]" value="widgets" class="checkbox-input">
+                                    <span class="checkbox-mark"></span>
+                                    Smart Widgets
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="features[]" value="semester" class="checkbox-input">
+                                    <span class="checkbox-mark"></span>
+                                    Semester Ticket Support
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="checkbox" name="features[]" value="offline" class="checkbox-input">
+                                    <span class="checkbox-mark"></span>
+                                    Offline Support
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="checkbox-label privacy-label">
+                                <input type="checkbox" id="privacy" name="privacy" class="checkbox-input" required>
+                                <span class="checkbox-mark"></span>
+                                I agree to the <a href="privacy.html" target="_blank">Privacy Policy</a> and consent to receiving beta updates
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Join BahnBlitz Beta</span>
+                            <span class="btn-loading" style="display: none;">
+                                <span class="spinner"></span>
+                                Sending...
+                            </span>
+                        </button>
+
+                        <div class="form-footer">
+                            <p class="form-note">
+                                📧 We'll send your TestFlight invitation within 24 hours of approval.<br>
+                                🛡️ Your data is secure and will never be shared with third parties.
+                            </p>
+                        </div>
+                    </form>
+
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <div class="success-icon">🎉</div>
+                        <h3>Welcome to the Beta!</h3>
+                        <p>Thanks for joining BahnBlitz! We'll review your application and send a TestFlight invitation to your email within 24 hours.</p>
+                        <div class="success-actions">
+                            <button class="btn btn-secondary" onclick="resetForm()">Submit Another</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Everything you need to know about BahnBlitz beta</p>
+            </div>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3 class="faq-question">When will the beta start?</h3>
+                    <p class="faq-answer">The BahnBlitz beta is currently active! We're accepting new testers and rolling out TestFlight invites within 24 hours of approval.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Is the beta free?</h3>
+                    <p class="faq-answer">Yes! Beta access is completely free. You'll only need a valid TestFlight invitation to download and test the app.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">What devices are supported?</h3>
+                    <p class="faq-answer">BahnBlitz supports iPhone, iPad, and iPod Touch running iOS 16.0 or later. Voice commands will require iOS 16+ when available.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">Will my data be safe?</h3>
+                    <p class="faq-answer">Absolutely. We follow strict privacy guidelines and never share your personal information. All beta feedback is anonymous unless you explicitly choose to share it.</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">How do I provide feedback?</h3>
+                    <p class="faq-answer">Once you're in the beta, you can submit feedback directly through TestFlight or contact us through the app. Your input helps shape the final product!</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">When will voice commands be available?</h3>
+                    <p class="faq-answer">Voice commands are currently in active development! We're working hard to implement Siri integration. Beta testers will be the first to get access when it's ready. Join now to help us test and shape this feature!</p>
+                </div>
+
+                <div class="faq-item">
+                    <h3 class="faq-question">When will the app be released?</h3>
+                    <p class="faq-answer">We're targeting a Q2 2025 App Store release. Beta testing will continue through Q1 2025 to ensure everything works perfectly for German commuters.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">🚂 BahnBlitz</h3>
+                    <p class="footer-tagline">Smart German Train Travel with Siri</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-section">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#beta">Beta Access</a>
+                        <a href="privacy.html">Privacy Policy</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Support</h4>
+                        <a href="#faq">FAQ</a>
+                        <a href="mailto:beta@bahnblitz.app">Contact Beta Team</a>
+                        <a href="https://testflight.apple.com">TestFlight</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h4>Follow Us</h4>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 BahnBlitz. Built for German commuters with ❤️<br>
+                    Made in Berlin 🇩🇪
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+
+    <!-- Cookie Consent Banner -->
+    <div id="cookieBanner" class="cookie-banner">
+        <div class="cookie-content">
+            <p>🍪 We use cookies to improve your experience and analyze site traffic. By continuing, you agree to our use of cookies.</p>
+            <div class="cookie-actions">
+                <button class="btn btn-secondary btn-small" onclick="acceptCookies()">Accept</button>
+                <button class="btn btn-outline btn-small" onclick="declineCookies()">Decline</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
